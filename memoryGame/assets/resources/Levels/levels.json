@@ -1,0 +1,214 @@
+{
+    "practice":{
+        "levels":[
+            {
+              "cards":[
+
+              ],
+              "grid":{
+                  "col" : 4,
+                  "row":4
+              }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                }   
+            }
+
+
+
+        ]
+    },
+    "normal":{
+        "levels":[
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+             {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            },
+            {
+                "cards":[
+                    
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "time": 30,
+                "bonus":5  
+            }
+        ]
+
+    }
+}
