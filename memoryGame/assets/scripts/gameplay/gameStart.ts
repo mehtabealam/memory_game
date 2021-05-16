@@ -1,0 +1,56 @@
+import { GAME_MODE } from "../helper/constants";
+
+// Learn TypeScript:
+//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
+// Learn Attribute:
+//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
+// Learn life-cycle callbacks:
+//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+
+const {ccclass, property} = cc._decorator;
+
+@ccclass
+export default class GameStart extends cc.Component {
+
+
+    private _delegate = null;
+    @property(cc.Label)
+    timer: cc.Label = null;
+
+    @property(cc.Label)
+    prize: cc.Label = null;
+
+    @property(cc.Label)
+    instraction : cc.Label = null;
+
+    @property(cc.Button)
+    accept : cc.Button = null
+
+    start () {
+
+    }
+
+    setProperties(delegate, gameMode, timerTitle ){
+        console.log("set properties",timerTitle,gameMode );
+        this._delegate = delegate;
+        switch(gameMode){
+            case GAME_MODE.PRACTICE:
+                this.prize.node.active = false;
+                break;
+            default :
+            this.prize.node.active = true;    
+        }
+
+        this.timer.string = `TIME : ${timerTitle}`;
+    }
+
+
+
+    onAccept(){
+        this._delegate.startGame();
+
+    }
+
+  
+    // update (dt) {}
+}

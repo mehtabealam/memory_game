@@ -4,14 +4,25 @@
       "title": "PRACTICE",
       "timeIncluded": false,
       "level": 10,
-      "key": "practice"
+      "key": "practice",
+      "timer":{
+        "time":0,
+        "timerTitle": "PRACTICE",
+        "bonus" : 0
+      }   
+      
     },
     {
       "title": "NORMAL",
       "timeIncluded": true,
       "timeLimitInSecond": 10,
       "levelCount": 10,
-      "key":"normal"
+      "key":"normal",
+      "timer":{
+        "time":30,
+        "timerTitle": "30",
+        "bonus" : 5
+      }   
     }
 
    

@@ -42,7 +42,9 @@ export default class Options extends cc.Component {
         this._delegateScript = delegate;
     }
 
-    setUpUI (screen : GAME_SCREEN) {
+    setUpUI (screen : GAME_SCREEN, gameMode: string) {
+        // console.log("game mode", gameMode);
+        this.gameMode.string = gameMode.toUpperCase();
         this.deactiveAllNodes();
         this.updateVolumeIcon();
         switch(screen){
@@ -54,8 +56,8 @@ export default class Options extends cc.Component {
                 this.gameType.node.active = true;
                 break;
              case GAME_SCREEN.GAME_PLAY:
-                this.timer.node.active = false;
-                this.gameType.node.active = true;
+                this.timer.node.active = true;
+                this.gameMode.node.active = true;
                  break;
         }
     }
@@ -71,7 +73,7 @@ export default class Options extends cc.Component {
 
 
     changeVolume(event : Event){
-        console.log("change volume", event);
+        // console.log("change volume", event);
         if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
             SoundManager.getInstance().stopMusic();
             cc.sys.localStorage.setItem("Sound", false);
@@ -90,10 +92,14 @@ export default class Options extends cc.Component {
         let spirte = this.volume.node.getChildByName("Background").getComponent(cc.Sprite) ;
         spirte.spriteFrame = JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;
 
-        console.log(JSON.parse(cc.sys.localStorage.getItem("Sound")), JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;)
-    
-        
+        // console.log(JSON.parse(cc.sys.localStorage.getItem("Sound")), JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;   
     }
+
+    updateTimer(time, totalTime){
+        this.timer.string = `TIME : ${time}/${totalTime}`;
+    }
+
+    
   
 
     // update (dt) {}

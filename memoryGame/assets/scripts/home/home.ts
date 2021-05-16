@@ -1,6 +1,6 @@
 
 import {GameManager} from "../managers/GameManager"
-import { GAME_SCREEN } from "../helper/constants";
+import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 const {ccclass, property} = cc._decorator;
 
@@ -8,6 +8,7 @@ const {ccclass, property} = cc._decorator;
 export default class Home extends cc.Component {
     gameScreen : GAME_SCREEN = GAME_SCREEN.MODE_SELECTION;
     hudLayer : cc.Node;
+    gameMode : string = ""; 
     opitonLayer : cc.Node;
     @property(cc.Prefab)
     gameModeBtn : cc.Prefab = null;
@@ -24,11 +25,17 @@ export default class Home extends cc.Component {
     @property(cc.Node)
     howToPlayPopUp : cc.Node = null;
 
+
+    
     @property(cc.Node)
     modeSelectionNode : cc.Node = null;
 
     @property(cc.Node)
     levelSelectionNode : cc.Node = null;
+
+    @property(cc.Node)
+    gameplayNode : cc.Node = null;
+
 
     @property(cc.Layout)
     scrollViewLayout : cc.Layout = null;
@@ -51,6 +58,17 @@ export default class Home extends cc.Component {
         }).catch((error)=>{
             console.log("error while loading resources");
         });
+
+
+        // load images and set button active 
+
+        GameManager.getInstance().loadLevelImages().then((data) =>{
+            console.log("images loaded");
+            // this.setButtonsActive();
+        }).catch((error)=>{
+            console.log("erorr", error);
+        });
+
 
     }
     start() {
@@ -92,7 +110,7 @@ export default class Home extends cc.Component {
 
     setOptions(){
         this.opitonLayer = cc.instantiate(this.options);
-        this.opitonLayer.getComponent("options").setUpUI(this.gameScreen);
+        this.opitonLayer.getComponent("options").setUpUI(this.gameScreen, this.gameMode);
         this.node.addChild(this.opitonLayer);
         this.opitonLayer.zIndex = 1;
     }
@@ -110,6 +128,7 @@ export default class Home extends cc.Component {
         console.log("onMode selectons", event, mode);
         this.modeSelectionNode.active = false;
         this.levelSelectionNode.active = true;
+        this.gameMode = mode;
         this.setLevelSelectionScreen(mode);
         this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
         this.upadteHuds();
@@ -137,23 +156,39 @@ export default class Home extends cc.Component {
             let clickEventHandler = new cc.Component.EventHandler();
             clickEventHandler.target = this.node; 
             clickEventHandler.component = "home";
-            clickEventHandler.handler = "callback";
-            clickEventHandler.customEventData = `LEVEL${i+1}`;
+            clickEventHandler.handler = "onLevelSelect";
+            clickEventHandler.customEventData = i.toString();
             button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
             this.scrollViewLayout.node.addChild(button);
         }
     }
 
     onBack() {
-        this.levelSelectionNode.active = false;
-        this.modeSelectionNode.active = true;
-        this.gameScreen = GAME_SCREEN.MODE_SELECTION;
+        if(this.gameScreen == GAME_SCREEN.LEVEL_SELECTION){
+            this.levelSelectionNode.active = false;
+            this.modeSelectionNode.active = true;
+            this.gameScreen = GAME_SCREEN.MODE_SELECTION; 
+        }else{
+            this.levelSelectionNode.active = true;
+            this.modeSelectionNode.active = false;
+            this.gameplayNode.active = false;
+            this.gameScreen = GAME_SCREEN.MODE_SELECTION; 
+        }
         this.upadteHuds();
     }
 
     upadteHuds(){
-        this.opitonLayer.getComponent("options").setUpUI(this.gameScreen);
+        this.opitonLayer.getComponent("options").setUpUI(this.gameScreen, this.gameMode);
         this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
+    }
+
+    onLevelSelect(event : Event, level : string){
+        this.gameScreen = GAME_SCREEN.GAME_PLAY;
+        this.levelSelectionNode.active = false;
+        this.modeSelectionNode.active = false;
+        this.gameplayNode.active = true;
+        this.gameplayNode.getComponent("gamePlay").setUpUI(parseInt(level), this.gameMode, this.opitonLayer);
+        this.upadteHuds();
     }
 
     

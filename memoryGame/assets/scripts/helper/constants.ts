@@ -11,3 +11,11 @@ export const enum GAME_SCREEN {
     LEVEL_SELECTION,
     GAME_PLAY
 }
+
+
+export const  GAME_MODE = {
+     PRACTICE :"practice",
+     NORMAL : "normal",
+     MEDIUM : "medium",
+     HARD : "hard"
+}

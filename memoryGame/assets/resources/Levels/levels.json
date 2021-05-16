@@ -3,12 +3,23 @@
         "levels":[
             {
               "cards":[
-
+                  {"name":  "balanceStone"},
+                  {"name":  "candels"},
+                  {"name":  "cat"},
+                  {"name":  "clock"},
+                  {"name":  "flowers"},
+                  {"name":  "fbasket"}
+                 
               ],
               "grid":{
-                  "col" : 4,
+                  "col" : 3,
                   "row":4
-              }   
+              },
+              "timer":{
+                "memorizeTime" : 5,
+                "totalTime":0
+            }
+             
             },
             {
                 "cards":[
@@ -17,7 +28,11 @@
                 "grid":{
                     "col" : 4,
                     "row":4
-                }   
+                },
+                "timer":{
+                    "memorizeTime" : 5,
+                    "totalTime":0
+                }
             },
             {
                 "cards":[
