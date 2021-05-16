@@ -54,16 +54,22 @@ export default class Home extends cc.Component {
 
     }
     start() {
+        SoundManager.getInstance().init(this.musicClip);
         if(!cc.sys.localStorage.getItem("Sound")){
             cc.sys.localStorage.setItem("Sound", false);
+        }else{
+            if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
+                SoundManager.getInstance().playMusic(true);
+            }
         }
-        SoundManager.getInstance().init(this.musicClip);
+      
     }
 
     setupUI(){
         this.setupModes();
         this.setOptions();
         this.setHud();
+        this.modeSelectionNode.zIndex = 5;
     }
 
     setupModes(){
@@ -88,6 +94,7 @@ export default class Home extends cc.Component {
         this.opitonLayer = cc.instantiate(this.options);
         this.opitonLayer.getComponent("options").setUpUI(this.gameScreen);
         this.node.addChild(this.opitonLayer);
+        this.opitonLayer.zIndex = 1;
     }
 
 
@@ -95,6 +102,7 @@ export default class Home extends cc.Component {
         this.hudLayer = cc.instantiate(this.hud);
         this.node.addChild(this.hudLayer);
         this.hudLayer.getComponent("hud").setDelegate(this);
+        this.hudLayer.zIndex = 1;
         this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
     }
 
@@ -124,7 +132,8 @@ export default class Home extends cc.Component {
         console.log("levels ", levels);
         for(let i =0; i<levels.length ; i++){
             let button = cc.instantiate(this.levelSelectionButton);
-            button.getChildByName("title").getComponent(cc.Label).string = `LEVEL ${i+1}`;
+            button.getChildByName("Background").getChildByName("title")
+            .getComponent(cc.Label).string = `LEVEL ${i+1}`;
             let clickEventHandler = new cc.Component.EventHandler();
             clickEventHandler.target = this.node; 
             clickEventHandler.component = "home";
@@ -147,15 +156,7 @@ export default class Home extends cc.Component {
         this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
     }
 
-    updateVolume(){
-        if(cc.sys.localStorage.getItem("Sound")){
-            SoundManager.getInstance().stopMusic();
-            cc.sys.localStorage.setItem("Sound", false);
-        }else{
-            SoundManager.getInstance().playMusic(true);
-            cc.sys.localStorage.setItem("Sound", true)
-        }
-    }
+    
 
     // update (dt) {}
 }

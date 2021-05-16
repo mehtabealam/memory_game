@@ -10,7 +10,7 @@ const {ccclass, property} = cc._decorator;
 import {GAME_SCREEN} from "../helper/constants"
 import SoundManager from "../managers/SoundManager";
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Options extends cc.Component {
 
     private _delegateScript : null;
     @property(cc.Label)
@@ -24,6 +24,11 @@ export default class NewClass extends cc.Component {
     @property(cc.Button)
     volume: cc.Button = null;
 
+    @property(cc.SpriteFrame)
+    volumeUp : cc.SpriteFrame = null;
+
+    @property(cc.SpriteFrame)
+    volumeDown : cc.SpriteFrame = null;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -39,6 +44,7 @@ export default class NewClass extends cc.Component {
 
     setUpUI (screen : GAME_SCREEN) {
         this.deactiveAllNodes();
+        this.updateVolumeIcon();
         switch(screen){
             case GAME_SCREEN.MODE_SELECTION:
                 this.selectMode.node.active = true;
@@ -60,11 +66,33 @@ export default class NewClass extends cc.Component {
         this.gameMode.node.active = false;
         this.gameType.node.active = false;
         this.volume.node.active = false; 
+       
     }
 
 
-    changeVolume(){
-        // this._delegateScript.updateVolume();
+    changeVolume(event : Event){
+        console.log("change volume", event);
+        if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
+            SoundManager.getInstance().stopMusic();
+            cc.sys.localStorage.setItem("Sound", false);
+            
+            
+        }else{
+            console.log("inside this");
+             SoundManager.getInstance().playMusic(true);
+             cc.sys.localStorage.setItem("Sound", true)
+        }
+        this.updateVolumeIcon();
+        
+    }
+
+    updateVolumeIcon(){
+        let spirte = this.volume.node.getChildByName("Background").getComponent(cc.Sprite) ;
+        spirte.spriteFrame = JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;
+
+        console.log(JSON.parse(cc.sys.localStorage.getItem("Sound")), JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;)
+    
+        
     }
   
 

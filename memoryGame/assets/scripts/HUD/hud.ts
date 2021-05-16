@@ -6,11 +6,23 @@ import SoundManager from "../managers/SoundManager";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class HUD extends cc.Component {
+
+    @property(cc.SpriteFrame)
+    volumeUp : cc.SpriteFrame = null;
+
+    @property(cc.SpriteFrame)
+    volumeDown : cc.SpriteFrame = null;
+
+    @property(cc.Button)
+    volume: cc.Button = null;
 
     private delegate;
 
 
+    start(){
+        this.updateVolumeIcon();
+    }
     setDelegate (delegate) {
         console.log("delegate", delegate);
         this.delegate = delegate;
@@ -21,8 +33,18 @@ export default class NewClass extends cc.Component {
     }
 
 
-    volume(){
-        this.delegate.updateVolume();
+    changeVolume(event : Event){
+        if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
+            SoundManager.getInstance().stopMusic();
+            cc.sys.localStorage.setItem("Sound", false);      
+        }else{
+             SoundManager.getInstance().playMusic(true);
+             cc.sys.localStorage.setItem("Sound", true)
+             
+        }
+
+        this.updateVolumeIcon();
+        
     }
 
     setVisiblity(gameScreen : GAME_SCREEN){
@@ -39,6 +61,10 @@ export default class NewClass extends cc.Component {
         }
     }
 
+    updateVolumeIcon(){
+        let sprite = this.volume.node.getChildByName("Background").getComponent(cc.Sprite);
+        sprite.spriteFrame = JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;
+    }
 
 
 

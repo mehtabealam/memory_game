@@ -726,7 +726,7 @@
     },
     "component": "",
     "_componentId": "500beRoJ/tFnbE2wkEfwGtb",
-    "handler": "volume",
+    "handler": "changeVolume",
     "customEventData": ""
   },
   {
@@ -802,6 +802,15 @@
       "__id__": 1
     },
     "_enabled": true,
+    "volumeUp": {
+      "__uuid__": "3076a08d-e8ab-444a-95a8-832516606ded"
+    },
+    "volumeDown": {
+      "__uuid__": "8e3e1f97-cc1e-4ac2-8752-da57d02f65c8"
+    },
+    "volume": {
+      "__id__": 16
+    },
     "_id": ""
   },
   {

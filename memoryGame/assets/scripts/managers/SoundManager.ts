@@ -14,6 +14,7 @@ export default class SoundManager{
     }
 
     playMusic(loop:boolean){
+        console.log("play music", this._musicClip);
          cc.audioEngine.playMusic(this._musicClip, loop);
         cc.audioEngine.setMusicVolume(0.6);
          
