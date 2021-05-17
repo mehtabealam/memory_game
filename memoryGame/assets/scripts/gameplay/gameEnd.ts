@@ -1,4 +1,4 @@
-import { GAME_MODE } from "../helper/constants";
+import { GAME_MODE, END_POP_UP } from "../helper/constants";
 
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
@@ -29,19 +29,49 @@ export default class GameEnd extends cc.Component {
     @property(cc.Button)
     accept : cc.Button = null
 
+    @property(cc.Node)
+    newRecord : cc.Node = null;
+
+    @property(cc.Node)
+    timesUp : cc.Node = null;
+
     start () {
 
     }
 
     setProperties(delegate, gameMode ){
         this._delegate = delegate;
-        this.mode = gameMode.toUpper();
+        // this.mode = gameMode.toUpper();
     }
 
 
 
     onAccept(){
         this._delegate.gameEnded();
+
+    }
+
+    onPlayAgain (){
+        this._delegate.onPlayAgain();
+    }
+
+    onCancel(){
+        this._delegate.onPlayAgainCancel();
+    }
+
+    showPopUpFor(type : END_POP_UP){
+        this.newRecord.active = false;
+        this.timesUp.active = false;
+        switch(type){
+            case END_POP_UP.CLEARD: 
+                break;
+            case END_POP_UP.FAILED:
+                this.timesUp.active = true;
+                break;
+            case END_POP_UP.NEW_RECORD:
+                this.newRecord.active = true;
+                break;        
+        }
 
     }
 

@@ -30,7 +30,7 @@ export default class GameStart extends cc.Component {
 
     }
 
-    setProperties(delegate, gameMode, timerTitle ){
+    setProperties(delegate, gameMode, timerTitle, memoriseTime ){
         console.log("set properties",timerTitle,gameMode );
         this._delegate = delegate;
         switch(gameMode){
@@ -42,8 +42,10 @@ export default class GameStart extends cc.Component {
         }
 
         this.timer.string = `TIME : ${timerTitle}`;
-    }
 
+        let timerString  =  this.instraction.string.replace("%s", memoriseTime);
+        this.instraction.string = timerString;
+    }
 
 
     onAccept(){

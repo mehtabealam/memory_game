@@ -19,3 +19,9 @@ export const  GAME_MODE = {
      MEDIUM : "medium",
      HARD : "hard"
 }
+
+export const enum END_POP_UP {
+    NEW_RECORD = 1,
+    CLEARD,
+    FAILED
+}

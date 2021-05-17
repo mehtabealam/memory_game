@@ -16,7 +16,7 @@
                   "row":4
               },
               "timer":{
-                "memorizeTime" : 5,
+                "memorizeTime" : 1,
                 "totalTime":0
             }
              

@@ -1,5 +1,6 @@
 
 import {GameManager} from "../managers/GameManager"
+import { GAME_MODE, END_POP_UP } from "../helper/constants";
 
 const {ccclass, property} = cc._decorator;
 
@@ -14,6 +15,7 @@ export default class GamePlay extends cc.Component {
     private levelData = null;
     private interval = null;
     private isTouchBlocked = false;
+   
     gameMode = '';
 
     gameStartAlert = null;
@@ -45,6 +47,14 @@ export default class GamePlay extends cc.Component {
 
     }
 
+
+    onDisable(){
+      clearInterval(this.interval)   
+    }
+
+
+    // SETTING UP UI
+
     setUpUI(level : Number, gameMode:string, optionRef){
         this.gameMode = gameMode;
         this.levelData = GameManager.getInstance().getLevelData(level, gameMode);
@@ -60,8 +70,9 @@ export default class GamePlay extends cc.Component {
     setUpAlerts (){
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
         this.gameStartAlert = cc.instantiate(this.startPopUp);
-        this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode, gameModeDetails.title);
+        this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode, gameModeDetails.title,this.levelData.timer.memorizeTime );
         this.gameEndAlert = cc.instantiate(this.gameEndPopUp);
+        this.gameEndAlert.getComponent("gameEnd").setProperties(this, this.gameMode);
         this.node.parent.addChild(this.gameStartAlert,10);
         this.node.parent.addChild(this.gameEndAlert,10);
         this.gameEndAlert.active = false;
@@ -98,29 +109,23 @@ export default class GamePlay extends cc.Component {
     FlipAllCards(){
         
         for(let child of this.gameLayout.node.children){
-            // console.log("child", child.getComponent("cards"));
             child.getComponent("cards").unreveal();
         }
     }
 
 
-    startGame(){
+    startGameTimer (){
+        let time = 0;
         let target = this;
-        let time = this.levelData.timer.memorizeTime;
-        this.gameStartAlert.active = false;
-        target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
-        target.optionLayer.active = true;
-        this.gameLayout.node.active = true;
-        this.isTouchBlocked = true;
         this.interval = setInterval(()=>{
             target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
-            time--;
-            if(time ==-1){
+            time++
+            if(time == this.levelData.timer.totalTime && this.gameMode != GAME_MODE.PRACTICE){
                 clearInterval(this.interval);
-                target.isTouchBlocked = false;
-                target.FlipAllCards();
+                // here dude stop game and 
             }
         }, 1000);
+
     }
 
 
@@ -143,8 +148,11 @@ export default class GamePlay extends cc.Component {
             this.cardsInPair.length = 0;
             // check mode and give bonus marks
             // check if all card made and check if the time taken is less than the last time and show pop up accordingly
+            if(this.OpenCards.length == this._cards.length){
+                this.endGame(true);
+            }
+
         }else{
-    
             let target = this;
             this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
                 this.cardsInPair[0].getComponent('cards').unreveal();
@@ -153,6 +161,56 @@ export default class GamePlay extends cc.Component {
             })));
           
         }
+    }
+
+
+    endGame (isWon) {
+        clearInterval(this.interval);
+        if(isWon){
+            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.NEW_RECORD);
+            this.gameEndAlert.active = true;
+        }else{
+            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.FAILED);
+            this.gameEndAlert.active = true;
+        }
+
+       
+
+    }
+
+
+    // pop ups DELEGATE METHODS 
+
+
+    onPlayAgain (){
+
+    }
+
+
+    startGame(){
+        let target = this;
+        let time = this.levelData.timer.memorizeTime;
+        this.gameStartAlert.active = false;
+        target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
+        target.optionLayer.active = true;
+        this.gameLayout.node.active = true;
+        this.isTouchBlocked = true;
+        this.interval = setInterval(()=>{
+            target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
+            time--;
+            if(time ==-1){
+                clearInterval(this.interval);
+                target.isTouchBlocked = false;
+                target.FlipAllCards();
+                this.startGameTimer();
+            }
+        }, 1000);
+    }
+
+
+    onPlayAgainCancel(){
+
+
     }
 
 

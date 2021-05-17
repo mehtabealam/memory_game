@@ -99,6 +99,8 @@ export default class Options extends cc.Component {
         this.timer.string = `TIME : ${time}/${totalTime}`;
     }
 
+
+   
     
   
 

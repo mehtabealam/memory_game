@@ -6,6 +6,7 @@ const {ccclass, property} = cc._decorator;
 export default class Card extends cc.Component {
 
     private _cardName : string = "";
+    private _isOpen : boolean = true;
     private _delagateScript : cc.Component = null;
 
     @property(cc.Sprite)
@@ -50,13 +51,17 @@ export default class Card extends cc.Component {
 
     onCardClicked(){
         // console.log("showcards");
-        this._delagateScript.showCard(this.node);
+        if(!this._isOpen){
+            this._delagateScript.showCard(this.node);
+        }
+      
         // this.reveal();
     }
 
 
    setFaceUp(showFace: boolean): void {
         this.back.node.active = !showFace;
+        this._isOpen = showFace;
     }
 
     reveal( ): void {
