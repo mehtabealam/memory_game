@@ -9,12 +9,16 @@ export default class GamePlay extends cc.Component {
 
     private _cards = [];
     private _gridInfo = null;
+    private _level  =  0;
     private _timer = null;
     private OpenCards =[];
     private cardsInPair =[];
     private levelData = null;
     private interval = null;
     private isTouchBlocked = false;
+    
+
+    private progresser = null;
    
     gameMode = '';
 
@@ -26,7 +30,7 @@ export default class GamePlay extends cc.Component {
     cardPrefab: cc.Prefab = null;
 
     @property(cc.ProgressBar)
-    timerBar : cc.Prefab = null;
+    timerBar : cc.ProgressBar = null;
 
     @property(cc.Layout)
     gameLayout : cc.Layout = null;
@@ -44,7 +48,8 @@ export default class GamePlay extends cc.Component {
     // onLoad () {}
 
     start () {
-
+        this.progresser = this.timerBar.node.getChildByName("bar");
+       
     }
 
 
@@ -55,8 +60,9 @@ export default class GamePlay extends cc.Component {
 
     // SETTING UP UI
 
-    setUpUI(level : Number, gameMode:string, optionRef){
+    setUpUI(level : number, gameMode:string, optionRef){
         this.gameMode = gameMode;
+        this._level = level;
         this.levelData = GameManager.getInstance().getLevelData(level, gameMode);
         this._cards = [...this.levelData.cards, ...this.levelData.cards];  //2x 
         this.shuffelCards();
@@ -115,15 +121,27 @@ export default class GamePlay extends cc.Component {
 
 
     startGameTimer (){
-        let time = 0;
+        if(this.gameMode != GAME_MODE.PRACTICE){
+            this.progresser.width = 0;
+            this.timerBar.progress = 0;
+            this.timerBar.totalLength = this.timerBar.node.width;
+        }
+        console.log("total length", this.timerBar.totalLength);
+        this._timer = 0;
         let target = this;
         this.interval = setInterval(()=>{
-            target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
-            time++
-            if(time == this.levelData.timer.totalTime && this.gameMode != GAME_MODE.PRACTICE){
-                clearInterval(this.interval);
-                // here dude stop game and 
+            this._timer ++;
+            target.optionLayer.getComponent("options").updateTimer(this._timer , this.levelData.timer.totalTime)
+            if(this.gameMode != GAME_MODE.PRACTICE){
+                this.timerBar.progress  = this._timer  / this.levelData.timer.totalTime;
+                console.log("progerss", this.timerBar.progress, this.levelData.timer.totalTime);
+                if(this._timer  == this.levelData.timer.totalTime){
+                    this.isTouchBlocked = true;
+                    clearInterval(this.interval);  
+                    this.endGame(false);
+                }
             }
+            
         }, 1000);
 
     }
@@ -146,6 +164,7 @@ export default class GamePlay extends cc.Component {
         if( card1 === card2){
             this.OpenCards.push(...[card1, card2]);
             this.cardsInPair.length = 0;
+            //TO DO 
             // check mode and give bonus marks
             // check if all card made and check if the time taken is less than the last time and show pop up accordingly
             if(this.OpenCards.length == this._cards.length){
@@ -167,6 +186,18 @@ export default class GamePlay extends cc.Component {
     endGame (isWon) {
         clearInterval(this.interval);
         if(isWon){
+            let isNewRecord = false;
+            let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
+            let levels =  JSON.parse(levelInfo[this.gameMode]);
+            
+            if(levels[this._level].time > this._timer){
+                
+                levels[this._level].time = this._timer;
+                console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo[this.gameMode])[this._level].time);
+                levelInfo[this.gameMode] = JSON.stringify(levels);
+                cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
+                isNewRecord = true;
+            }
             this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.NEW_RECORD);
             this.gameEndAlert.active = true;
         }else{
@@ -177,17 +208,20 @@ export default class GamePlay extends cc.Component {
        
 
     }
-
-
     // pop ups DELEGATE METHODS 
 
-
     onPlayAgain (){
-
+        this.gameEndAlert.active = false;
+        this.node.parent.getComponent("home").onBack();
+        this.node.parent.getComponent("home").onLevelSelect(null, this._level.toString());
+        // this.node.active = true;
     }
 
-
+    
     startGame(){
+        this.progresser.width = this.timerBar.node.width;   
+        this.timerBar.progress = 1;
+       
         let target = this;
         let time = this.levelData.timer.memorizeTime;
         this.gameStartAlert.active = false;
@@ -198,6 +232,7 @@ export default class GamePlay extends cc.Component {
         this.interval = setInterval(()=>{
             target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
             time--;
+            this.timerBar.progress = time/this.levelData.timer.memorizeTime;
             if(time ==-1){
                 clearInterval(this.interval);
                 target.isTouchBlocked = false;
@@ -209,8 +244,14 @@ export default class GamePlay extends cc.Component {
 
 
     onPlayAgainCancel(){
+        this.gameEndAlert.active = false;
+        this.node.parent.getComponent("home").onBack();
 
+    }
 
+    gameEnded (){
+        this.gameEndAlert.active = false;
+        this.node.parent.getComponent("home").onBack();
     }
 
 
