@@ -261,7 +261,8 @@
               },
               "timer":{
                 "memorizeTime" : 1,
-                "totalTime":10
+                "totalTime":10,
+                "bounsTime":5
             }
              
             },
@@ -280,7 +281,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
                
             },
@@ -301,7 +303,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
                
             },
@@ -323,7 +326,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
                
             },
@@ -386,7 +390,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
                
             },
@@ -409,7 +414,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
             },
             {
@@ -433,7 +439,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
                
             },
@@ -458,7 +465,8 @@
                 },
                 "timer":{
                   "memorizeTime" : 1,
-                  "totalTime":30
+                  "totalTime":30,
+                  "bounsTime":5
               }
                
             }

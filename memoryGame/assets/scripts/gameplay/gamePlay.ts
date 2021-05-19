@@ -16,6 +16,7 @@ export default class GamePlay extends cc.Component {
     private levelData = null;
     private interval = null;
     private isTouchBlocked = false;
+    private totalTime = 0;
     
 
     private progresser = null;
@@ -35,6 +36,9 @@ export default class GamePlay extends cc.Component {
     @property(cc.Layout)
     gameLayout : cc.Layout = null;
 
+    @property(cc.Sprite)
+    bouns = null;
+
     @property(cc.Prefab)
     startPopUp = null;
 
@@ -49,12 +53,15 @@ export default class GamePlay extends cc.Component {
 
     start () {
         this.progresser = this.timerBar.node.getChildByName("bar");
+        var animationClips = this.bouns.node.getComponent(cc.Animation);
+        animationClips.on('finished', this.bounsAnimationCompleted, this);
        
     }
 
 
     onDisable(){
-      clearInterval(this.interval)   
+      clearInterval(this.interval)  ;
+      this.bouns.node.active = false; 
     }
 
 
@@ -70,6 +77,7 @@ export default class GamePlay extends cc.Component {
         this.optionLayer = optionRef;
         this.setGrid();
         this.setUpAlerts();
+        this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bouns;
         
     }
 
@@ -129,13 +137,14 @@ export default class GamePlay extends cc.Component {
         console.log("total length", this.timerBar.totalLength);
         this._timer = 0;
         let target = this;
+        this.totalTime = this.levelData.timer.totalTime;
         this.interval = setInterval(()=>{
             this._timer ++;
-            target.optionLayer.getComponent("options").updateTimer(this._timer , this.levelData.timer.totalTime)
+            target.optionLayer.getComponent("options").updateTimer(this._timer , this.totalTime)
             if(this.gameMode != GAME_MODE.PRACTICE){
-                this.timerBar.progress  = this._timer  / this.levelData.timer.totalTime;
-                console.log("progerss", this.timerBar.progress, this.levelData.timer.totalTime);
-                if(this._timer  == this.levelData.timer.totalTime){
+                this.timerBar.progress  = this._timer  / this.totalTime;
+                console.log("progerss", this.timerBar.progress, this.totalTime);
+                if(this._timer  == this.totalTime){
                     this.isTouchBlocked = true;
                     clearInterval(this.interval);  
                     this.endGame(false);
@@ -164,9 +173,13 @@ export default class GamePlay extends cc.Component {
         if( card1 === card2){
             this.OpenCards.push(...[card1, card2]);
             this.cardsInPair.length = 0;
-            //TO DO 
-            // check mode and give bonus marks
-            // check if all card made and check if the time taken is less than the last time and show pop up accordingly
+           
+            if(this.gameMode != GAME_MODE.PRACTICE){
+                
+                this.playBounsAnimation();
+                this.isTouchBlocked = true;
+            }
+
             if(this.OpenCards.length == this._cards.length){
                 this.endGame(true);
             }
@@ -191,7 +204,6 @@ export default class GamePlay extends cc.Component {
             let levels =  JSON.parse(levelInfo[this.gameMode]);
             
             if(levels[this._level].time > this._timer){
-                
                 levels[this._level].time = this._timer;
                 console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo[this.gameMode])[this._level].time);
                 levelInfo[this.gameMode] = JSON.stringify(levels);
@@ -252,6 +264,25 @@ export default class GamePlay extends cc.Component {
     gameEnded (){
         this.gameEndAlert.active = false;
         this.node.parent.getComponent("home").onBack();
+    }
+
+    // ANIMATION CALLBACKS :
+
+    playBounsAnimation(){
+        console.log("inside this play bouns animation");
+        this.bouns.node.active = true;
+        this.bouns.node.position  = new cc.Vec2(0,0);
+        this.bouns.node.scale = 2;
+        this.bouns.node.opacity = 255;
+        this.bouns.node.getComponent(cc.Animation).play();
+
+    }
+
+    bounsAnimationCompleted (){
+        this.bouns.node.active = false;
+        this.totalTime += this.levelData.timer.bouns;
+        this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
+        this.isTouchBlocked = false;
     }
 
 
