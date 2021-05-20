@@ -1,5 +1,5 @@
 import { GameManager } from "../managers/GameManager";
-import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
+import { GAME_SCREEN, GAME_MODE, LANGUAGES } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 const { ccclass, property } = cc._decorator;
 
@@ -23,6 +23,9 @@ export default class Home extends cc.Component {
 
   @property(cc.Node)
   howToPlayPopUp: cc.Node = null;
+
+  @property(cc.Node)
+  languagePopUp: cc.Node = null;
 
   @property(cc.Node)
   modeSelectionNode: cc.Node = null;
@@ -50,8 +53,15 @@ export default class Home extends cc.Component {
         GameManager.getInstance()
           .loadLevels()
           .then((data) => {
-            this.setupUI();
-            this.setLevelInfoInLS();
+            GameManager.getInstance().loadLanaguge().then((data)=>{
+              console.log("load langauge");
+              this.setupUI();
+              this.setLevelInfoInLS();
+              cc.game.emit("onLanguageChanged");
+            }).catch((error)=>{
+              console.log("error");
+            })
+           
           })
           .catch((error) => {
             console.log("erorr", error);
@@ -74,7 +84,10 @@ export default class Home extends cc.Component {
       });
   }
   start() {
-    SoundManager.getInstance().init(this.musicClip);
+
+    this.languagePopUp.zIndex = 6;
+    cc.debug.setDisplayStats(false);
+      SoundManager.getInstance().init(this.musicClip);
     if (!cc.sys.localStorage.getItem("Sound")) {
       cc.sys.localStorage.setItem("Sound", false);
     } else {
@@ -94,12 +107,14 @@ export default class Home extends cc.Component {
   }
 
   setupModes() {
-    let spaceingY = [250, 150, 100, 50, 20];
+    let spaceingY = [150, 100, 50, 20, 10];
     let modes = GameManager.getInstance().getModesInfo();
     this.modeLayout.spacingY = spaceingY[modes.length - 1];
     for (let mode of modes) {
       let button = cc.instantiate(this.gameModeBtn);
+      console.log("button has been created");
       button.getChildByName("title").getComponent(cc.Label).string = mode.title;
+      button.getChildByName("title").getComponent("localiser").key = mode.key;
       let clickEventHandler = new cc.Component.EventHandler();
       clickEventHandler.target = this.node;
       clickEventHandler.component = "home";
@@ -108,11 +123,12 @@ export default class Home extends cc.Component {
       button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
       this.modeLayout.node.addChild(button);
     }
-    console.log("background", this.modeLayout);
   }
 
   setOptions() {
     this.opitonLayer = cc.instantiate(this.options);
+    this.opitonLayer
+    .getComponent("options").setDelegate(this);
     this.opitonLayer
       .getComponent("options")
       .setUpUI(this.gameScreen, this.gameMode);
@@ -153,10 +169,8 @@ export default class Home extends cc.Component {
     console.log("levels ", levels);
     for (let i = 0; i < levels.length; i++) {
       let button = cc.instantiate(this.levelSelectionButton);
-      button
-        .getChildByName("Background")
-        .getChildByName("title")
-        .getComponent(cc.Label).string = `LEVEL ${i + 1}`;
+      button.getChildByName("Background").getChildByName("title")
+      .getComponent(cc.Label).getComponent("localiser").replaceValue(`${i+1}`);
       let clickEventHandler = new cc.Component.EventHandler();
       clickEventHandler.target = this.node;
       clickEventHandler.component = "home";
@@ -208,7 +222,7 @@ export default class Home extends cc.Component {
     }
 
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-    console.log("level Info");
+    // console.log("level Info");
     let modes = GameManager.getInstance().getModesInfo();
     for (let mode of modes) {
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
@@ -229,8 +243,14 @@ export default class Home extends cc.Component {
     }
     cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
 
-    console.log("level Info");
+    // console.log("level Info");
   }
+
+  openLocalisationPopUp(){
+     this.languagePopUp.active = true;
+  }
+
+ 
 
   // update (dt) {}
 }

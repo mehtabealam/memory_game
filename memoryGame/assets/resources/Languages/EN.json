@@ -1,0 +1,19 @@
+{
+    "howToPlay" : "HOW TO PLAY 123",
+    "practice" : "PRACTICE111",
+    "normal" : "NORMAL",
+    "selectMode" : "Select mode",
+    "level"  :  "LEVEL %s",
+    "time"   : "TIME: %s",
+    "startInstruction" : "YOU HAVE %s SECONDS TO MEMORISE THE IMAGES",
+    "prizeInstruction" : "PRIZE : %s EXTRA SECONDS PER HIT",
+    "start"  : "START",
+    "newRecord" : "NEW RECORD!",
+    "wellDone"  : "WELL DONE!",
+    "accept" : "ACCEPT",
+    "isTimeUp" : "IS TIME UP?",
+    "backToPlay": "BACK TO PLAY",
+    "cancel":"CANCEL",
+    "pleaseChoseLanguage" : "Please select your language",
+    "howToPlayTutoiral" : "Touch a box to uncover it and see the see the image it hides.\n\nTouch another box to uncover it as well.\n\nIf the images match, they will stay face up, otherwise they will be covered again. \n\nFind all the pairs."
+}

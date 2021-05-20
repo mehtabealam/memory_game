@@ -9,6 +9,7 @@ const {ccclass, property} = cc._decorator;
 
 import {GAME_SCREEN} from "../helper/constants"
 import SoundManager from "../managers/SoundManager";
+import { GameManager } from "../managers/GameManager";
 @ccclass
 export default class Options extends cc.Component {
 
@@ -24,11 +25,16 @@ export default class Options extends cc.Component {
     @property(cc.Button)
     volume: cc.Button = null;
 
+    
     @property(cc.SpriteFrame)
     volumeUp : cc.SpriteFrame = null;
 
     @property(cc.SpriteFrame)
     volumeDown : cc.SpriteFrame = null;
+
+    @property(cc.Button)
+    localistation: cc.Button = null;
+
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -44,7 +50,8 @@ export default class Options extends cc.Component {
 
     setUpUI (screen : GAME_SCREEN, gameMode: string) {
         // console.log("game mode", gameMode);
-        this.gameMode.string = gameMode.toUpperCase();
+        let mode = GameManager.getInstance().getString(gameMode);
+        this.gameMode.string = mode;
         this.deactiveAllNodes();
         this.updateVolumeIcon();
         switch(screen){
@@ -54,6 +61,7 @@ export default class Options extends cc.Component {
                 break;
             case GAME_SCREEN.LEVEL_SELECTION:
                 this.gameType.node.active = true;
+                this.localistation.node.active = true;
                 break;
              case GAME_SCREEN.GAME_PLAY:
                 this.timer.node.active = true;
@@ -68,6 +76,7 @@ export default class Options extends cc.Component {
         this.gameMode.node.active = false;
         this.gameType.node.active = false;
         this.volume.node.active = false; 
+        this.localistation.node.active = false;
        
     }
 
@@ -96,9 +105,15 @@ export default class Options extends cc.Component {
     }
 
     updateTimer(time, totalTime){
-        this.timer.string = `TIME : ${time}/${totalTime}`;
+        let timeString = GameManager.getInstance().getString("time")
+        timeString = timeString.replace("%s", "");
+        this.timer.string = `${timeString}${time}/${totalTime}`;
     }
 
+
+    openLocalisation(){
+        this._delegateScript.openLocalisationPopUp();
+    }
 
 
 

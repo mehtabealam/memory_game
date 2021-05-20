@@ -25,3 +25,9 @@ export const enum END_POP_UP {
     CLEARD,
     FAILED
 }
+
+export const LANGUAGES = {
+    ENGLISH : "EN",
+    SPANISH : "ES"
+
+}

@@ -1,5 +1,6 @@
 import { GAME_SCREEN } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
+import { GameManager } from "../managers/GameManager";
 
 
 
@@ -34,6 +35,8 @@ export default class HUD extends cc.Component {
 
 
     changeVolume(event : Event){
+
+      
         if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
             SoundManager.getInstance().stopMusic();
             cc.sys.localStorage.setItem("Sound", false);      

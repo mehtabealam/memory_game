@@ -383,7 +383,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "500beRoJ/tFnbE2wkEfwGtb",
+    "_componentId": "6713aGUdqRLHbdo1jB5MW+H",
     "handler": "onBack",
     "customEventData": ""
   },
@@ -725,7 +725,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "500beRoJ/tFnbE2wkEfwGtb",
+    "_componentId": "6713aGUdqRLHbdo1jB5MW+H",
     "handler": "changeVolume",
     "customEventData": ""
   },
@@ -795,7 +795,7 @@
     "_id": ""
   },
   {
-    "__type__": "500beRoJ/tFnbE2wkEfwGtb",
+    "__type__": "6713aGUdqRLHbdo1jB5MW+H",
     "_name": "",
     "_objFlags": 0,
     "node": {

@@ -77,15 +77,18 @@ export default class GamePlay extends cc.Component {
         this.optionLayer = optionRef;
         this.setGrid();
         this.setUpAlerts();
-        this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bouns;
+        this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
         
     }
 
     setUpAlerts (){
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
         this.gameStartAlert = cc.instantiate(this.startPopUp);
-        this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode, gameModeDetails.title,this.levelData.timer.memorizeTime );
+        this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode,
+             gameModeDetails.title,this.levelData.timer.memorizeTime,
+             this.levelData.timer.bounsTime );
         this.gameEndAlert = cc.instantiate(this.gameEndPopUp);
+        
         this.gameEndAlert.getComponent("gameEnd").setProperties(this, this.gameMode);
         this.node.parent.addChild(this.gameStartAlert,10);
         this.node.parent.addChild(this.gameEndAlert,10);
@@ -139,7 +142,7 @@ export default class GamePlay extends cc.Component {
         let target = this;
         this.totalTime = this.levelData.timer.totalTime;
         this.interval = setInterval(()=>{
-            this._timer ++;
+            this._timer++;
             target.optionLayer.getComponent("options").updateTimer(this._timer , this.totalTime)
             if(this.gameMode != GAME_MODE.PRACTICE){
                 this.timerBar.progress  = this._timer  / this.totalTime;
@@ -216,24 +219,19 @@ export default class GamePlay extends cc.Component {
             this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.FAILED);
             this.gameEndAlert.active = true;
         }
-
-       
-
     }
-    // pop ups DELEGATE METHODS 
 
+    // pop ups DELEGATE METHODS 
     onPlayAgain (){
         this.gameEndAlert.active = false;
         this.node.parent.getComponent("home").onBack();
         this.node.parent.getComponent("home").onLevelSelect(null, this._level.toString());
-        // this.node.active = true;
     }
 
     
     startGame(){
         this.progresser.width = this.timerBar.node.width;   
         this.timerBar.progress = 1;
-       
         let target = this;
         let time = this.levelData.timer.memorizeTime;
         this.gameStartAlert.active = false;
@@ -245,7 +243,7 @@ export default class GamePlay extends cc.Component {
             target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
             time--;
             this.timerBar.progress = time/this.levelData.timer.memorizeTime;
-            if(time ==-1){
+            if(time === -1){
                 clearInterval(this.interval);
                 target.isTouchBlocked = false;
                 target.FlipAllCards();
@@ -280,7 +278,8 @@ export default class GamePlay extends cc.Component {
 
     bounsAnimationCompleted (){
         this.bouns.node.active = false;
-        this.totalTime += this.levelData.timer.bouns;
+        this.totalTime += this.levelData.timer.bounsTime;
+        console.log("bonys",this.levelData.timer, this.totalTime );
         this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
         this.isTouchBlocked = false;
     }

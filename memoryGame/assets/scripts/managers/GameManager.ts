@@ -5,6 +5,8 @@ import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
     private _gameConfig = null;
     private _levelsData = null;
     private _levelImages = null;
+    private _currentSelectLanguage = "EN"; 
+    private _languageData = null;
     static getInstance(){
         if(!GameManager._instance){
            GameManager. _instance = new GameManager();
@@ -55,7 +57,26 @@ import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
     }
 
 
-    public loadLevelImages(): Promise<any> {
+    loadLanaguge(){
+        return new Promise((resolve, reject) => {
+            if (this._languageData) {
+                resolve(this._languageData);
+            } else {
+                cc.loader.loadResDir("Languages" , cc.JsonAsset, (err: Error, data: any) => {
+                    if (err) {
+                        reject(err);
+                        cc.error("langauge data error :" + err);
+                    }else{
+                        this._languageData = data;
+                        console.log("langauge data", this._languageData);
+                    }
+                    resolve(data);
+                });
+            }
+        });
+    }
+
+    loadLevelImages(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this._levelImages) {
                 resolve(this._levelImages);
@@ -66,7 +87,7 @@ import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
                         cc.error("loadLevelImages :" + err);
                     }else{
                         this._levelImages = data;
-                        console.log("level images", this._levelImages);
+                        // console.log("level images", this._levelImages);
                     }
                     resolve(data);
                 });
@@ -114,6 +135,23 @@ import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
 
     isImagesLoaded () :boolean {
         return this._levelsData? true : false;
+    }
+
+    getString(key:string): string {
+        if(this._languageData){
+            let language = this._languageData.find(item => item.name == this._currentSelectLanguage);
+            console.log("key", key, language);
+            return language.json[key];
+        }else{
+            return "";
+        }
+    }
+
+    changeCurrentLanguage(){
+       
+        this._currentSelectLanguage = cc.sys.localStorage.getItem("Language");
+        console.log("change current Language", this._currentSelectLanguage);
+
     }
 
 }
