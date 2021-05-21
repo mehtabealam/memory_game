@@ -34,10 +34,10 @@ export default class Card extends cc.Component {
         this._delagateScript = delegate;
     }
 
-    setUpUI (spriteFrameKey) {
+    setUpUI (spriteFrameKey, level, mode) {
         this._cardName = spriteFrameKey;
         console.log("card name", spriteFrameKey);
-        this.image.spriteFrame= GameManager.getInstance().getSpriteFrame(spriteFrameKey);
+        this.image.spriteFrame= GameManager.getInstance().getSpriteFrame(mode, level, spriteFrameKey);
     }
 
 
@@ -84,7 +84,13 @@ export default class Card extends cc.Component {
         }, this);
         let unrevealAction = cc.sequence(cc.scaleTo(0.1, 0, 1), callFunc1, cc.scaleTo(0.1, 1, 1));
         this.animationNode.runAction(unrevealAction);
-    } 
+    }
+
+    playCorrectAnimation(){
+        let bounce = cc.scaleTo(0.1, 0.9,0.9).easing(cc.easeBounceInOut());
+        let correctAnimation = cc.sequence(bounce, cc.delayTime(0.2), cc.scaleTo(0.1, 1, 1));
+        this.animationNode.runAction(correctAnimation);
+    }
 
     // update (dt) {}
 }

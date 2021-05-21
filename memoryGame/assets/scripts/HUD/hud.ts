@@ -35,8 +35,6 @@ export default class HUD extends cc.Component {
 
 
     changeVolume(event : Event){
-
-      
         if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
             SoundManager.getInstance().stopMusic();
             cc.sys.localStorage.setItem("Sound", false);      
@@ -51,6 +49,7 @@ export default class HUD extends cc.Component {
     }
 
     setVisiblity(gameScreen : GAME_SCREEN){
+        // console.log("option error in setVisibility", gameScreen);    
         switch(gameScreen){
             case GAME_SCREEN.MODE_SELECTION:
                 this.node.active = false;

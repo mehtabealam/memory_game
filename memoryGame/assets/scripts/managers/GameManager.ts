@@ -1,4 +1,6 @@
-import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
+import { GAME_MODE } from "../helper/constants";
+
+
 
  export class GameManager{
     private static  _instance = null;
@@ -7,6 +9,9 @@ import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
     private _levelImages = null;
     private _currentSelectLanguage = "EN"; 
     private _languageData = null;
+    private _selectedMode = GAME_MODE.PRACTICE;
+    private _currentLevel = 0;
+
     static getInstance(){
         if(!GameManager._instance){
            GameManager. _instance = new GameManager();
@@ -76,28 +81,40 @@ import { GAME_SCREEN, GAME_MODE } from "../helper/constants";
         });
     }
 
-    loadLevelImages(): Promise<any> {
+    // data is in form  ,this._levelImages = { practice {level [images]}}
+    loadLevelImages(mode, levelNo): Promise<any> {
+        console.log("Levels/images/${mode}/LEVEL${levelNo + 1", `Levels/images/${mode}/LEVEL${levelNo + 1}`)
         return new Promise((resolve, reject) => {
-            if (this._levelImages) {
-                resolve(this._levelImages);
+            if (this._levelImages && this._levelImages.mode && this._levelImages.mode.level[levelNo]) {
+                resolve(this._levelImages.mode.level[levelNo]);
             } else {
-                cc.loader.loadResDir("Levels/images" , cc.SpriteFrame, (err: Error, data: any) => {
+                cc.loader.loadResDir(`Levels/Images/${mode}/LEVEL${levelNo + 1}` , cc.SpriteFrame, (err: Error, data: any) => {
                     if (err) {
                         reject(err);
                         cc.error("loadLevelImages :" + err);
                     }else{
-                        this._levelImages = data;
-                        // console.log("level images", this._levelImages);
+                        if(!this._levelImages){
+                            this._levelImages = {};
+                        }
+                        if(!this._levelImages.mode){
+                            this._levelImages.mode = {};
+                            this._levelImages.mode.level = [];
+                        }
+                        this._levelImages.mode.level[levelNo] = data;
+                        
+                        console.log("level images", this._levelImages, data);
                     }
-                    resolve(data);
+                    resolve(this._levelImages.mode.level[levelNo]);
                 });
             }
         });
     }
 
-    getSpriteFrame(name) {
+    getSpriteFrame(mode, levelNo, name) {
         if(this._levelImages){
-            const spriteFrame = this._levelImages.find(item => item.name == name);
+            let images = this._levelImages.mode.level[levelNo];
+            console.log("images",images );
+            const spriteFrame = images.find(item => item.name == name);
             console.log("spriteFrames",spriteFrame, name );
             return spriteFrame;
         }

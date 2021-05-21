@@ -1,6 +1,6 @@
 {
-    "howToPlay" : "HOW TO PLAY 123",
-    "practice" : "PRACTICE111",
+    "howToPlay" : "HOW TO PLAY",
+    "practice" : "PRACTICE",
     "normal" : "NORMAL",
     "selectMode" : "Select mode",
     "level"  :  "LEVEL %s",
@@ -15,5 +15,6 @@
     "backToPlay": "BACK TO PLAY",
     "cancel":"CANCEL",
     "pleaseChoseLanguage" : "Please select your language",
+    "howToPlayTitle":"HOW TO PLAY FIND 2",
     "howToPlayTutoiral" : "Touch a box to uncover it and see the see the image it hides.\n\nTouch another box to uncover it as well.\n\nIf the images match, they will stay face up, otherwise they will be covered again. \n\nFind all the pairs."
 }

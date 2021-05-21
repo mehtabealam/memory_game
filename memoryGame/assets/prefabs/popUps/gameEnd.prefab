@@ -14,7 +14,7 @@
   {
     "__type__": "cc.Node",
     "_name": "gameEnd",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": null,
     "_children": [
       {
@@ -109,7 +109,7 @@
     "_prefab": {
       "__id__": 6
     },
-    "_opacity": 87,
+    "_opacity": 180,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -2615,7 +2615,7 @@
       "__id__": 68
     },
     "_enabled": true,
-    "key": "backToPlay",
+    "key": "accept",
     "_id": ""
   },
   {

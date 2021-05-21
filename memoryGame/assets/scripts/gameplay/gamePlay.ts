@@ -49,7 +49,9 @@ export default class GamePlay extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+     onLoad () {
+
+     }
 
     start () {
         this.progresser = this.timerBar.node.getChildByName("bar");
@@ -61,6 +63,8 @@ export default class GamePlay extends cc.Component {
 
     onDisable(){
       clearInterval(this.interval)  ;
+      this.OpenCards.length =0;
+      this.cardsInPair.length =0;
       this.bouns.node.active = false; 
     }
 
@@ -68,18 +72,36 @@ export default class GamePlay extends cc.Component {
     // SETTING UP UI
 
     setUpUI(level : number, gameMode:string, optionRef){
+        this.gameLayout.node.active = false;
         this.gameMode = gameMode;
         this._level = level;
-        this.levelData = GameManager.getInstance().getLevelData(level, gameMode);
-        this._cards = [...this.levelData.cards, ...this.levelData.cards];  //2x 
-        this.shuffelCards();
-        this._gridInfo = this.levelData.grid;
+        this.levelData = GameManager.getInstance().getLevelData(this._level , this.gameMode);
         this.optionLayer = optionRef;
-        this.setGrid();
+        console.log("called 1000 times");
         this.setUpAlerts();
-        this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
+        this.loadLevelImages();
+        
+       
         
     }
+     loadLevelImages(){
+        GameManager.getInstance()
+        .loadLevelImages(this.gameMode, this._level)
+        .then((data) => {
+          console.log("images loaded", data, this.gameStartAlert.getComponent("gameStart"));
+          this.gameStartAlert.getComponent("gameStart").accept.interactable = true;
+          console.log("images loaded", data, this.gameStartAlert.getComponent("gameStart"));
+          this._cards = [...this.levelData.cards, ...this.levelData.cards];  //2x 
+          this.shuffelCards();
+          this._gridInfo = this.levelData.grid;
+        
+          this.setGrid();
+          this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
+        })
+        .catch((error) => {
+          console.log("erorr", error);
+        });
+     }
 
     setUpAlerts (){
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
@@ -105,10 +127,10 @@ export default class GamePlay extends cc.Component {
             let blockSize = width / this._gridInfo.col;
             card.setScale(blockSize/card.width);
             card.getComponent("cards").setDelegate(this);
-            card.getComponent("cards").setUpUI(this._cards[i].name);
+            card.getComponent("cards").setUpUI(this._cards[i].name, this._level, this.gameMode);
             this.gameLayout.node.addChild(card);
         }  
-        this.gameLayout.node.active = false;
+        
         this.optionLayer.active = false;    
     }
 
@@ -171,20 +193,30 @@ export default class GamePlay extends cc.Component {
 
 
     isPair(){
-        let card1 = this.cardsInPair[0].getComponent('cards').getCardName();
-        let card2 = this.cardsInPair[1].getComponent('cards').getCardName();
-        if( card1 === card2){
-            this.OpenCards.push(...[card1, card2]);
-            this.cardsInPair.length = 0;
-           
+        let card1 = this.cardsInPair[0].getComponent('cards')
+        let card2 = this.cardsInPair[1].getComponent('cards')
+        if( card1.getCardName() === card2.getCardName()){
             if(this.gameMode != GAME_MODE.PRACTICE){
                 
                 this.playBounsAnimation();
                 this.isTouchBlocked = true;
-            }
+            }else{
+                this.isTouchBlocked = true;
+                this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
+                    card1.playCorrectAnimation();
+                    card2.playCorrectAnimation();
+                    this.isTouchBlocked = false;
+                   })));
 
+               
+            }
+            this.OpenCards.push(...[card1.getCardName(), card2.getCardName()]);
+            this.cardsInPair.length = 0;
             if(this.OpenCards.length == this._cards.length){
+               this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
                 this.endGame(true);
+               })));
+              
             }
 
         }else{
@@ -213,10 +245,10 @@ export default class GamePlay extends cc.Component {
                 cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
                 isNewRecord = true;
             }
-            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.NEW_RECORD);
+            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.NEW_RECORD, this._level);
             this.gameEndAlert.active = true;
         }else{
-            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.FAILED);
+            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.FAILED,this._level);
             this.gameEndAlert.active = true;
         }
     }

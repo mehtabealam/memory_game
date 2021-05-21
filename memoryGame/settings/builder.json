@@ -1,7 +1,7 @@
 {
   "title": "memoryGame",
   "packageName": "org.cocos2d.demo",
-  "startScene": "a1ab100e-b89f-43db-b965-8dcb17bd09fc",
+  "startScene": "32c26816-e94f-4b75-a9b1-8880acbee211",
   "excludeScenes": [],
   "orientation": {
     "landscapeLeft": true,

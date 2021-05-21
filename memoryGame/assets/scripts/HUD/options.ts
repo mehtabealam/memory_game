@@ -49,7 +49,6 @@ export default class Options extends cc.Component {
     }
 
     setUpUI (screen : GAME_SCREEN, gameMode: string) {
-        // console.log("game mode", gameMode);
         let mode = GameManager.getInstance().getString(gameMode);
         this.gameMode.string = mode;
         this.deactiveAllNodes();

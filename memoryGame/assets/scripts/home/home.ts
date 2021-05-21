@@ -1,5 +1,5 @@
 import { GameManager } from "../managers/GameManager";
-import { GAME_SCREEN, GAME_MODE, LANGUAGES } from "../helper/constants";
+import { GAME_SCREEN } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 const { ccclass, property } = cc._decorator;
 
@@ -55,9 +55,9 @@ export default class Home extends cc.Component {
           .then((data) => {
             GameManager.getInstance().loadLanaguge().then((data)=>{
               console.log("load langauge");
+              cc.game.emit("onLanguageChanged")
               this.setupUI();
               this.setLevelInfoInLS();
-              cc.game.emit("onLanguageChanged");
             }).catch((error)=>{
               console.log("error");
             })
@@ -71,17 +71,7 @@ export default class Home extends cc.Component {
         console.log("error while loading resources");
       });
 
-    // load images and set button active
-
-    GameManager.getInstance()
-      .loadLevelImages()
-      .then((data) => {
-        console.log("images loaded");
-        // this.setButtonsActive();
-      })
-      .catch((error) => {
-        console.log("erorr", error);
-      });
+    
   }
   start() {
 
@@ -222,7 +212,6 @@ export default class Home extends cc.Component {
     }
 
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-    // console.log("level Info");
     let modes = GameManager.getInstance().getModesInfo();
     for (let mode of modes) {
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;

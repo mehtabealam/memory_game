@@ -42,7 +42,7 @@
             {
                 "cards":[
                     {"name":  "watermelon"},
-                    {"name":  "shoe"},
+                    {"name":  "shoes"},
                     {"name":  "perfume"},
                     {"name":  "cupcake"},
                     {"name":  "flower"},
@@ -66,8 +66,8 @@
                     {"name":  "armchair"},
                     {"name":  "backpack"},
                     {"name":  "cake"},
-                    {"name":  "fball"},
-                    {"name":  "daisy"},
+                    {"name":  "ball"},
+                    {"name":  "flower"},
                     {"name":  "duck"},
                     {"name":  "orange"}
                 ],
@@ -84,14 +84,20 @@
             },
             {
                 "cards":[
-                    {"name":  "sunflower"},
-                    {"name":  "soda"},
-                    {"name":  "ring"},
-                    {"name":  "hamburger"},
-                    {"name":  "dog"},
+                    {"name":  "bag"},
                     {"name":  "chair"},
                     {"name":  "cell"},
-                    {"name":  "bag"}
+                    {"name":  "dog"},
+                    {"name":  "hamburger"},
+                    {"name":  "ring"},
+                    {"name":  "soda"},
+                    {"name":  "sunflower"}
+                 
+           
+                    
+                    
+                   
+                   
                 ],
                 "grid":{
                     "col" : 4,
@@ -126,18 +132,20 @@
             },
             {
                 "cards":[
-                    {"name":  "sucker"},
-                    {"name":  "boot"},
-                    {"name":  "bunny"},
-                    {"name":  "cherry"},
-                    {"name":  "donut"},
-                    {"name":  "hat"},
-                    {"name":  "headphone"},
-                    {"name":  "juice"}
+                    {"name":  "cat"},
+                    {"name":  "clock"},
+                    {"name":  "diamond"},
+                    {"name":  "elephant"},
+                    {"name":  "flower"},
+                    {"name":  "lemon"},
+                    {"name":  "macaron"},
+                    {"name":  "startfish"},
+                    {"name":  "strawberry"},
+                    {"name":  "telephone"}
                 ],
                 "grid":{
                     "col" : 4,
-                    "row":4
+                    "row":5
                 },
                 "timer":{
                   "memorizeTime" : 1,
@@ -173,7 +181,7 @@
                     {"name":  "sofa"},
                     {"name":  "sandwich"},
                     {"name":  "sack"},
-                    {"name":  "organePopstickles"},
+                    {"name":  "paddle"},
                     {"name":  "fruit"},
                     {"name":  "cap"},
                     {"name":  "dog"},
@@ -247,14 +255,14 @@
     "normal":{
         "levels":[
             {
-              "cards":[
-                  {"name":  "strawberry"},
-                  {"name":  "shoe"},
-                  {"name":  "motorcycle"},
-                  {"name":  "icecream"},
-                  {"name":  "flower"},
-                  {"name":  "ball"}
-              ],
+                "cards":[
+                    {"name":  "strawberry"},
+                    {"name":  "shoe"},
+                    {"name":  "motorcycle"},
+                    {"name":  "icecream"},
+                    {"name":  "flower"},
+                    {"name":  "ball"}
+                ],
               "grid":{
                   "col" : 3,
                   "row":4

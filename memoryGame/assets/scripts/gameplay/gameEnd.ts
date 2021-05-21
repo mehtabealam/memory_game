@@ -59,7 +59,10 @@ export default class GameEnd extends cc.Component {
         this._delegate.onPlayAgainCancel();
     }
 
-    showPopUpFor(type : END_POP_UP){
+    showPopUpFor(type : END_POP_UP, level){
+        console.log("end pop up", type, level);
+        this.level.node.getComponent("localiser").replaceValue(`${level+1}`);
+        this.level.node.getComponent("localiser").setStringForKey();
         this.newRecord.active = false;
         this.timesUp.active = false;
         switch(type){
