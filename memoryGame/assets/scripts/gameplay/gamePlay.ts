@@ -102,6 +102,8 @@ export default class GamePlay extends cc.Component {
      }
 
     setUpAlerts (){
+
+        
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
         this.groupOf = gameModeDetails.groupOf;
         this.gameStartAlert = cc.instantiate(this.startPopUp);

@@ -1,4 +1,4 @@
-import { GAME_MODE } from "../helper/constants";
+import { GAME_MODE} from "../helper/constants";
 
 
 
@@ -11,6 +11,7 @@ import { GAME_MODE } from "../helper/constants";
     private _languageData = null;
     private _selectedMode = GAME_MODE.PRACTICE;
     private _currentLevel = 0;
+    private placementId = null;
 
     static getInstance(){
         if(!GameManager._instance){
@@ -19,6 +20,9 @@ import { GAME_MODE } from "../helper/constants";
         return GameManager._instance;
     }
 
+    setAdIds(idObj){
+        this.placementId = idObj;
+    }
 
     loadGameConfig() {
         var target = this;
@@ -185,4 +189,72 @@ import { GAME_MODE } from "../helper/constants";
     getCurrentLevel(){
         return this._currentLevel;
     }
+
+
+    // Ads Managment 
+
+    showBannerAd(){
+            let banner = new cc.Ads.Banner(this.placementId.BANNER,cc.Ads.BANNER_POSITION.ALIGN_PARENT_BOTTOM);
+            banner.on("onAdLoaded", () => {
+                cc.log("banner onAdLoaded");
+                // this.status_tips.string = "banner loaded";
+            }, this);
+    
+            banner.on("onError", (eCode) => {
+                cc.log("banner onError");
+            }, this);
+    
+            banner.on("onAdClicked", () => {
+                cc.log("banner onAdClicked");
+            }, this);
+    
+            // banner.loadAd().then(() => {
+            //     cc.log("banner show-------");
+            // }).catch((e) => {
+            //     this.status_tips.string = "banner reject";
+            //     cc.log("banner reject");
+            // });
+    
+            banner.show().then(() => {
+                cc.log("banner show-------");
+            }).catch((e) => {
+                cc.log("banner reject ", e);
+            });
+    }
+    
+    showInterstitalAds(){
+           let  interstital = new cc.Ads.Interstitial(this.placementId.INTERSTITIAL);
+            // this.interstital = new cc.Ads.Interstitial("1982508651779400_1982509301779335");
+            interstital.on("onInterstitialDisplayed", () => {
+                cc.log("interstital onInterstitialDisplayed");
+                // this.status_tips.string = "onInterstitialDisplayed";
+            });
+    
+            interstital.on("onInterstitialDismissed", () => {
+                cc.log("interstital onInterstitialDismissed");
+                // this.status_tips.string = "onInterstitialDismissed";
+            });
+    
+            interstital.on("onAdClicked", () => {
+                cc.log("interstital onAdClicked");
+                // this.status_tips.string = "onAdClicked";
+            });
+    
+            interstital.on("onError",(error)=>{
+                // this.status_tips.string = "onError";
+            });
+    
+            interstital.loadAd().then(() => {
+                return interstital.show();
+            }).catch((e) => {
+                cc.log("interstital catch", e);
+            });
+     }
+    
+       
+    
+
+
+
+    
 }
