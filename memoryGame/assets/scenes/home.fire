@@ -898,8 +898,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 405.71,
-      "height": 126
+      "width": 284,
+      "height": 88.2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -952,8 +952,8 @@
     "_dstBlendFactor": 771,
     "_string": "How to play",
     "_N$string": "How to play",
-    "_fontSize": 100,
-    "_lineHeight": 100,
+    "_fontSize": 70,
+    "_lineHeight": 70,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -961,7 +961,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1599,7 +1599,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 587.15,
+      "width": 600,
       "height": 113.4
     },
     "_anchorPoint": {
@@ -1653,8 +1653,8 @@
     "_dstBlendFactor": 771,
     "_string": "HOW TO PLAY FIND 2",
     "_N$string": "HOW TO PLAY FIND 2",
-    "_fontSize": 90,
-    "_lineHeight": 90,
+    "_fontSize": 60,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -1662,12 +1662,12 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": "567ImTPexE+73JO7z2MWhU"
   },
@@ -1738,7 +1738,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 800,
-      "height": 675.6
+      "height": 463
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1791,8 +1791,8 @@
     "_dstBlendFactor": 771,
     "_string": "Touch a box to uncover it and see the see the image it hides.\n\n Touch another box to uncover it as well. \n\n If the images match, they will stay face up, otherwise they will be covered again. \n\n Find all the pairs.",
     "_N$string": "Touch a box to uncover it and see the see the image it hides.\n\n Touch another box to uncover it as well. \n\n If the images match, they will stay face up, otherwise they will be covered again. \n\n Find all the pairs.",
-    "_fontSize": 60,
-    "_lineHeight": 60,
+    "_fontSize": 50,
+    "_lineHeight": 50,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -1800,7 +1800,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2042,14 +2042,14 @@
     "_N$string": "ACCEPT",
     "_fontSize": 60,
     "_lineHeight": 60,
-    "_enableWrapText": false,
+    "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -3834,7 +3834,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -4406,8 +4406,8 @@
     "_dstBlendFactor": 771,
     "_string": "Please select you language",
     "_N$string": "Please select you language",
-    "_fontSize": 80,
-    "_lineHeight": 80,
+    "_fontSize": 60,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -4415,7 +4415,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -4708,8 +4708,8 @@
     "_dstBlendFactor": 771,
     "_string": "ENGLISH",
     "_N$string": "ENGLISH",
-    "_fontSize": 160,
-    "_lineHeight": 160,
+    "_fontSize": 130,
+    "_lineHeight": 130,
     "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -4717,7 +4717,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -5095,8 +5095,8 @@
     "_dstBlendFactor": 771,
     "_string": "SPANISH",
     "_N$string": "SPANISH",
-    "_fontSize": 160,
-    "_lineHeight": 160,
+    "_fontSize": 130,
+    "_lineHeight": 130,
     "_enableWrapText": false,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -5104,7 +5104,7 @@
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 1,
+    "_styleFlags": 0,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

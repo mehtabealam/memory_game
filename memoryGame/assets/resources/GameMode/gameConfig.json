@@ -5,6 +5,7 @@
       "timeIncluded": false,
       "level": 10,
       "key": "practice",
+      "groupOf":2,
       "timer":{
         "time":0,
         "timerTitle": "PRACTICE",
@@ -18,6 +19,7 @@
       "timeLimitInSecond": 10,
       "levelCount": 10,
       "key":"normal",
+      "groupOf":3,
       "timer":{
         "time":30,
         "timerTitle": "30",

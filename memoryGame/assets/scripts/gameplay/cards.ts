@@ -78,7 +78,7 @@ export default class Card extends cc.Component {
 
 
     unreveal ( ) {
-        console.log("un reveal animation");
+        // console.log("un reveal animation");
         let callFunc1 = cc.callFunc(function () {
             this.setFaceUp(false);
         }, this);

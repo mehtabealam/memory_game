@@ -32,7 +32,7 @@ import { GAME_MODE } from "../helper/constants";
                         reject(error)
                     }else {
                         target._gameConfig        =   level["json"];
-                        console.log("data loadded", target._gameConfig);
+                        // console.log("data loadded", target._gameConfig);
                         resolve(target._gameConfig);
                     }
                 })
@@ -53,7 +53,7 @@ import { GAME_MODE } from "../helper/constants";
                         reject(error)
                     }else {
                         target._levelsData        =   level["json"];
-                        console.log("data loadded", target._levelsData);
+                        // console.log("data loadded", target._levelsData);
                         resolve(target._levelsData);
                     }
                 })
@@ -73,7 +73,7 @@ import { GAME_MODE } from "../helper/constants";
                         cc.error("langauge data error :" + err);
                     }else{
                         this._languageData = data;
-                        console.log("langauge data", this._languageData);
+                        // console.log("langauge data", this._languageData);
                     }
                     resolve(data);
                 });
@@ -83,10 +83,9 @@ import { GAME_MODE } from "../helper/constants";
 
     // data is in form  ,this._levelImages = { practice {level [images]}}
     loadLevelImages(mode, levelNo): Promise<any> {
-        console.log("Levels/images/${mode}/LEVEL${levelNo + 1", `Levels/images/${mode}/LEVEL${levelNo + 1}`)
         return new Promise((resolve, reject) => {
             if (this._levelImages && this._levelImages.mode && this._levelImages.mode.level[levelNo]) {
-                resolve(this._levelImages.mode.level[levelNo]);
+                resolve(this._levelImages[mode].level[levelNo]);
             } else {
                 cc.loader.loadResDir(`Levels/Images/${mode}/LEVEL${levelNo + 1}` , cc.SpriteFrame, (err: Error, data: any) => {
                     if (err) {
@@ -96,15 +95,15 @@ import { GAME_MODE } from "../helper/constants";
                         if(!this._levelImages){
                             this._levelImages = {};
                         }
-                        if(!this._levelImages.mode){
-                            this._levelImages.mode = {};
-                            this._levelImages.mode.level = [];
+                        if(!this._levelImages[mode]){
+                            this._levelImages[mode] = {};
+                            this._levelImages[mode].level = [];
                         }
-                        this._levelImages.mode.level[levelNo] = data;
+                        this._levelImages[mode].level[levelNo] = data;
                         
-                        console.log("level images", this._levelImages, data);
+                        // console.log("level images", this._levelImages, data);
                     }
-                    resolve(this._levelImages.mode.level[levelNo]);
+                    resolve(this._levelImages[mode].level[levelNo]);
                 });
             }
         });
@@ -112,10 +111,10 @@ import { GAME_MODE } from "../helper/constants";
 
     getSpriteFrame(mode, levelNo, name) {
         if(this._levelImages){
-            let images = this._levelImages.mode.level[levelNo];
-            console.log("images",images );
+            let images = this._levelImages[mode].level[levelNo];
+            // console.log("images",images );
             const spriteFrame = images.find(item => item.name == name);
-            console.log("spriteFrames",spriteFrame, name );
+            // console.log("spriteFrames",spriteFrame, name );
             return spriteFrame;
         }
         
@@ -157,7 +156,7 @@ import { GAME_MODE } from "../helper/constants";
     getString(key:string): string {
         if(this._languageData){
             let language = this._languageData.find(item => item.name == this._currentSelectLanguage);
-            console.log("key", key, language);
+            // console.log("key", key, language);
             return language.json[key];
         }else{
             return "";
@@ -171,4 +170,19 @@ import { GAME_MODE } from "../helper/constants";
 
     }
 
+    setGameMode(mode){
+        this._selectedMode  = mode;
+    }
+    
+    getSelectedMode(){
+        return  this._selectedMode;
+    }
+
+    setCurrentLevel(level){
+     this._currentLevel = level;
+    }
+
+    getCurrentLevel(){
+        return this._currentLevel;
+    }
 }

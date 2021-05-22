@@ -46,35 +46,49 @@ export default class Home extends cc.Component {
   musicClip: cc.AudioClip = null;
 
   onLoad() {
-    GameManager.getInstance()
-      .loadGameConfig()
-      .then((data) => {
-        console.log("data loded successfully", data);
-        GameManager.getInstance()
-          .loadLevels()
-          .then((data) => {
-            GameManager.getInstance().loadLanaguge().then((data)=>{
-              console.log("load langauge");
-              cc.game.emit("onLanguageChanged")
-              this.setupUI();
-              this.setLevelInfoInLS();
-            }).catch((error)=>{
-              console.log("error");
-            })
-           
-          })
-          .catch((error) => {
-            console.log("erorr", error);
-          });
-      })
-      .catch((error) => {
-        console.log("error while loading resources");
-      });
+
+
+    if (!cc.sys.localStorage.getItem("Language")) {
+      cc.sys.localStorage.setItem("Language", "ES");
+    }
+
+    
 
     
   }
   start() {
 
+
+
+    GameManager.getInstance()
+    .loadGameConfig()
+    .then((data) => {
+      console.log("data loded successfully", data);
+      GameManager.getInstance()
+        .loadLevels()
+        .then((data) => {
+          GameManager.getInstance().loadLanaguge().then((data)=>{
+            GameManager.getInstance().changeCurrentLanguage();
+            cc.game.emit("onLanguageChanged");
+            this.setupUI();
+            this.setLevelInfoInLS();
+          }).catch((error)=>{
+            console.log("error");
+          })
+         
+        })
+        .catch((error) => {
+          console.log("erorr", error);
+        });
+    })
+    .catch((error) => {
+      console.log("error while loading resources");
+    });
+
+
+
+
+    
     this.languagePopUp.zIndex = 6;
     cc.debug.setDisplayStats(false);
       SoundManager.getInstance().init(this.musicClip);
@@ -135,6 +149,7 @@ export default class Home extends cc.Component {
   }
 
   onModeSelect(event: Event, mode: string) {
+    GameManager.getInstance().setGameMode(mode);
     console.log("onMode selectons", event, mode);
     this.modeSelectionNode.active = false;
     this.levelSelectionNode.active = true;
@@ -157,6 +172,10 @@ export default class Home extends cc.Component {
     let levels = GameManager.getInstance().getLevelInfo(mode);
     this.scrollViewLayout.node.removeAllChildren();
     console.log("levels ", levels);
+
+    let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
+    let levelsInfoForMode = JSON.parse(levelsInfo[mode]);
+    console.log("levelSInfp for Mode",levelsInfoForMode );
     for (let i = 0; i < levels.length; i++) {
       let button = cc.instantiate(this.levelSelectionButton);
       button.getChildByName("Background").getChildByName("title")
@@ -167,6 +186,7 @@ export default class Home extends cc.Component {
       clickEventHandler.handler = "onLevelSelect";
       clickEventHandler.customEventData = i.toString();
       button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+      button.getComponent(cc.Button).interactable = levelsInfoForMode[i].isUnlock;
       this.scrollViewLayout.node.addChild(button);
     }
   }
@@ -178,6 +198,7 @@ export default class Home extends cc.Component {
       this.gameScreen = GAME_SCREEN.MODE_SELECTION;
     } else {
       this.levelSelectionNode.active = true;
+      this.setLevelSelectionScreen(this.gameMode);
       this.modeSelectionNode.active = false;
       this.gameplayNode.active = false;
       this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
@@ -193,9 +214,10 @@ export default class Home extends cc.Component {
   }
 
   onLevelSelect(event: Event, level: string) {
+    GameManager.getInstance().setCurrentLevel(parseInt(level));
     this.gameScreen = GAME_SCREEN.GAME_PLAY;
     this.levelSelectionNode.active = false;
-    this.modeSelectionNode.active = false;
+    this.modeSelectionNode.active = false
     this.gameplayNode.active = true;
     this.gameplayNode
       .getComponent("gamePlay")
@@ -203,10 +225,20 @@ export default class Home extends cc.Component {
     this.upadteHuds();
   }
 
-
-
-
   setLevelInfoInLS(){
+
+
+
+  /**
+   * 
+   * 
+   * data is stored in this mannor in the local storage
+   * LevelInfo = {
+   * "practice" :[{time :100, isUnlock : true} , ... ]  
+   * "normal" :[{time :100, isUnlock : true} , ... ]  
+   *  * }
+   * 
+   */
     if (!cc.sys.localStorage.getItem("LevelInfo")) {
       cc.sys.localStorage.setItem("LevelInfo", JSON.stringify({}));
     }
@@ -215,24 +247,24 @@ export default class Home extends cc.Component {
     let modes = GameManager.getInstance().getModesInfo();
     for (let mode of modes) {
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
-  
        if(!levelInfo[mode.key]) {
-        console.log("time error",totalLevels);
-         let timeArray = Array(totalLevels).fill(  {time : 100} );
-        levelInfo[mode.key] = JSON.stringify(timeArray);
+         let levelObjectArray = Array(totalLevels).fill(  {...{time : 100, isUnlock : false }} );
+         levelObjectArray[0].isUnlock = true;
+         console.log("levelObjectArray", levelObjectArray, levelObjectArray[0]);
+        levelInfo[mode.key] = JSON.stringify(levelObjectArray); 
        }else{
-         // check if new levels are added in game or removed ;
-         // TODO : how to handle the situation where the level is removed from the middle
          let levelArray = JSON.parse(levelInfo[mode.key]);
          let diff = totalLevels > levelArray.length ? totalLevels - levelArray.length : levelArray.length - totalLevels ;
-         let timeArray = Array(diff).fill({time : 100} );
+         let timeArray = Array(diff).fill(  {...{time : 100, isUnlock : false }} );
          levelArray = levelArray.concat(timeArray);
+         levelArray[0].isUnlock = true;
+
+         console.log("levelObjectArray", levelArray, timeArray);
          levelInfo[mode.key] = JSON.stringify(levelArray);
        }
     }
+    console.log("levelObjectArray", levelInfo);
     cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
-
-    // console.log("level Info");
   }
 
   openLocalisationPopUp(){

@@ -17,6 +17,7 @@ export default class GamePlay extends cc.Component {
     private interval = null;
     private isTouchBlocked = false;
     private totalTime = 0;
+    private groupOf = 2;
     
 
     private progresser = null;
@@ -88,11 +89,8 @@ export default class GamePlay extends cc.Component {
         GameManager.getInstance()
         .loadLevelImages(this.gameMode, this._level)
         .then((data) => {
-          console.log("images loaded", data, this.gameStartAlert.getComponent("gameStart"));
           this.gameStartAlert.getComponent("gameStart").accept.interactable = true;
-          console.log("images loaded", data, this.gameStartAlert.getComponent("gameStart"));
-          this._cards = [...this.levelData.cards, ...this.levelData.cards];  //2x 
-          this.shuffelCards();
+          this.createAndShuffelCards();
           this._gridInfo = this.levelData.grid;
         
           this.setGrid();
@@ -105,6 +103,7 @@ export default class GamePlay extends cc.Component {
 
     setUpAlerts (){
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
+        this.groupOf = gameModeDetails.groupOf;
         this.gameStartAlert = cc.instantiate(this.startPopUp);
         this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode,
              gameModeDetails.title,this.levelData.timer.memorizeTime,
@@ -134,7 +133,13 @@ export default class GamePlay extends cc.Component {
         this.optionLayer.active = false;    
     }
 
-    shuffelCards(){
+    createAndShuffelCards(){
+        this._cards.length =0;
+        for(let i =0; i<this.groupOf; i++){
+            this._cards.push(...this.levelData.cards);
+        }
+    
+        console.log("cards", this._cards);
         for(let index = this._cards.length-1; index>= 0; index--){
             let randomIndex = Math.floor(Math.random() * (index - 0) + 0);
             let swapElement = this._cards[randomIndex];
@@ -168,7 +173,7 @@ export default class GamePlay extends cc.Component {
             target.optionLayer.getComponent("options").updateTimer(this._timer , this.totalTime)
             if(this.gameMode != GAME_MODE.PRACTICE){
                 this.timerBar.progress  = this._timer  / this.totalTime;
-                console.log("progerss", this.timerBar.progress, this.totalTime);
+                // console.log("progerss", this.timerBar.progress, this.totalTime);
                 if(this._timer  == this.totalTime){
                     this.isTouchBlocked = true;
                     clearInterval(this.interval);  
@@ -183,47 +188,61 @@ export default class GamePlay extends cc.Component {
 
     showCard(card){
         console.log("shoow card of the game play", card);
-        if(this.cardsInPair.length >=2 || this.isTouchBlocked){
+        if(this.cardsInPair.length >= this.groupOf || this.isTouchBlocked){
             return;
         }
         card.getComponent("cards").reveal();
         this.cardsInPair.push(card);
-        this.cardsInPair.length == 2 && this.isPair();
+        this.cardsInPair.length == this.groupOf && this.isPair();
     }
 
 
     isPair(){
-        let card1 = this.cardsInPair[0].getComponent('cards')
-        let card2 = this.cardsInPair[1].getComponent('cards')
-        if( card1.getCardName() === card2.getCardName()){
-            if(this.gameMode != GAME_MODE.PRACTICE){
-                
+        let cards = [];
+        cards.length = 0;
+        for(let i=0; i< this.cardsInPair.length; i++){
+            cards.push(this.cardsInPair[i].getComponent('cards'))
+        }
+
+        let isMatch  = true;
+        for(let i =0; i< cards.length - 1; i++ ){
+            if(cards[i].getCardName() !== cards[i+1].getCardName()){
+                isMatch = false;
+                break;
+            }
+
+        }
+        if( isMatch){
+            if(this.gameMode != GAME_MODE.PRACTICE){  
                 this.playBounsAnimation();
                 this.isTouchBlocked = true;
             }else{
                 this.isTouchBlocked = true;
-                this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
-                    card1.playCorrectAnimation();
-                    card2.playCorrectAnimation();
+                this.node.runAction(cc.sequence(cc.delayTime(0.5), cc.callFunc(()=>{
+                   for(let cardScipt of cards){
+                    cardScipt.playCorrectAnimation();
+                   }
                     this.isTouchBlocked = false;
                    })));
 
                
             }
-            this.OpenCards.push(...[card1.getCardName(), card2.getCardName()]);
+            for(let cardScipt of cards){
+                this.OpenCards.push(cardScipt.getCardName());
+               }
             this.cardsInPair.length = 0;
             if(this.OpenCards.length == this._cards.length){
                this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
                 this.endGame(true);
-               })));
-              
+               }))); 
             }
 
         }else{
             let target = this;
             this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
-                this.cardsInPair[0].getComponent('cards').unreveal();
-                this.cardsInPair[1].getComponent('cards').unreveal();
+                for(let cardScipt of cards){
+                    cardScipt.unreveal();
+                }
                 this.cardsInPair.length = 0;
             })));
           
@@ -240,12 +259,15 @@ export default class GamePlay extends cc.Component {
             
             if(levels[this._level].time > this._timer){
                 levels[this._level].time = this._timer;
+                if(this._level < levels.length){
+                    levels[this._level+1].isUnlock = true;
+                }
                 console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo[this.gameMode])[this._level].time);
                 levelInfo[this.gameMode] = JSON.stringify(levels);
                 cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
                 isNewRecord = true;
             }
-            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.NEW_RECORD, this._level);
+            this.gameEndAlert.getComponent("gameEnd").showPopUpFor(isNewRecord ? END_POP_UP.NEW_RECORD: END_POP_UP.CLEARD, this._level);
             this.gameEndAlert.active = true;
         }else{
             this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.FAILED,this._level);
@@ -315,6 +337,9 @@ export default class GamePlay extends cc.Component {
         this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
         this.isTouchBlocked = false;
     }
+
+
+
 
 
 

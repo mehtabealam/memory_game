@@ -35,6 +35,13 @@ export default class GameEnd extends cc.Component {
     @property(cc.Node)
     timesUp : cc.Node = null;
 
+
+
+    @property(cc.Node)
+    passed : cc.Node = null;
+
+
+
     start () {
 
     }
@@ -60,13 +67,14 @@ export default class GameEnd extends cc.Component {
     }
 
     showPopUpFor(type : END_POP_UP, level){
-        console.log("end pop up", type, level);
         this.level.node.getComponent("localiser").replaceValue(`${level+1}`);
         this.level.node.getComponent("localiser").setStringForKey();
         this.newRecord.active = false;
         this.timesUp.active = false;
+        this.passed.active = false;
         switch(type){
             case END_POP_UP.CLEARD: 
+            this.passed.active = true;
                 break;
             case END_POP_UP.FAILED:
                 this.timesUp.active = true;

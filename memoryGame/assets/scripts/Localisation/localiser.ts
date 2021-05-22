@@ -32,7 +32,7 @@ export default class Localiser extends cc.Component {
     }
 
     setStringForKey(){
-        // console.log("ke11y", this.key,  GameManager.getInstance().getString(this.key),this._replaceValue);
+        console.log("ke11y", this.key,  GameManager.getInstance().getString(this.key),this._replaceValue);
         this.node.getComponent(cc.Label).string = GameManager.getInstance().getString(this.key);
         if(this._replaceValue.length > 0){
             let tempString =  this.node.getComponent(cc.Label).string.replace("%s",this._replaceValue );
