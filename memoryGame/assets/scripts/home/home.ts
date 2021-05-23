@@ -177,6 +177,7 @@ export default class Home extends cc.Component {
   //button callbacks:
   showHowToPlayPopUp() {
     this.howToPlayPopUp.active = true;
+    this.howToPlayPopUp.getChildByName("Post").getComponent(cc.Animation).play();
   }
 
   removeHowToPlayPopUp() {
@@ -223,34 +224,13 @@ export default class Home extends cc.Component {
     let offsetPercent = (frame - 1) * (1 / (this.scrollViewLayout.node.childrenCount - 1));
     // this.currentPageIndexInScrollview = pageNo;
     this.scrollView.scrollToPercentHorizontal(offsetPercent,0.01, false);     
+    this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
 
-    console.log(" this.scrollViewLayout.node.getComponent(cc.Widget).isAlignHorizontalCenter", this.scrollViewLayout.node.parent)
-
-
-
-    // console.log("levels ", levels);
-
-    // let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-    // let levelsInfoForMode = JSON.parse(levelsInfo[mode]);
-    // console.log("levelSInfp for Mode",levelsInfoForMode );
-    // for (let i = 0; i < levels.length; i++) {
-    //   let button = cc.instantiate(this.levelSelectionButton);
-    //   button.getChildByName("Background").getChildByName("title")
-    //   .getComponent(cc.Label).getComponent("localiser").replaceValue(`${i+1}`);
-    //   let clickEventHandler = new cc.Component.EventHandler();
-    //   clickEventHandler.target = this.node;
-    //   clickEventHandler.component = "home";
-    //   clickEventHandler.handler = "onLevelSelect";
-    //   clickEventHandler.customEventData = i.toString();
-    //   button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
-    //   button.getComponent(cc.Button).interactable = levelsInfoForMode[i].isUnlock;
-    //   this.scrollViewLayout.node.addChild(button);
-    // }
   }
 
   onBack() {
     if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION) {
-      // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); 
+      // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); EaseBounces
       this.levelSelectionNode.active = false;
       this.modeSelectionNode.active = true;
       this.gameScreen = GAME_SCREEN.MODE_SELECTION;

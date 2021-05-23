@@ -100,7 +100,6 @@ export default class GamePlay extends cc.Component {
           console.log("erorr", error);
         });
      }
-
     setUpAlerts (){
 
         
@@ -290,7 +289,7 @@ export default class GamePlay extends cc.Component {
         this.timerBar.progress = 1;
         let target = this;
         let time = this.levelData.timer.memorizeTime;
-        this.gameStartAlert.active = false;
+        this.gameStartAlert.removeFromParent();
         target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
         target.optionLayer.active = true;
         this.gameLayout.node.active = true;
@@ -311,6 +310,7 @@ export default class GamePlay extends cc.Component {
 
     onPlayAgainCancel(){
         this.gameEndAlert.active = false;
+        this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
 
     }
@@ -318,7 +318,7 @@ export default class GamePlay extends cc.Component {
     gameEnded (){
 
         GameManager.getInstance().showInterstitalAds();
-        this.gameEndAlert.active = false;
+        this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
     }
 

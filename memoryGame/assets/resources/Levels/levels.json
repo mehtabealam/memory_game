@@ -224,6 +224,31 @@
                   "totalTime":0
               }
                
+            },
+            {
+                "cards":[
+                    {"name":  "tree"},
+                    {"name":  "sweater"},
+                    {"name":  "shell"},
+                    {"name":  "pineapple"},
+                    {"name":  "marble"},
+                    {"name":  "honey"},
+                    {"name":  "grapes"},
+                    {"name":  "gift"},
+                    {"name":  "fish"},
+                    {"name":  "dolphin"},
+                    {"name":  "clock"},
+                    {"name":  "balloon"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":6
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              }
+               
             }
            
         ]
