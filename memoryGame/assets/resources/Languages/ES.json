@@ -16,7 +16,7 @@
     "cancel":"CANCELAR",
     "pleaseChoseLanguage" : "Por favor selecciona tu idioma",
     "howToPlayTitle":"¿CÓMO JUGAR A ENCONTRAR 2?",
-    "find": "ENCONTRAR 2",
+    "find": "ENCONTRAR %s",
     "levelCleared": "NIVEL COMPLETADO",
     "congratulations": "FELICIDADES!",
 

@@ -20,8 +20,7 @@ export default class Options extends cc.Component {
     timer: cc.Label = null;
     @property(cc.Label)
     gameMode: cc.Label = null;
-    @property(cc.Label)
-    gameType: cc.Label = null;
+
     @property(cc.Button)
     volume: cc.Button = null;
 
@@ -32,8 +31,7 @@ export default class Options extends cc.Component {
     @property(cc.SpriteFrame)
     volumeDown : cc.SpriteFrame = null;
 
-    @property(cc.Button)
-    localistation: cc.Button = null;
+
 
 
     // LIFE-CYCLE CALLBACKS:
@@ -49,6 +47,8 @@ export default class Options extends cc.Component {
     }
 
     setUpUI (screen : GAME_SCREEN, gameMode: string) {
+        console.log("options", screen, gameMode);
+    
         let mode = GameManager.getInstance().getString(gameMode);
         this.gameMode.string = mode;
         this.deactiveAllNodes();
@@ -59,8 +59,7 @@ export default class Options extends cc.Component {
                 this.volume.node.active = true;
                 break;
             case GAME_SCREEN.LEVEL_SELECTION:
-                this.gameType.node.active = true;
-                this.localistation.node.active = true;
+             
                 break;
              case GAME_SCREEN.GAME_PLAY:
                 this.timer.node.active = true;
@@ -73,9 +72,8 @@ export default class Options extends cc.Component {
         this.selectMode.node.active = false;
         this.timer.node.active = false;
         this.gameMode.node.active = false;
-        this.gameType.node.active = false;
         this.volume.node.active = false; 
-        this.localistation.node.active = false;
+
        
     }
 
@@ -110,10 +108,7 @@ export default class Options extends cc.Component {
     }
 
 
-    openLocalisation(){
-        this._delegateScript.openLocalisationPopUp();
-    }
-
+  
 
 
    

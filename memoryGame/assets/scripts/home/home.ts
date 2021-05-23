@@ -40,7 +40,10 @@ export default class Home extends cc.Component {
   scrollViewLayout: cc.Layout = null;
 
   @property(cc.Prefab)
-  levelSelectionButton: cc.Prefab = null;
+  levelHolderPrefab: cc.Prefab = null;
+
+  @property(cc.ScrollView)
+  scrollView: cc.ScrollView = null;
 
   @property(cc.AudioClip)
   musicClip: cc.AudioClip = null;
@@ -54,9 +57,11 @@ export default class Home extends cc.Component {
   }
   start() {
 
+    this.languagePopUp.zIndex = 7;
+    this.howToPlayPopUp.zIndex =7;
     var animationClips =  this.gameplayNode.getComponent(cc.Animation)
-    console.log("animation clips",animationClips );
-    animationClips.on('finished', this.onLevelAnimationCompleted, this);
+    // console.log("animation clips",animationClips );
+    // animationClips.on('finished', this.onLevelAnimationCompleted, this);
 
     GameManager.getInstance()
     .loadGameConfig()
@@ -84,11 +89,7 @@ export default class Home extends cc.Component {
     });
 
 
-
     GameManager.getInstance().showBannerAd();
-
-    
-    this.languagePopUp.zIndex = 6;
     cc.debug.setDisplayStats(false);
       SoundManager.getInstance().init(this.musicClip);
     if (!cc.sys.localStorage.getItem("Sound")) {
@@ -107,8 +108,8 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
-    this.gameplayNode.zIndex = 5;
-    this.levelSelectionNode.zIndex =5;
+    // this.gameplayNode.zIndex = 5;
+    // this.levelSelectionNode.zIndex =5;
   }
 
   onAnimationEnd (){
@@ -142,7 +143,7 @@ export default class Home extends cc.Component {
       .getComponent("options")
       .setUpUI(this.gameScreen, this.gameMode);
     this.node.addChild(this.opitonLayer);
-    this.opitonLayer.zIndex = 1;
+    this.opitonLayer.zIndex = 5;
   }
 
   setHud() {
@@ -169,7 +170,7 @@ export default class Home extends cc.Component {
     this.setLevelSelectionScreen(this.gameMode);
     this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
     this.upadteHuds();
-    this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
+    // this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
  
   }
 
@@ -185,38 +186,80 @@ export default class Home extends cc.Component {
   setLevelSelectionScreen(mode: string) {
     let levels = GameManager.getInstance().getLevelInfo(mode);
     this.scrollViewLayout.node.removeAllChildren();
-    console.log("levels ", levels);
+
+    let totalFrame = Math.ceil(levels.length / 10);
+    for(let i = 0; i <  totalFrame; i++){
+      let levelHolder = cc.instantiate(this.levelHolderPrefab);
+      levelHolder.getComponent("levelUIManager").setDelegateComponent(this);
+      levelHolder.getComponent("levelUIManager").populateLevels(i * 10);
+      this.scrollViewLayout.node.addChild(levelHolder);
+    }
+
+    if(totalFrame == 1){
+      this.scrollViewLayout.node.children[0].width = 1000;
+      this.scrollViewLayout.node.getComponent(cc.Widget).isAlignHorizontalCenter = true;
+      this.scrollViewLayout.getComponent(cc.Widget).updateAlignment();
+      this.scrollViewLayout.updateLayout();
+    }else{
+      this.scrollViewLayout.node.getComponent(cc.Widget).isAlignHorizontalCenter = false;
+      this.scrollViewLayout.getComponent(cc.Widget).updateAlignment();
+    }
 
     let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
     let levelsInfoForMode = JSON.parse(levelsInfo[mode]);
-    console.log("levelSInfp for Mode",levelsInfoForMode );
-    for (let i = 0; i < levels.length; i++) {
-      let button = cc.instantiate(this.levelSelectionButton);
-      button.getChildByName("Background").getChildByName("title")
-      .getComponent(cc.Label).getComponent("localiser").replaceValue(`${i+1}`);
-      let clickEventHandler = new cc.Component.EventHandler();
-      clickEventHandler.target = this.node;
-      clickEventHandler.component = "home";
-      clickEventHandler.handler = "onLevelSelect";
-      clickEventHandler.customEventData = i.toString();
-      button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
-      button.getComponent(cc.Button).interactable = levelsInfoForMode[i].isUnlock;
-      this.scrollViewLayout.node.addChild(button);
+
+    let lastUnlockedLevel = 0;
+    for(let item of levelsInfoForMode){
+      if(!item.isUnlock){
+        break;
+      }
+      lastUnlockedLevel++;
     }
+
+
+    // move scrollView to last played frame;
+    let frame = Math.ceil(lastUnlockedLevel/10);
+    let offset = this.scrollView.getScrollOffset();
+    let offsetPercent = (frame - 1) * (1 / (this.scrollViewLayout.node.childrenCount - 1));
+    // this.currentPageIndexInScrollview = pageNo;
+    this.scrollView.scrollToPercentHorizontal(offsetPercent,0.01, false);     
+
+    console.log(" this.scrollViewLayout.node.getComponent(cc.Widget).isAlignHorizontalCenter", this.scrollViewLayout.node.parent)
+
+
+
+    // console.log("levels ", levels);
+
+    // let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
+    // let levelsInfoForMode = JSON.parse(levelsInfo[mode]);
+    // console.log("levelSInfp for Mode",levelsInfoForMode );
+    // for (let i = 0; i < levels.length; i++) {
+    //   let button = cc.instantiate(this.levelSelectionButton);
+    //   button.getChildByName("Background").getChildByName("title")
+    //   .getComponent(cc.Label).getComponent("localiser").replaceValue(`${i+1}`);
+    //   let clickEventHandler = new cc.Component.EventHandler();
+    //   clickEventHandler.target = this.node;
+    //   clickEventHandler.component = "home";
+    //   clickEventHandler.handler = "onLevelSelect";
+    //   clickEventHandler.customEventData = i.toString();
+    //   button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+    //   button.getComponent(cc.Button).interactable = levelsInfoForMode[i].isUnlock;
+    //   this.scrollViewLayout.node.addChild(button);
+    // }
   }
 
   onBack() {
     if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION) {
-      this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); 
+      // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); 
+      this.levelSelectionNode.active = false;
       this.modeSelectionNode.active = true;
       this.gameScreen = GAME_SCREEN.MODE_SELECTION;
     } else {
-      this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
-      this.gameplayNode.getComponent(cc.Animation).play("moveOut"); 
       this.levelSelectionNode.active = true;
       this.setLevelSelectionScreen(this.gameMode);
       this.modeSelectionNode.active = false;
-      // this.gameplayNode.active = false;
+      this.gameplayNode.active = false;
+      this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
       
     }
     this.upadteHuds();
@@ -229,23 +272,23 @@ export default class Home extends cc.Component {
     this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
   }
 
-  onLevelSelect(event: Event, level: string) {
+  onLevelSelect( level: string) {
     GameManager.getInstance().setCurrentLevel(parseInt(level));
     this.gameScreen = GAME_SCREEN.GAME_PLAY;
     this.levelSelectionNode.active = false;
     this.modeSelectionNode.active = false
     this.gameplayNode.active = true;
-
-    let anim =  this.gameplayNode.getComponent(cc.Animation).play("gameMoveIn");
+    this.gameplayNode
+    .getComponent("gamePlay")
+    .setUpUI( GameManager.getInstance().getCurrentLevel(), this.gameMode, this.opitonLayer);
+    // let anim =  this.gameplayNode.getComponent(cc.Animation).play("gameMoveIn");
     this.upadteHuds();
   }
 
 
   onLevelAnimationCompleted(){
     if(this.gameScreen == GAME_SCREEN.GAME_PLAY){
-      this.gameplayNode
-      .getComponent("gamePlay")
-      .setUpUI( GameManager.getInstance().getCurrentLevel(), this.gameMode, this.opitonLayer);
+   
     }
   }
 
@@ -271,18 +314,23 @@ export default class Home extends cc.Component {
     let modes = GameManager.getInstance().getModesInfo();
     for (let mode of modes) {
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
+        let levelObj = {time :100, isUnlock : false}
        if(!levelInfo[mode.key]) {
-         let levelObjectArray = Array(totalLevels).fill(  {...{time : 100, isUnlock : false }} );
+        let levelObjectArray =[];
+        for(let i =0; i< totalLevels; i++){
+          levelObjectArray[i] = Object.assign({}, levelObj);
+        }
          levelObjectArray[0].isUnlock = true;
-         console.log("levelObjectArray", levelObjectArray, levelObjectArray[0]);
-        levelInfo[mode.key] = JSON.stringify(levelObjectArray); 
+         console.log(levelObjectArray[0]===levelObjectArray[1]);
+         levelInfo[mode.key] = JSON.stringify(levelObjectArray); 
        }else{
          let levelArray = JSON.parse(levelInfo[mode.key]);
          let diff = totalLevels > levelArray.length ? totalLevels - levelArray.length : levelArray.length - totalLevels ;
-         let timeArray = Array(diff).fill(  {...{time : 100, isUnlock : false }} );
-         levelArray = levelArray.concat(timeArray);
-         levelArray[0].isUnlock = true;
-
+         let timeArray = []
+         for(let i =0; i< diff; i++){
+          timeArray[i] = Object.assign({}, levelObj);
+        }
+        levelArray[0].isUnlock = true;
          console.log("levelObjectArray", levelArray, timeArray);
          levelInfo[mode.key] = JSON.stringify(levelArray);
        }

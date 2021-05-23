@@ -28,6 +28,7 @@ export default class Localiser extends cc.Component {
     }
 
     replaceValue(value){
+        // console.log("value to replace", value,this.key);
         this._replaceValue = value;
     }
 

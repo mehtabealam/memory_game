@@ -194,7 +194,10 @@ import { GAME_MODE} from "../helper/constants";
     // Ads Managment 
 
     showBannerAd(){
+
+        console.log("show BAnner");
             let banner = new cc.Ads.Banner(this.placementId.BANNER,cc.Ads.BANNER_POSITION.ALIGN_PARENT_BOTTOM);
+            // cc.Ads.AdSettings.addTestDevice("808a2024-66bb-4d52-9804-3c905991f2b3");
             banner.on("onAdLoaded", () => {
                 cc.log("banner onAdLoaded");
                 // this.status_tips.string = "banner loaded";
@@ -207,14 +210,7 @@ import { GAME_MODE} from "../helper/constants";
             banner.on("onAdClicked", () => {
                 cc.log("banner onAdClicked");
             }, this);
-    
-            // banner.loadAd().then(() => {
-            //     cc.log("banner show-------");
-            // }).catch((e) => {
-            //     this.status_tips.string = "banner reject";
-            //     cc.log("banner reject");
-            // });
-    
+
             banner.show().then(() => {
                 cc.log("banner show-------");
             }).catch((e) => {

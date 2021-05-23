@@ -316,6 +316,8 @@ export default class GamePlay extends cc.Component {
     }
 
     gameEnded (){
+
+        GameManager.getInstance().showInterstitalAds();
         this.gameEndAlert.active = false;
         this.node.parent.getComponent("home").onBack();
     }

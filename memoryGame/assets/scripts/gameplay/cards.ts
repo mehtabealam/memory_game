@@ -65,6 +65,9 @@ export default class Card extends cc.Component {
     }
 
     reveal( ): void {
+        if(this.animationNode.getNumberOfRunningActions() >=1){
+            return;
+        }
         let callFunc1 = cc.callFunc(function () {
             this.setFaceUp(true);
         }, this);

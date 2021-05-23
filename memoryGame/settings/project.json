@@ -27,7 +27,7 @@
   },
   "clear-simulator-cache": true,
   "facebook": {
-    "appID": "1464934417187154",
+    "appID": "181909579101196",
     "audience": {
       "enable": true
     },
@@ -36,5 +36,5 @@
       "enable": false
     }
   },
-  "last-module-event-record-time": 1621160214997
+  "last-module-event-record-time": 1621780702455
 }
