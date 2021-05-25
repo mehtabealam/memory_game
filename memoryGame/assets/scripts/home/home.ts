@@ -48,6 +48,10 @@ export default class Home extends cc.Component {
   @property(cc.AudioClip)
   musicClip: cc.AudioClip = null;
 
+  @property(cc.Node)
+  moreInfo: cc.Node = null;
+
+
   onLoad() {
        GameManager.getInstance().setAdIds(cc.sys.platform === cc.sys.IPHONE 
         || cc.sys.platform === cc.sys.IPAD ?  PLACEMENT_IDS.IOS : PLACEMENT_IDS.ANDROID);
@@ -59,6 +63,7 @@ export default class Home extends cc.Component {
 
     this.languagePopUp.zIndex = 7;
     this.howToPlayPopUp.zIndex =7;
+    this.moreInfo.zIndex =7;
     var animationClips =  this.gameplayNode.getComponent(cc.Animation)
     // console.log("animation clips",animationClips );
     // animationClips.on('finished', this.onLevelAnimationCompleted, this);
@@ -108,6 +113,8 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
+    sdkbox.PluginShare.init();
+
     // this.gameplayNode.zIndex = 5;
     // this.levelSelectionNode.zIndex =5;
   }
@@ -117,7 +124,7 @@ export default class Home extends cc.Component {
   }
 
   setupModes() {
-    let spaceingY = [150, 100, 50, 20, 10];
+    let spaceingY = [150, 70, 30, 20, 10];
     let modes = GameManager.getInstance().getModesInfo();
     this.modeLayout.spacingY = spaceingY[modes.length - 1];
     for (let mode of modes) {
@@ -323,6 +330,34 @@ export default class Home extends cc.Component {
      this.languagePopUp.active = true;
   }
 
+
+
+  onShare(){
+    var shareInfo = {};
+    shareInfo.text = "# ";
+    shareInfo.title = "sdkbox";
+    //shareInfo.image = "path/to/image"
+   shareInfo.link = "http://www.sdkbox.com";
+   sdkbox.PluginShare.nativeShare(shareInfo);  
+
+  }
+
+  onMoreGames(){
+    cc.sys.openURL("https://play.google.com/store/apps/details?id=com.no.color 6");
+  }
+
+  openMoreInfoPopUp(){
+    console.log('inside this');
+    this.moreInfo.active = true;
+  }
+
+  hideMoreInfoPopUp(){
+    this.moreInfo.active = false;
+  }
+
+  showPrivacyPolicy(){
+    // this.moreInfo.active = false;
+  }
  
 
   // update (dt) {}

@@ -18,11 +18,17 @@ export default class Options extends cc.Component {
     selectMode: cc.Label = null;
     @property(cc.Label)
     timer: cc.Label = null;
+
+
     @property(cc.Label)
     gameMode: cc.Label = null;
 
     @property(cc.Button)
     volume: cc.Button = null;
+
+
+    @property(cc.Button)
+    more: cc.Button = null;
 
     
     @property(cc.SpriteFrame)
@@ -31,12 +37,6 @@ export default class Options extends cc.Component {
     @property(cc.SpriteFrame)
     volumeDown : cc.SpriteFrame = null;
 
-
-
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
 
     start () {
 
@@ -57,6 +57,7 @@ export default class Options extends cc.Component {
             case GAME_SCREEN.MODE_SELECTION:
                 this.selectMode.node.active = true;
                 this.volume.node.active = true;
+                this.more.node.active = true;
                 break;
             case GAME_SCREEN.LEVEL_SELECTION:
              
@@ -73,8 +74,7 @@ export default class Options extends cc.Component {
         this.timer.node.active = false;
         this.gameMode.node.active = false;
         this.volume.node.active = false; 
-
-       
+        this.more.node.active = false;
     }
 
 
@@ -94,6 +94,9 @@ export default class Options extends cc.Component {
         
     }
 
+
+
+
     updateVolumeIcon(){
         let spirte = this.volume.node.getChildByName("Background").getComponent(cc.Sprite) ;
         spirte.spriteFrame = JSON.parse(cc.sys.localStorage.getItem("Sound")) ? this.volumeUp: this.volumeDown;
@@ -107,6 +110,14 @@ export default class Options extends cc.Component {
         this.timer.string = `${timeString}${time}/${totalTime}`;
     }
 
+
+    openModeMenu(){
+        this._delegateScript.openMoreInfoPopUp();
+
+    }
+
+
+    
 
   
 

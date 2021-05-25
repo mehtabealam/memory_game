@@ -19,6 +19,7 @@
     "find": "ENCONTRAR %s",
     "levelCleared": "NIVEL COMPLETADO",
     "congratulations": "FELICIDADES!",
-
+    "share" : "COMPARTIR",
+    "moreGames" : "MÁS JUEGOS",
     "howToPlayTutoiral" : "Toca una caja para descubrirla y ver la imagen que esconde.\n\nToca otra caja para descubrirla también.\n\nSi las imágenes coinciden, se quedarán boca arriba, de lo contrario se taparán de nuevo. \n\nEncuentra todos los pares."
 }
