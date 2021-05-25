@@ -52,6 +52,10 @@ export default class Home extends cc.Component {
   moreInfo: cc.Node = null;
 
 
+  @property(cc.Node)
+  privacyPolicy: cc.Node = null;
+
+
   onLoad() {
        GameManager.getInstance().setAdIds(cc.sys.platform === cc.sys.IPHONE 
         || cc.sys.platform === cc.sys.IPAD ?  PLACEMENT_IDS.IOS : PLACEMENT_IDS.ANDROID);
@@ -64,6 +68,7 @@ export default class Home extends cc.Component {
     this.languagePopUp.zIndex = 7;
     this.howToPlayPopUp.zIndex =7;
     this.moreInfo.zIndex =7;
+    this.privacyPolicy.zIndex = 7;
     var animationClips =  this.gameplayNode.getComponent(cc.Animation)
     // console.log("animation clips",animationClips );
     // animationClips.on('finished', this.onLevelAnimationCompleted, this);
@@ -334,10 +339,10 @@ export default class Home extends cc.Component {
 
   onShare(){
     var shareInfo = {};
-    shareInfo.text = "# ";
-    shareInfo.title = "sdkbox";
+    shareInfo.text = GameManager.getInstance().getString("textToShare");
+    shareInfo.title = GameManager.getInstance().getString("titleOfShare");
     //shareInfo.image = "path/to/image"
-   shareInfo.link = "http://www.sdkbox.com";
+   shareInfo.link = "https://play.google.com/store/apps/details?id=com.no.color 6";  // link of game
    sdkbox.PluginShare.nativeShare(shareInfo);  
 
   }
@@ -356,7 +361,9 @@ export default class Home extends cc.Component {
   }
 
   showPrivacyPolicy(){
-    // this.moreInfo.active = false;
+
+    this.moreInfo.active = false;
+    this.privacyPolicy.active = true;
   }
  
 
