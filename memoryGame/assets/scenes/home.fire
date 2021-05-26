@@ -10801,7 +10801,7 @@
     },
     "component": "",
     "_componentId": "a7156emC5pEy6IYXQVsNTaS",
-    "handler": "banner_click",
+    "handler": "showBanner",
     "customEventData": ""
   },
   {
@@ -11246,7 +11246,7 @@
     },
     "component": "",
     "_componentId": "a7156emC5pEy6IYXQVsNTaS",
-    "handler": "interstital_click",
+    "handler": "showInterstital",
     "customEventData": ""
   },
   {
