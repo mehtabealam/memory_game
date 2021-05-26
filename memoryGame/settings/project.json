@@ -22,12 +22,12 @@
   "simulator-orientation": false,
   "use-customize-simulator": true,
   "simulator-resolution": {
-    "height": 640,
-    "width": 960
+    "width": 960,
+    "height": 640
   },
   "clear-simulator-cache": true,
   "facebook": {
-    "appID": "181909579101196",
+    "appID": "3622523211401262",
     "audience": {
       "enable": true
     },

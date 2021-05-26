@@ -1,5 +1,5 @@
 {
-  "title": "memoryGame",
+  "title": "MemoraMax",
   "packageName": "org.cocos2d.demo",
   "startScene": "32c26816-e94f-4b75-a9b1-8880acbee211",
   "excludeScenes": [],
@@ -7,7 +7,7 @@
     "landscapeLeft": false,
     "landscapeRight": false,
     "portrait": true,
-    "upsideDown": true
+    "upsideDown": false
   },
   "webOrientation": "auto",
   "inlineSpriteFrames": true,
@@ -17,7 +17,7 @@
   "optimizeHotUpdate": true,
   "md5Cache": true,
   "nativeMd5Cache": true,
-  "encryptJs": true,
+  "encryptJs": false,
   "xxteaKey": "6f8e1cc7-2a06-4a",
   "zipCompressJs": true,
   "fb-instant-games": {},
