@@ -1,7 +1,5 @@
 import { GAME_MODE} from "../helper/constants";
 
-
-
  export class GameManager{
     private static  _instance = null;
     private _gameConfig = null;
@@ -195,56 +193,56 @@ import { GAME_MODE} from "../helper/constants";
 
     showBannerAd(){
 
-        console.log("show BAnner");
-            let banner = new cc.Ads.Banner(this.placementId.BANNER,cc.Ads.BANNER_POSITION.ALIGN_PARENT_BOTTOM);
-            // cc.Ads.AdSettings.addTestDevice("808a2024-66bb-4d52-9804-3c905991f2b3");
-            banner.on("onAdLoaded", () => {
-                cc.log("banner onAdLoaded");
-                // this.status_tips.string = "banner loaded";
-            }, this);
+        // console.log("show BAnner");
+        //     let banner = new cc.Ads.Banner(this.placementId.BANNER,cc.Ads.BANNER_POSITION.ALIGN_PARENT_BOTTOM);
+        //     // cc.Ads.AdSettings.addTestDevice("808a2024-66bb-4d52-9804-3c905991f2b3");
+        //     banner.on("onAdLoaded", () => {
+        //         cc.log("banner onAdLoaded");
+        //         // this.status_tips.string = "banner loaded";
+        //     }, this);
     
-            banner.on("onError", (eCode) => {
-                cc.log("banner onError");
-            }, this);
+        //     banner.on("onError", (eCode) => {
+        //         cc.log("banner onError");
+        //     }, this);
     
-            banner.on("onAdClicked", () => {
-                cc.log("banner onAdClicked");
-            }, this);
+        //     banner.on("onAdClicked", () => {
+        //         cc.log("banner onAdClicked");
+        //     }, this);
 
-            banner.show().then(() => {
-                cc.log("banner show-------");
-            }).catch((e) => {
-                cc.log("banner reject ", e);
-            });
+        //     banner.show().then(() => {
+        //         cc.log("banner show-------");
+        //     }).catch((e) => {
+        //         cc.log("banner reject ", e);
+        //     });
     }
     
     showInterstitalAds(){
-           let  interstital = new cc.Ads.Interstitial(this.placementId.INTERSTITIAL);
-            // this.interstital = new cc.Ads.Interstitial("1982508651779400_1982509301779335");
-            interstital.on("onInterstitialDisplayed", () => {
-                cc.log("interstital onInterstitialDisplayed");
-                // this.status_tips.string = "onInterstitialDisplayed";
-            });
+        //    let  interstital = new cc.Ads.Interstitial(this.placementId.INTERSTITIAL);
+        //     // this.interstital = new cc.Ads.Interstitial("1982508651779400_1982509301779335");
+        //     interstital.on("onInterstitialDisplayed", () => {
+        //         cc.log("interstital onInterstitialDisplayed");
+        //         // this.status_tips.string = "onInterstitialDisplayed";
+        //     });
     
-            interstital.on("onInterstitialDismissed", () => {
-                cc.log("interstital onInterstitialDismissed");
-                // this.status_tips.string = "onInterstitialDismissed";
-            });
+        //     interstital.on("onInterstitialDismissed", () => {
+        //         cc.log("interstital onInterstitialDismissed");
+        //         // this.status_tips.string = "onInterstitialDismissed";
+        //     });
     
-            interstital.on("onAdClicked", () => {
-                cc.log("interstital onAdClicked");
-                // this.status_tips.string = "onAdClicked";
-            });
+        //     interstital.on("onAdClicked", () => {
+        //         cc.log("interstital onAdClicked");
+        //         // this.status_tips.string = "onAdClicked";
+        //     });
     
-            interstital.on("onError",(error)=>{
-                // this.status_tips.string = "onError";
-            });
+        //     interstital.on("onError",(error)=>{
+        //         // this.status_tips.string = "onError";
+        //     });
     
-            interstital.loadAd().then(() => {
-                return interstital.show();
-            }).catch((e) => {
-                cc.log("interstital catch", e);
-            });
+        //     interstital.loadAd().then(() => {
+        //         return interstital.show();
+        //     }).catch((e) => {
+        //         cc.log("interstital catch", e);
+        //     });
      }
     
        
