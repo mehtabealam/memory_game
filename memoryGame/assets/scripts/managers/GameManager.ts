@@ -124,7 +124,7 @@ import { GAME_MODE} from "../helper/constants";
     }
 
 
-    getModesInfo () {
+    public getModesInfo () {
         if(this._gameConfig){
             return this._gameConfig["gameMode"];
         }

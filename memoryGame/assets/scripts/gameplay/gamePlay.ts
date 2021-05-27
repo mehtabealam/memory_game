@@ -220,6 +220,8 @@ export default class GamePlay extends cc.Component {
         this.cardsInPair.push(card);
         this.cardsInPair.length > 1 && this.isPair();
     }
+
+    
     isPair(){
         let cards = [];
         cards.length = 0;
@@ -277,6 +279,7 @@ export default class GamePlay extends cc.Component {
           
         }
 
+        console.log("play sound", this.correctAnswerAudio, isMatch);
         this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc( ()=>{
             let clip = isMatch ? this.correctAnswerAudio : this.wrongAnswerAudiodFlip;
             SoundManager.getInstance().playEffect(clip, false);
@@ -321,8 +324,8 @@ export default class GamePlay extends cc.Component {
     onPlayAgain (){
         this.gameEndAlert.active = false;
         this.node.parent.getComponent("home").onBack();
-        console.log("level", this._level.toString);
-        this.node.parent.getComponent("home").onLevelSelect(null, this._level.toString());
+        console.log("level", this._level.toString());
+        this.node.parent.getComponent("home").onLevelSelect( this._level.toString());
     }
 
     
@@ -365,7 +368,7 @@ export default class GamePlay extends cc.Component {
     }
 
     // ANIMATION CALLBACKS :
-
+1
     playBounsAnimation(){
         console.log("inside this play bouns animation");
         this.bouns.node.active = true;

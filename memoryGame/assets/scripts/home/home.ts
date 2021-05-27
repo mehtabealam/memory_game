@@ -116,7 +116,7 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
-    // sdkbox.PluginShare.init();
+    sdkbox.PluginShare.init();
 
     // this.gameplayNode.zIndex = 5;
     // this.levelSelectionNode.zIndex =5;
@@ -129,6 +129,7 @@ export default class Home extends cc.Component {
   setupModes() {
     let spaceingY = [150, 70, 30, 20, 10];
     let modes = GameManager.getInstance().getModesInfo();
+    console.log("modes", modes);
     this.modeLayout.spacingY = spaceingY[modes.length - 1];
     for (let mode of modes) {
       let button = cc.instantiate(this.gameModeBtn);
@@ -248,10 +249,10 @@ export default class Home extends cc.Component {
       this.modeSelectionNode.active = true;
       this.gameScreen = GAME_SCREEN.MODE_SELECTION;
     } else {
+      this.gameplayNode.active = false;
       this.levelSelectionNode.active = true;
       this.setLevelSelectionScreen(this.gameMode);
       this.modeSelectionNode.active = false;
-      this.gameplayNode.active = false;
       this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
       
     }
@@ -286,7 +287,6 @@ export default class Home extends cc.Component {
     }
   }
 
-  setLevelInfoInLS(){
   /**
    * 
    * 
@@ -298,11 +298,15 @@ export default class Home extends cc.Component {
    * 
    */
 
+  setLevelInfoInLS(){
+
+
     if (!cc.sys.localStorage.getItem("LevelInfo")) {
       cc.sys.localStorage.setItem("LevelInfo", JSON.stringify({}));
     }
 
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
+    
     let modes = GameManager.getInstance().getModesInfo();
     for (let mode of modes) {
     
@@ -311,24 +315,43 @@ export default class Home extends cc.Component {
        if(!levelInfo[mode.key]) {
         let levelObjectArray =[];
         for(let i = 0; i< totalLevels; i++){
-          levelObjectArray[i] = Object.assign({}, levelObj);
+          levelObjectArray[i] = Object.assign({id: i}, levelObj);
         }
          levelObjectArray[0].isUnlock = true;
          console.log(levelObjectArray[0]===levelObjectArray[1]);
          levelInfo[mode.key] = JSON.stringify(levelObjectArray); 
        }else{
+
+        // New Level added in the json file
          let levelArray = JSON.parse(levelInfo[mode.key]);
-         let diff = totalLevels > levelArray.length ? totalLevels - levelArray.length : levelArray.length - totalLevels ;
-         let timeArray = []
-         for(let i =0; i< diff; i++){
-          timeArray[i] = Object.assign({}, levelObj);
-        }
-        levelArray.push(...timeArray);
-        levelArray[0].isUnlock = true;
-         console.log("levelObjectArray", levelArray, timeArray);
-         levelInfo[mode.key] = JSON.stringify(levelArray);
+         if(levelArray.length < totalLevels){
+          let difference = GameManager.getInstance().getLevelInfo(mode.key).filter(item => ! levelArray.some(data => data.id == item.id));
+          let timeArray = [];
+          for(let i =0; i< difference.length; i++){
+           timeArray[i] = Object.assign({id :difference[i].id }, levelObj);
+          }
+          console.log("time ArraY", timeArray);
+          levelArray.push(...timeArray);
+          console.log("time ArraY", levelArray);
+          
+        }else{
+          // OLD Level removed from the json file
+          let difference = levelArray.filter(item => ! GameManager.getInstance().getLevelInfo(mode.key).some(data => data.id == item.id));
+          console.log("difference", difference);
+          for(let i = 0; i< difference.length; i++){
+            let index = levelArray.findIndex(item => item.id == difference[i].id);
+            console.log("index", index);
+            if(index !=-1){
+               levelArray.splice(index, 1);
+            }
+           }
+         }
+          console.log("level Daata", levelArray);
+          levelArray[0].isUnlock = true;
+          levelInfo[mode.key] = JSON.stringify(levelArray);
+         }
+       
        }
-    }
     console.log("levelObjectArray", levelInfo);
     cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
   }

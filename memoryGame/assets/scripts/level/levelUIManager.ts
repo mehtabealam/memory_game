@@ -62,9 +62,11 @@ export default class LevelUIManager extends cc.Component {
             if(levelsInfoForMode[i].isUnlock){
                 button.getChildByName("Background").getComponent("cc.Sprite").spriteFrame = this.unlocked;
                 button.getChildByName("lock").active = false;
+                button.getComponent(cc.Button).interactable = true;
             }else{
                 button.getChildByName("Background").getComponent("cc.Sprite").spriteFrame = this.locked;
                 button.getChildByName("lock").active = true;
+                button.getComponent(cc.Button).interactable = false;
             }
             this.layout.node.addChild(button);
           }
