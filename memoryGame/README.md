@@ -76,6 +76,9 @@ Here # means the numeric value to be replaced
 
 
 ## How to change Add Ids
+
+   Open cocos creator and in the Projet chose project settings In project setting chose services and change AppID to yours app id 
+
    In the FacebookAudiance.js file change the ids of  BANNER, INTERSTITIAL, which is present in the PLACEMENT_IDS. Change ids based on the device you want to show ads on ANDROID or IOS 
 
 FacebookAudiance.js is present in 
