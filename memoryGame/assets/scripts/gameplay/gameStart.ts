@@ -1,4 +1,5 @@
 import { GAME_MODE } from "../helper/constants";
+import SoundManager from "../managers/SoundManager";
 
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
@@ -25,6 +26,10 @@ export default class GameStart extends cc.Component {
 
     @property(cc.Button)
     accept : cc.Button = null
+
+
+    @property(cc.AudioClip)
+    buttonPressed : cc.AudioClip = null;
 
     start () {
 
@@ -53,6 +58,7 @@ export default class GameStart extends cc.Component {
 
 
     onAccept(){
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
         this._delegate.startGame();
 
     }

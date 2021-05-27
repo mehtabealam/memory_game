@@ -1,6 +1,7 @@
 
 import {GameManager} from "../managers/GameManager"
 import { GAME_MODE, END_POP_UP } from "../helper/constants";
+import SoundManager from "../managers/SoundManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -46,6 +47,27 @@ export default class GamePlay extends cc.Component {
     @property(cc.Prefab)
     gameEndPopUp = null;
 
+
+    @property(cc.AudioClip)
+    correctAnswerAudio: cc.AudioClip = null;
+
+
+
+    @property(cc.AudioClip)
+    wrongAnswerAudiodFlip: cc.AudioClip = null;
+
+
+    @property(cc.AudioClip)
+    last5Sec: cc.AudioClip = null;
+
+
+    @property(cc.AudioClip)
+    clapping: cc.AudioClip = null;
+
+    @property(cc.AudioClip)
+    timesUp: cc.AudioClip = null;
+
+
     
 
     // LIFE-CYCLE CALLBACKS:
@@ -78,7 +100,7 @@ export default class GamePlay extends cc.Component {
         this._level = level;
         this.levelData = GameManager.getInstance().getLevelData(this._level , this.gameMode);
         this.optionLayer = optionRef;
-        console.log("called 1000 times");
+        console.log("called 1000 times", this.levelData , this._level );
         this.setUpAlerts();
         this.loadLevelImages();
         
@@ -87,14 +109,16 @@ export default class GamePlay extends cc.Component {
     }
      loadLevelImages(){
         GameManager.getInstance()
-        .loadLevelImages(this.gameMode, this._level)
+        .loadLevelImages(this._level)
         .then((data) => {
           this.gameStartAlert.getComponent("gameStart").accept.interactable = true;
+          this.groupOf =  this.levelData.groupOf;
           this.createAndShuffelCards();
           this._gridInfo = this.levelData.grid;
         
           this.setGrid();
           this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
+          
         })
         .catch((error) => {
           console.log("erorr", error);
@@ -102,12 +126,10 @@ export default class GamePlay extends cc.Component {
      }
     setUpAlerts (){
 
-        
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
-        this.groupOf = gameModeDetails.groupOf;
         this.gameStartAlert = cc.instantiate(this.startPopUp);
         this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode,
-             gameModeDetails.title,this.levelData.timer.memorizeTime,
+             gameModeDetails.title, this.levelData.timer.memorizeTime,
              this.levelData.timer.bounsTime );
         this.gameEndAlert = cc.instantiate(this.gameEndPopUp);
         
@@ -165,16 +187,19 @@ export default class GamePlay extends cc.Component {
             this.timerBar.progress = 0;
             this.timerBar.totalLength = this.timerBar.node.width;
         }
-        console.log("total length", this.timerBar.totalLength);
+       
         this._timer = 0;
         let target = this;
         this.totalTime = this.levelData.timer.totalTime;
+        console.log("total length", this.timerBar.totalLength, this.levelData.timer.totalTime);
         this.interval = setInterval(()=>{
             this._timer++;
             target.optionLayer.getComponent("options").updateTimer(this._timer , this.totalTime)
             if(this.gameMode != GAME_MODE.PRACTICE){
                 this.timerBar.progress  = this._timer  / this.totalTime;
-                // console.log("progerss", this.timerBar.progress, this.totalTime);
+                Math.abs(this._timer  - this.totalTime) == 5
+                 && 
+                SoundManager.getInstance().playEffect(this.last5Sec, false);
                 if(this._timer  == this.totalTime){
                     this.isTouchBlocked = true;
                     clearInterval(this.interval);  
@@ -183,21 +208,20 @@ export default class GamePlay extends cc.Component {
             }
             
         }, 1000);
-
     }
 
 
     showCard(card){
-        console.log("shoow card of the game play", card);
+        // console.log("shoow card of the game play", card);
         if(this.cardsInPair.length >= this.groupOf || this.isTouchBlocked){
             return;
         }
         card.getComponent("cards").reveal();
         this.cardsInPair.push(card);
-        this.cardsInPair.length == this.groupOf && this.isPair();
+        this.cardsInPair.length > 1 && this.isPair();
     }
 
-
+    
     isPair(){
         let cards = [];
         cards.length = 0;
@@ -213,7 +237,11 @@ export default class GamePlay extends cc.Component {
             }
 
         }
-        if( isMatch){
+        if( isMatch ){
+            if(this.cardsInPair.length != this.groupOf){
+                return;
+            }
+
             if(this.gameMode != GAME_MODE.PRACTICE){  
                 this.playBounsAnimation();
                 this.isTouchBlocked = true;
@@ -240,24 +268,33 @@ export default class GamePlay extends cc.Component {
 
         }else{
             let target = this;
+            this.isTouchBlocked = true;
             this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
                 for(let cardScipt of cards){
                     cardScipt.unreveal();
+                    this.isTouchBlocked = false;
                 }
                 this.cardsInPair.length = 0;
             })));
           
         }
+
+        console.log("play sound", this.correctAnswerAudio, isMatch);
+        this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc( ()=>{
+            let clip = isMatch ? this.correctAnswerAudio : this.wrongAnswerAudiodFlip;
+            SoundManager.getInstance().playEffect(clip, false);
+        })));
     }
 
 
     endGame (isWon) {
+         SoundManager.getInstance().stopAllSounds();
         clearInterval(this.interval);
         if(isWon){
             let isNewRecord = false;
             let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
             let levels =  JSON.parse(levelInfo[this.gameMode]);
-            
+            // SoundManager.getInstance().playEffect(this.clapping, false);
             if(levels[this._level].time > this._timer){
                 levels[this._level].time = this._timer;
                 if(this._level < levels.length){
@@ -271,16 +308,24 @@ export default class GamePlay extends cc.Component {
             this.gameEndAlert.getComponent("gameEnd").showPopUpFor(isNewRecord ? END_POP_UP.NEW_RECORD: END_POP_UP.CLEARD, this._level);
             this.gameEndAlert.active = true;
         }else{
+            // SoundManager.getInstance().playEffect(this.timesUp, false);
             this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.FAILED,this._level);
             this.gameEndAlert.active = true;
         }
+
+        this.node.runAction(cc.sequence(cc.delayTime(0.5), cc.callFunc( ()=>{
+            let clip = isWon ? this.clapping : this.timesUp;
+            SoundManager.getInstance().playEffect(clip, false);
+        })));
+        
     }
 
     // pop ups DELEGATE METHODS 
     onPlayAgain (){
         this.gameEndAlert.active = false;
         this.node.parent.getComponent("home").onBack();
-        this.node.parent.getComponent("home").onLevelSelect(null, this._level.toString());
+        console.log("level", this._level.toString());
+        this.node.parent.getComponent("home").onLevelSelect( this._level.toString());
     }
 
     
@@ -323,7 +368,7 @@ export default class GamePlay extends cc.Component {
     }
 
     // ANIMATION CALLBACKS :
-
+1
     playBounsAnimation(){
         console.log("inside this play bouns animation");
         this.bouns.node.active = true;

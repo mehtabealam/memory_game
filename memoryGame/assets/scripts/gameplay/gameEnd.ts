@@ -1,4 +1,5 @@
 import { GAME_MODE, END_POP_UP } from "../helper/constants";
+import SoundManager from "../managers/SoundManager";
 
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
@@ -40,6 +41,8 @@ export default class GameEnd extends cc.Component {
     @property(cc.Node)
     passed : cc.Node = null;
 
+    @property(cc.AudioClip)
+    buttonPressed : cc.AudioClip = null;
 
 
     start () {
@@ -54,15 +57,18 @@ export default class GameEnd extends cc.Component {
 
 
     onAccept(){
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
         this._delegate.gameEnded();
 
     }
 
     onPlayAgain (){
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
         this._delegate.onPlayAgain();
     }
 
     onCancel(){
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
         this._delegate.onPlayAgainCancel();
     }
 

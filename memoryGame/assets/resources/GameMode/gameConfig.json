@@ -3,7 +3,7 @@
     {
       "title": "PRACTICE",
       "timeIncluded": false,
-      "level": 10,
+      "level": 20,
       "key": "practice",
       "groupOf":2,
       "timer":{
@@ -17,7 +17,7 @@
       "title": "NORMAL",
       "timeIncluded": true,
       "timeLimitInSecond": 10,
-      "levelCount": 10,
+      "level": 20,
       "key":"normal",
       "groupOf":3,
       "timer":{

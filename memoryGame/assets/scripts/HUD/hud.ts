@@ -18,6 +18,16 @@ export default class HUD extends cc.Component {
     @property(cc.Button)
     volume: cc.Button = null;
 
+    @property(cc.Label)
+    selectMode: cc.Label = null;
+
+    @property(cc.Button)
+    back: cc.Button = null;
+
+    @property(cc.AudioClip)
+    backButtonAudio : cc.AudioClip = null;
+
+
     private delegate;
 
 
@@ -30,16 +40,17 @@ export default class HUD extends cc.Component {
     }
 
     onBack(){
+        SoundManager.getInstance().playEffect(this.backButtonAudio, false);
         this.delegate.onBack();
     }
 
 
     changeVolume(event : Event){
         if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
-            SoundManager.getInstance().stopMusic();
+            SoundManager.getInstance().stopAllSounds();
             cc.sys.localStorage.setItem("Sound", false);      
         }else{
-             SoundManager.getInstance().playMusic(true);
+            //  SoundManager.getInstance().playMusic(true);
              cc.sys.localStorage.setItem("Sound", true)
              
         }
@@ -52,11 +63,15 @@ export default class HUD extends cc.Component {
         // console.log("option error in setVisibility", gameScreen);    
         switch(gameScreen){
             case GAME_SCREEN.MODE_SELECTION:
-                this.node.active = false;
+                this.volume.node.active = true;
+                this.back.node.active = false;
+                this.selectMode.node.active = true;
                 break;
             case GAME_SCREEN.LEVEL_SELECTION:
             case GAME_SCREEN.GAME_PLAY:
-                this.node.active = true;
+                this.volume.node.active = true;
+                this.back.node.active = true;
+                this.selectMode.node.active = false;
                 break;
             default:
                 console.log("option error in setVisibility");    
