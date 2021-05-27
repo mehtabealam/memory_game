@@ -24,6 +24,9 @@ export default class HUD extends cc.Component {
     @property(cc.Button)
     back: cc.Button = null;
 
+    @property(cc.AudioClip)
+    backButtonAudio : cc.AudioClip = null;
+
 
     private delegate;
 
@@ -37,16 +40,17 @@ export default class HUD extends cc.Component {
     }
 
     onBack(){
+        SoundManager.getInstance().playEffect(this.backButtonAudio, false);
         this.delegate.onBack();
     }
 
 
     changeVolume(event : Event){
         if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){
-            SoundManager.getInstance().stopMusic();
+            SoundManager.getInstance().stopAllSounds();
             cc.sys.localStorage.setItem("Sound", false);      
         }else{
-             SoundManager.getInstance().playMusic(true);
+            //  SoundManager.getInstance().playMusic(true);
              cc.sys.localStorage.setItem("Sound", true)
              
         }

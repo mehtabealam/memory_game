@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import { GameManager } from "../managers/GameManager";
+import SoundManager from "../managers/SoundManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -16,6 +17,8 @@ export default class PrivacyPolicy extends cc.Component {
     label: cc.Label = null;
 
     
+  @property(cc.AudioClip)
+  buttonPressed: cc.Node = null;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -41,6 +44,7 @@ export default class PrivacyPolicy extends cc.Component {
 
     onBackAnimationEnd(){
         console.log("called");
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
         this.node.active = false;
     }
     // update (dt) {}

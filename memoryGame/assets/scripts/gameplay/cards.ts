@@ -1,4 +1,5 @@
 import {GameManager} from "../managers/GameManager";
+import SoundManager from "../managers/SoundManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -21,6 +22,16 @@ export default class Card extends cc.Component {
 
     @property(cc.Sprite)
     front: cc.Sprite = null;
+
+    @property(cc.AudioClip)
+    cardFlip: cc.Node = null;
+
+
+  
+
+
+
+
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -65,16 +76,19 @@ export default class Card extends cc.Component {
     }
 
     reveal( ): void {
-        if(this.animationNode.getNumberOfRunningActions() >=1){
+        if(this._isOpen){
             return;
         }
+
+        SoundManager.getInstance().playEffect(this.cardFlip,false);
         let callFunc1 = cc.callFunc(function () {
             this.setFaceUp(true);
         }, this);
         let callFunc2 = cc.callFunc(function () {
             // callFunc();
         }, this);
-        let initialScale = this.animationNode.scale;
+        let initialScale = 1;
+        // console.log("initialScale", initialScale);
         let revealAction = cc.sequence(cc.scaleTo(0.1, 0, this.node.scale), callFunc1, cc.scaleTo(0.1, initialScale, initialScale));
         this.animationNode.runAction(revealAction);
     }

@@ -1,5 +1,5 @@
 import { GameManager } from "../managers/GameManager";
-import { GAME_SCREEN, PLACEMENT_IDS } from "../helper/constants";
+import { GAME_MODE, GAME_SCREEN, PLACEMENT_IDS } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 const { ccclass, property } = cc._decorator;
 
@@ -55,6 +55,9 @@ export default class Home extends cc.Component {
   @property(cc.Node)
   privacyPolicy: cc.Node = null;
 
+  @property(cc.AudioClip)
+  buttonPressed: cc.Node = null;
+
 
   onLoad() {
        GameManager.getInstance().setAdIds(cc.sys.platform === cc.sys.IPHONE 
@@ -86,7 +89,7 @@ export default class Home extends cc.Component {
             this.setupUI();
             this.setLevelInfoInLS();
           }).catch((error)=>{
-            console.log("error");
+            console.log("error", error);
           })
          
         })
@@ -99,17 +102,12 @@ export default class Home extends cc.Component {
     });
 
 
-    GameManager.getInstance().showBannerAd();
+    // GameManager.getInstance().showBannerAd();
     cc.debug.setDisplayStats(false);
       SoundManager.getInstance().init(this.musicClip);
     if (!cc.sys.localStorage.getItem("Sound")) {
       cc.sys.localStorage.setItem("Sound", false);
-    } else {
-      if (JSON.parse(cc.sys.localStorage.getItem("Sound"))) {
-        SoundManager.getInstance().playMusic(true);
-      }
-    }
-
+    } 
   }
 
   setupUI() {
@@ -118,7 +116,7 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
-    sdkbox.PluginShare.init();
+    // sdkbox.PluginShare.init();
 
     // this.gameplayNode.zIndex = 5;
     // this.levelSelectionNode.zIndex =5;
@@ -167,6 +165,7 @@ export default class Home extends cc.Component {
   }
 
   onModeSelect(event: Event, mode: string) {
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     GameManager.getInstance().setGameMode(mode);
     console.log("onMode selectons", event, mode);
     this.modeSelectionNode.active = false;
@@ -188,11 +187,13 @@ export default class Home extends cc.Component {
 
   //button callbacks:
   showHowToPlayPopUp() {
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     this.howToPlayPopUp.active = true;
     this.howToPlayPopUp.getChildByName("Post").getComponent(cc.Animation).play();
   }
 
   removeHowToPlayPopUp() {
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     this.howToPlayPopUp.active = false;
   }
 
@@ -235,7 +236,7 @@ export default class Home extends cc.Component {
     let offset = this.scrollView.getScrollOffset();
     let offsetPercent = (frame - 1) * (1 / (this.scrollViewLayout.node.childrenCount - 1));
     // this.currentPageIndexInScrollview = pageNo;
-    this.scrollView.scrollToPercentHorizontal(offsetPercent,0.01, false);     
+    // this.scrollView.scrollToPercentHorizontal(offsetPercent,0.01, false);     
     this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
 
   }
@@ -265,6 +266,7 @@ export default class Home extends cc.Component {
   }
 
   onLevelSelect( level: string) {
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     GameManager.getInstance().setCurrentLevel(parseInt(level));
     this.gameScreen = GAME_SCREEN.GAME_PLAY;
     this.levelSelectionNode.active = false;
@@ -285,9 +287,6 @@ export default class Home extends cc.Component {
   }
 
   setLevelInfoInLS(){
-
-
-
   /**
    * 
    * 
@@ -298,6 +297,7 @@ export default class Home extends cc.Component {
    *  * }
    * 
    */
+
     if (!cc.sys.localStorage.getItem("LevelInfo")) {
       cc.sys.localStorage.setItem("LevelInfo", JSON.stringify({}));
     }
@@ -305,11 +305,12 @@ export default class Home extends cc.Component {
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
     let modes = GameManager.getInstance().getModesInfo();
     for (let mode of modes) {
+    
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
-        let levelObj = {time :100, isUnlock : false}
+        let levelObj = {time :500, isUnlock : mode.key == GAME_MODE.PRACTICE}
        if(!levelInfo[mode.key]) {
         let levelObjectArray =[];
-        for(let i =0; i< totalLevels; i++){
+        for(let i = 0; i< totalLevels; i++){
           levelObjectArray[i] = Object.assign({}, levelObj);
         }
          levelObjectArray[0].isUnlock = true;
@@ -322,6 +323,7 @@ export default class Home extends cc.Component {
          for(let i =0; i< diff; i++){
           timeArray[i] = Object.assign({}, levelObj);
         }
+        levelArray.push(...timeArray);
         levelArray[0].isUnlock = true;
          console.log("levelObjectArray", levelArray, timeArray);
          levelInfo[mode.key] = JSON.stringify(levelArray);
@@ -332,12 +334,14 @@ export default class Home extends cc.Component {
   }
 
   openLocalisationPopUp(){
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
      this.languagePopUp.active = true;
   }
 
 
 
   onShare(){
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     var shareInfo = {};
     shareInfo.text = GameManager.getInstance().getString("textToShare");
     shareInfo.title = GameManager.getInstance().getString("titleOfShare");
@@ -348,20 +352,23 @@ export default class Home extends cc.Component {
   }
 
   onMoreGames(){
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     cc.sys.openURL("https://play.google.com/store/apps/details?id=com.no.color 6");
   }
 
   openMoreInfoPopUp(){
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     console.log('inside this');
     this.moreInfo.active = true;
   }
 
   hideMoreInfoPopUp(){
+    // SoundManager.getInstance().playEffect(this.buttonPressed, false);
     this.moreInfo.active = false;
   }
 
   showPrivacyPolicy(){
-
+    SoundManager.getInstance().playEffect(this.buttonPressed, false);
     this.moreInfo.active = false;
     this.privacyPolicy.active = true;
   }

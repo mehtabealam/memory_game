@@ -17,7 +17,8 @@
               "timer":{
                 "memorizeTime" : 5,
                 "totalTime":0
-            }
+            },
+            "groupOf" :2
              
             },
             {
@@ -36,7 +37,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
                
             },
             {
@@ -57,7 +59,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
                
             },
             {
@@ -79,7 +82,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
                
             },
             {
@@ -92,12 +96,6 @@
                     {"name":  "ring"},
                     {"name":  "soda"},
                     {"name":  "sunflower"}
-                 
-           
-                    
-                    
-                   
-                   
                 ],
                 "grid":{
                     "col" : 4,
@@ -106,8 +104,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
-               
+              },
+              "groupOf" :2   
             },
             {
                 "cards":[
@@ -127,7 +125,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
                
             },
             {
@@ -150,7 +149,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
                
             },
             {
@@ -173,7 +173,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
             },
             {
                 "cards":[
@@ -197,7 +198,8 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :2
                
             },
             {
@@ -222,23 +224,178 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf":2
                
             },
             {
                 "cards":[
-                    {"name":  "tree"},
-                    {"name":  "sweater"},
-                    {"name":  "shell"},
-                    {"name":  "pineapple"},
-                    {"name":  "marble"},
-                    {"name":  "honey"},
-                    {"name":  "grapes"},
-                    {"name":  "gift"},
-                    {"name":  "fish"},
-                    {"name":  "dolphin"},
+                    {"name":  "banana"},
+                    {"name":  "car"},
+                    {"name":  "cat"},
+                    {"name":  "cookie"}
+                ],
+              "grid":{
+                  "col" : 3,
+                  "row":4
+              },
+              "timer":{
+                "memorizeTime" : 5,
+                "totalTime":0
+                
+            },
+            "groupOf" :3
+             
+            },
+            {
+                "cards":[
+                    {"name":  "duck"},
+                    {"name":  "flower"},
+                    {"name":  "kiwi"},
+                    {"name":  "lemon"}
+                ],
+
+
+                "grid":{
+                    "col" : 3,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+                
+              },
+              "groupOf" :3
+               
+            },
+            {
+                "cards":[
+                    {"name":  "basket"},
+                    {"name":  "chocolate"},
+                    {"name":  "monkey"},
+                    {"name":  "taco"}
+                ],
+
+
+                "grid":{
+                    "col" : 3,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
+               
+            }, 
+            {
+                "cards":[
+                    {"name":  "avocado"},
+                    {"name":  "broccoli"},
+                    {"name":  "car"},
+                    {"name":  "cupcake"},
+                    {"name":  "shoes"}
+                ],
+
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
+               
+            },
+            {
+                "cards":[
+                    {"name":  "butterfly"},
+                    {"name":  "cradle"},
+                    {"name":  "focus"},
+                    {"name":  "ring"},
+                    {"name":  "sushi"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
+               
+            },
+            {
+                "cards":[
+                    {"name":  "coffee"},
+                    {"name":  "giraffe"},
+                    {"name":  "lemonade"},
+                    {"name":  "letter"},
+                    {"name":  "popcorn"}
+                   
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
+               
+            },
+            {
+                "cards":[
+                    {"name":  "apple"},
+                    {"name":  "bee"},
+                    {"name":  "bird"},
                     {"name":  "clock"},
-                    {"name":  "balloon"}
+                    {"name":  "given"},
+                    {"name":  "heart"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
+               
+            },
+            {
+                "cards":[
+                    {"name":  "ball"},
+                    {"name":  "cactus"},
+                    {"name":  "chair"},
+                    {"name":  "dog"},
+                    {"name":  "flowers"},
+                    {"name":  "tomato"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":5
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
+            },
+            {
+                "cards":[
+                    {"name":  "basket"},
+                    {"name":  "hearts"},
+                    {"name":  "candle"},
+                    {"name":  "key"},
+                    {"name":  "notepad"},
+                    {"name":  "sunflower"},
+                    {"name":  "turtle"},
+                    {"name":  "wine"}
                 ],
                 "grid":{
                     "col" : 4,
@@ -247,7 +404,30 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":0
-              }
+              },
+              "groupOf" :3
+               
+            },
+            {
+                "cards":[
+                    {"name":  "basket"},
+                    {"name":  "cat"},
+                    {"name":  "dove"},
+                    {"name":  "flowers"},
+                    {"name":  "gifts"},
+                    {"name":  "kettle"},
+                    {"name":  "squirrel"},
+                    {"name":  "stone"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":6
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":0
+              },
+              "groupOf" :3
                
             }
            
@@ -255,6 +435,243 @@
     },
     "normal":{
         "levels":[
+            {
+              "cards":[
+                  {"name":  "strawberry"},
+                  {"name":  "shoe"},
+                  {"name":  "motorcycle"},
+                  {"name":  "icecream"},
+                  {"name":  "flower"},
+                  {"name":  "ball"}
+              ],
+              "grid":{
+                  "col" : 3,
+                  "row":4
+              },
+              "timer":{
+                "memorizeTime" : 5,
+                "totalTime":30,
+                "bounsTime":5
+            },
+            "groupOf" :2
+             
+            },
+            {
+                "cards":[
+                    {"name":  "umbrella"},
+                    {"name":  "t-shirt"},
+                    {"name":  "nail"},
+                    {"name":  "lipstick"},
+                    {"name":  "handle"},
+                    {"name":  "chocolate"}
+                ],
+                "grid":{
+                    "col" : 3,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "watermelon"},
+                    {"name":  "shoes"},
+                    {"name":  "perfume"},
+                    {"name":  "cupcake"},
+                    {"name":  "flower"},
+                    {"name":  "cat"}
+                ],
+
+
+                "grid":{
+                    "col" : 3,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "paddle"},
+                    {"name":  "armchair"},
+                    {"name":  "backpack"},
+                    {"name":  "cake"},
+                    {"name":  "ball"},
+                    {"name":  "flower"},
+                    {"name":  "duck"},
+                    {"name":  "orange"}
+                ],
+
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "bag"},
+                    {"name":  "chair"},
+                    {"name":  "cell"},
+                    {"name":  "dog"},
+                    {"name":  "hamburger"},
+                    {"name":  "ring"},
+                    {"name":  "soda"},
+                    {"name":  "sunflower"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "sucker"},
+                    {"name":  "boot"},
+                    {"name":  "bunny"},
+                    {"name":  "cherry"},
+                    {"name":  "donut"},
+                    {"name":  "hat"},
+                    {"name":  "headphone"},
+                    {"name":  "juice"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "cat"},
+                    {"name":  "clock"},
+                    {"name":  "diamond"},
+                    {"name":  "elephant"},
+                    {"name":  "flowers"},
+                    {"name":  "lemon"},
+                    {"name":  "macaron"},
+                    {"name":  "starfish"},
+                    {"name":  "strawberry"},
+                    {"name":  "telephone"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":5
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "sushi"},
+                    {"name":  "squirrel"},
+                    {"name":  "sphere"},
+                    {"name":  "perfume"},
+                    {"name":  "flower"},
+                    {"name":  "cookie"},
+                    {"name":  "coconut"},
+                    {"name":  "branch"},
+                    {"name":  "blackberry"},
+                    {"name":  "bicycle"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":5
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+            },
+            {
+                "cards":[
+                    {"name":  "weigh"},
+                    {"name":  "sofa"},
+                    {"name":  "sandwich"},
+                    {"name":  "sack"},
+                    {"name":  "paddle"},
+                    {"name":  "fruit"},
+                    {"name":  "cap"},
+                    {"name":  "dog"},
+                    {"name":  "cup"},
+                    {"name":  "bow"},
+                    {"name":  "bear"},
+                    {"name":  "apple"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":6
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "cards":[
+                    {"name":  "tree"},
+                    {"name":  "sweater"},
+                    {"name":  "shell"},
+                    {"name":  "pineapple"},
+                    {"name":  "marble"},
+                    {"name":  "honey"},
+                    {"name":  "grapes"},
+                    {"name":  "gift"},
+                    {"name":  "fish"},
+                    {"name":  "dolphin"},
+                    {"name":  "clock"},
+                    {"name":  "balloon"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":6
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+            },
             {
                 "cards":[
                     {"name":  "banana"},
@@ -270,7 +687,8 @@
                 "memorizeTime" : 5,
                 "totalTime":30,
                 "bounsTime":5
-            }
+            },
+            "groupOf" :3
              
             },
             {
@@ -290,7 +708,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             },
             {
@@ -310,7 +729,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             }, 
             {
@@ -330,7 +750,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             },
             {
@@ -349,7 +770,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              } 
+              },
+              "groupOf" :3
                
             },
             {
@@ -369,7 +791,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             },
             {
@@ -389,7 +812,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             },
             {
@@ -409,7 +833,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
             },
             {
                 "cards":[
@@ -430,7 +855,8 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             },
             {
@@ -452,9 +878,11 @@
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
-              }
+              },
+              "groupOf" :3
                
             }
+           
         ]
 
     }

@@ -14,7 +14,7 @@
   {
     "__type__": "cc.Node",
     "_name": "card",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": null,
     "_children": [
       {
@@ -561,6 +561,9 @@
     },
     "front": {
       "__id__": 4
+    },
+    "cardFlip": {
+      "__uuid__": "18fb010b-795e-4535-a637-8b7df2d6a393"
     },
     "_id": ""
   },

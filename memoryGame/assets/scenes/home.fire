@@ -4762,6 +4762,21 @@
     "gameEndPopUp": {
       "__uuid__": "85f66795-5119-4b73-9c9a-1347c01b38f8"
     },
+    "correctAnswerAudio": {
+      "__uuid__": "379094fd-42f7-4126-9dcd-761916d54c11"
+    },
+    "wrongAnswerAudiodFlip": {
+      "__uuid__": "fd931db9-8cc1-4c38-8fed-5896a659be51"
+    },
+    "last5Sec": {
+      "__uuid__": "921287fd-3c01-4e8d-9f3e-f4b02b44f67a"
+    },
+    "clapping": {
+      "__uuid__": "c46c32c4-2091-46d0-b481-12131a000b85"
+    },
+    "timesUp": {
+      "__uuid__": "9691f7df-7192-4e65-b2f2-e7ebbad13766"
+    },
     "_id": "a1grrr8dlPIJrVzzKqVSWl"
   },
   {
@@ -6177,6 +6192,9 @@
       "__id__": 117
     },
     "_enabled": true,
+    "buttonPressed": {
+      "__uuid__": "f92da3d2-9179-4f93-b6ee-6074714e3588"
+    },
     "_id": "d6RERmGh5H8JeuHFr8dPw4"
   },
   {
@@ -10385,6 +10403,9 @@
     "label": {
       "__id__": 225
     },
+    "buttonPressed": {
+      "__uuid__": "f92da3d2-9179-4f93-b6ee-6074714e3588"
+    },
     "_id": "e4HcrXR5pDoor3PW/3b8E9"
   },
   {
@@ -10483,6 +10504,9 @@
     },
     "privacyPolicy": {
       "__id__": 213
+    },
+    "buttonPressed": {
+      "__uuid__": "f92da3d2-9179-4f93-b6ee-6074714e3588"
     },
     "_id": "6enYGZulRFbo5m4GVqrUTA"
   }
