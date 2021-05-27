@@ -323,6 +323,7 @@ export default class GamePlay extends cc.Component {
     // pop ups DELEGATE METHODS 
     onPlayAgain (){
         this.gameEndAlert.active = false;
+        this.node.parent.getComponent("FacebookAudiance").showInterstital();
         this.node.parent.getComponent("home").onBack();
         console.log("level", this._level.toString());
         this.node.parent.getComponent("home").onLevelSelect( this._level.toString());
@@ -354,6 +355,8 @@ export default class GamePlay extends cc.Component {
 
 
     onPlayAgainCancel(){
+       //MARK : SHOW INTERSTIAL ADS;
+       this.node.parent.getComponent("FacebookAudiance").showInterstital();
         this.gameEndAlert.active = false;
         this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
@@ -361,8 +364,7 @@ export default class GamePlay extends cc.Component {
     }
 
     gameEnded (){
-
-        GameManager.getInstance().showInterstitalAds();
+        this.node.parent.getComponent("FacebookAudiance").showInterstital();
         this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
     }

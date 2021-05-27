@@ -1,5 +1,5 @@
 import { GameManager } from "../managers/GameManager";
-import { GAME_MODE, GAME_SCREEN, PLACEMENT_IDS } from "../helper/constants";
+import { GAME_MODE, GAME_SCREEN } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 const { ccclass, property } = cc._decorator;
 
@@ -60,8 +60,7 @@ export default class Home extends cc.Component {
 
 
   onLoad() {
-       GameManager.getInstance().setAdIds(cc.sys.platform === cc.sys.IPHONE 
-        || cc.sys.platform === cc.sys.IPAD ?  PLACEMENT_IDS.IOS : PLACEMENT_IDS.ANDROID);
+
     if (!cc.sys.localStorage.getItem("Language")) {
       cc.sys.localStorage.setItem("Language", "ES");
     }  
@@ -116,6 +115,9 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
+
+    // MARK: SHOWING BANNER ADS
+    this.node.getComponent("FacebookAudiance").showBanner();
     sdkbox.PluginShare.init();
 
     // this.gameplayNode.zIndex = 5;
@@ -249,6 +251,8 @@ export default class Home extends cc.Component {
       this.modeSelectionNode.active = true;
       this.gameScreen = GAME_SCREEN.MODE_SELECTION;
     } else {
+
+
       this.gameplayNode.active = false;
       this.levelSelectionNode.active = true;
       this.setLevelSelectionScreen(this.gameMode);
