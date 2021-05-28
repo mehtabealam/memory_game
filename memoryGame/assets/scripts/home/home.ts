@@ -1,5 +1,5 @@
 import { GameManager } from "../managers/GameManager";
-import { GAME_MODE, GAME_SCREEN } from "../helper/constants";
+import { GAME_MODE, GAME_SCREEN, GAME_LINK } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 const { ccclass, property } = cc._decorator;
 
@@ -118,7 +118,11 @@ export default class Home extends cc.Component {
 
     // MARK: SHOWING BANNER ADS
     this.node.getComponent("FacebookAudiance").showBanner();
-    sdkbox.PluginShare.init();
+    if(cc.sys.isMobile){
+      sdkbox.PluginShare.init();
+    }
+    
+    
 
     // this.gameplayNode.zIndex = 5;
     // this.levelSelectionNode.zIndex =5;
@@ -368,19 +372,22 @@ export default class Home extends cc.Component {
 
 
   onShare(){
+    if(cc.sys.isBrowser){
+      return;
+    }
     SoundManager.getInstance().playEffect(this.buttonPressed, false);
     var shareInfo = {};
     shareInfo.text = GameManager.getInstance().getString("textToShare");
     shareInfo.title = GameManager.getInstance().getString("titleOfShare");
     //shareInfo.image = "path/to/image"
-   shareInfo.link = "https://play.google.com/store/apps/details?id=com.no.color 6";  // link of game
+   shareInfo.link = GAME_LINK.URL ;  // link of game
    sdkbox.PluginShare.nativeShare(shareInfo);  
 
   }
 
   onMoreGames(){
     SoundManager.getInstance().playEffect(this.buttonPressed, false);
-    cc.sys.openURL("https://play.google.com/store/apps/details?id=com.no.color 6");
+    cc.sys.openURL(GAME_LINK.URL);
   }
 
   openMoreInfoPopUp(){

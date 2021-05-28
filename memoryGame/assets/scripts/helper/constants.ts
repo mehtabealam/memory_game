@@ -31,3 +31,6 @@ export const LANGUAGES = {
     SPANISH : "ES"
 }
 
+export const GAME_LINK ={
+    URL : "https://play.google.com/store/apps/details?id=com.no.color 6"
+}
