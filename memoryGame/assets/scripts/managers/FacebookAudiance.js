@@ -47,7 +47,7 @@ cc.Class({
         }, this.node);
 
         banner.on("onError", (eCode) => {
-            cc.log("banner onError");
+            console.log("banner onError", eCode);
         }, this.node);
 
         banner.on("onAdClicked", () => {
