@@ -21,17 +21,25 @@ let PLACEMENT_IDS = {
 };
 cc.Class({
     extends: cc.Component,
-
     onLoad () {
+        //skip ads on browsers
+        if(cc.sys.isBrowser)
+            return;
+
         this.placementId = PLACEMENT_IDS.ANDROID;
 
         cc.log("platform is ",cc.sys.platform,cc.sys.IPAD);
         if (cc.sys.platform === cc.sys.IPHONE || cc.sys.platform === cc.sys.IPAD) {
             this.placementId = PLACEMENT_IDS.IOS;
         }
+        this.schedule(this.loadInterstitial, 5, cc.macro.REPEAT_FOREVER, 0);
     },
 
     showBanner(event){
+        //skip ads on browsers
+        if(cc.sys.isBrowser)
+            return;
+
         let banner = new cc.Ads.Banner(this.placementId.BANNER,cc.Ads.BANNER_POSITION.ALIGN_PARENT_BOTTOM);
         this.banner = banner;
         banner.on("onAdLoaded", () => {
@@ -57,7 +65,7 @@ cc.Class({
         this.banner.destroy();
     },
 
-    showInterstital(){
+    loadInterstitial(){
         this.interstital = new cc.Ads.Interstitial(this.placementId.INTERSTITIAL);
         this.interstital.on("onInterstitialDisplayed", () => {
             cc.log("interstital onInterstitialDisplayed");
@@ -76,9 +84,18 @@ cc.Class({
         });
 
         this.interstital.loadAd().then(() => {
-            return this.interstital.show();
+            this.isInterstitialLoaded = true;
         }).catch((e) => {
             cc.log("interstital catch", e);
         });
+    },
+
+    showInterstital(){
+        //skip ads on browsers
+        if(cc.sys.isBrowser)
+            return;
+        if(this.isInterstitialLoaded){     
+            this.interstital.show();
+        }
     }
 });

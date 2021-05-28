@@ -5,14 +5,9 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Localiser extends cc.Component {
-
-
     private _replaceValue : string = "";
     @property({type :String, tooltip : "key of string that to be localise"})
     key = "";
-
-
-
 
     onLoad(){
         // console.log("on start", this.key);
@@ -21,10 +16,6 @@ export default class Localiser extends cc.Component {
             this.setStringForKey();
         } )
         this.setStringForKey();
-    }
-
-    start(){
-        
     }
 
     replaceValue(value){
@@ -38,17 +29,6 @@ export default class Localiser extends cc.Component {
         if(this._replaceValue.length > 0){
             let tempString =  this.node.getComponent(cc.Label).string.replace("%s",this._replaceValue );
             this.node.getComponent(cc.Label).string = tempString;
-        }
-     
-       
+        }  
     }
-
-    
-
-   
-
-
-
-
-
 }
