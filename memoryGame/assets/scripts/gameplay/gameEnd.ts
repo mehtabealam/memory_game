@@ -1,4 +1,5 @@
 import { GAME_MODE, END_POP_UP } from "../helper/constants";
+import { GameManager } from "../managers/GameManager";
 import SoundManager from "../managers/SoundManager";
 
 // Learn TypeScript:
@@ -75,6 +76,11 @@ export default class GameEnd extends cc.Component {
     showPopUpFor(type : END_POP_UP, level){
         this.level.node.getComponent("localiser").replaceValue(`${level+1}`);
         this.level.node.getComponent("localiser").setStringForKey();
+
+        let currentMode  = GameManager.getInstance().getSelectedMode();
+        console.log("current mode", currentMode);
+        this.mode.string = GameManager.getInstance().getString(currentMode);
+
         this.newRecord.active = false;
         this.timesUp.active = false;
         this.passed.active = false;

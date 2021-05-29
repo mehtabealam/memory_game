@@ -158,7 +158,7 @@ export default class Home extends cc.Component {
     this.modeLayout.spacingY = spaceingY[modes.length - 1];
     for (let mode of modes) {
       let button = cc.instantiate(this.gameModeBtn);
-      console.log("button has been created");
+      
       button.getChildByName("title").getComponent(cc.Label).string = mode.title;
       button.getChildByName("title").getComponent("localiser").key = mode.key;
       let clickEventHandler = new cc.Component.EventHandler();
@@ -166,6 +166,7 @@ export default class Home extends cc.Component {
       clickEventHandler.component = "home";
       clickEventHandler.handler = "onModeSelect";
       clickEventHandler.customEventData = mode.key;
+      console.log("button has been created",mode.key );
       button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
       this.modeLayout.node.addChild(button);
     }
@@ -191,6 +192,7 @@ export default class Home extends cc.Component {
   }
 
   onModeSelect(event: Event, mode: string) {
+    console.log("mode", mode);
     SoundManager.getInstance().playEffect(this.buttonPressed, false);
     GameManager.getInstance().setGameMode(mode);
     console.log("onMode selectons", event, mode);
@@ -340,7 +342,7 @@ export default class Home extends cc.Component {
     for (let mode of modes) {
     
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
-        let levelObj = {time :500, isUnlock : mode.key == GAME_MODE.PRACTICE}
+        let levelObj = {time :500, isUnlock : false}
        if(!levelInfo[mode.key]) {
         let levelObjectArray =[];
         for(let i = 0; i< totalLevels; i++){
