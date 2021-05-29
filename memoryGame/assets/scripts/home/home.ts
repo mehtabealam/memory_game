@@ -133,7 +133,6 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
-   
 
     // MARK: SHOWING BANNER ADS
     this.node.getComponent("FacebookAudiance").showBanner();

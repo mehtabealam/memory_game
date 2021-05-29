@@ -128,8 +128,11 @@ export default class GamePlay extends cc.Component {
 
         let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
         this.gameStartAlert = cc.instantiate(this.startPopUp);
+        let timerTitle =  this.gameMode == GAME_MODE.PRACTICE ? 
+        GameManager.getInstance().getString(GameManager.getInstance().getSelectedMode()):
+        `${this.levelData.timer.totalTime}s`
         this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode,
-             gameModeDetails.title, this.levelData.timer.memorizeTime,
+            timerTitle, this.levelData.timer.memorizeTime,
              this.levelData.timer.bounsTime );
         this.gameEndAlert = cc.instantiate(this.gameEndPopUp);
         

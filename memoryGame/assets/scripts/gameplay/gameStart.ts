@@ -1,4 +1,5 @@
 import { GAME_MODE } from "../helper/constants";
+import { GameManager } from "../managers/GameManager";
 import SoundManager from "../managers/SoundManager";
 
 // Learn TypeScript:
@@ -36,7 +37,7 @@ export default class GameStart extends cc.Component {
     }
 
     setProperties(delegate, gameMode, timerTitle, memoriseTime, bouns ){
-        console.log("set properties",timerTitle,gameMode );
+        console.log("set properties",timerTitle ,gameMode );
         this._delegate = delegate;
         switch(gameMode){
             case GAME_MODE.PRACTICE:
@@ -46,6 +47,7 @@ export default class GameStart extends cc.Component {
             this.prize.node.active = true;    
         }
 
+      
         this.timer.getComponent('localiser').replaceValue(`${timerTitle}`);
         this.instraction.getComponent('localiser').replaceValue(`${memoriseTime}`);
         this.prize.getComponent('localiser').replaceValue(`${bouns}`);
