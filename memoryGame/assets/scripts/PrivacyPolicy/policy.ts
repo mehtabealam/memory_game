@@ -25,16 +25,35 @@ export default class PrivacyPolicy extends cc.Component {
     // onLoad () {}
 
     start () {
-        console.log("om start called");
-        this.label.string = GameManager.getInstance().getString("privacyInformation");
+        console.log("on start called");
+
 
     }
 
     onEnable(){
-        this.node.opacity = 255;
         this.node.getComponent(cc.Animation).play("moveIn");
-       
+        this.node.runAction(cc.sequence(cc.delayTime(0),cc.callFunc(()=>{
+            this.setString();
+           
+        })))
+        
+        // let ans = "";
+        // for(let item of stringArray){
+        //     ans += item;
+        // }
+
     }
+
+    onInAnimationEnd(){
+        
+    }
+
+
+    setString(){
+        let   stringArray= GameManager.getInstance().getString("privacyInformation");
+        this.label.string = stringArray;      
+    }
+
 
 
     onBack(){

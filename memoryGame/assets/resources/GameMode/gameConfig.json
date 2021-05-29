@@ -30,6 +30,6 @@
    
   ],
 
-  "supportedLanguages" :["EN", "ES"]
- 
+  "supportedLanguages" :["EN", "ES"],
+  "isMoreGameAvilable" : false
 }

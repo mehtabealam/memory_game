@@ -58,6 +58,12 @@ export default class Home extends cc.Component {
   @property(cc.AudioClip)
   buttonPressed: cc.Node = null;
 
+  @property(cc.Node)
+  bottomBar: cc.Node = null;
+
+  // @property(cc.Node)
+  // loaderNode: cc.Node = null;
+
 
   onLoad() {
 
@@ -107,6 +113,18 @@ export default class Home extends cc.Component {
     if (!cc.sys.localStorage.getItem("Sound")) {
       cc.sys.localStorage.setItem("Sound", false);
     } 
+
+
+    if(cc.sys.isMobile){
+      console.log("inside this event handel");
+      cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, (ev) => {
+        console.log("inSide this 120  line number", ev.keyCode);
+        if (ev.keyCode === cc.macro.KEY.back) {
+           this.onBack();
+        }
+      })
+    }
+
   }
 
   setupUI() {
@@ -115,6 +133,7 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
+   
 
     // MARK: SHOWING BANNER ADS
     this.node.getComponent("FacebookAudiance").showBanner();
@@ -188,6 +207,7 @@ export default class Home extends cc.Component {
     this.setLevelSelectionScreen(this.gameMode);
     this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
     this.upadteHuds();
+    this.enabledMoreGamesButton(  GameManager.getInstance().getGameConfiguration().isMoreGameAvilable);
     // this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
  
   }
@@ -249,22 +269,23 @@ export default class Home extends cc.Component {
   }
 
   onBack() {
-    if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION) {
-      // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); EaseBounces
-      this.levelSelectionNode.active = false;
-      this.modeSelectionNode.active = true;
-      this.gameScreen = GAME_SCREEN.MODE_SELECTION;
-    } else {
+      if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION ) {
+        // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); EaseBounces
+        this.levelSelectionNode.active = false;
+        this.modeSelectionNode.active = true;
+        this.gameScreen = GAME_SCREEN.MODE_SELECTION;
+        this.upadteHuds();
+      } else if(this.gameScreen == GAME_SCREEN.GAME_PLAY){
+        this.gameplayNode.active = false;
+        this.levelSelectionNode.active = true;
+        this.setLevelSelectionScreen(this.gameMode);
+        this.modeSelectionNode.active = false;
+        this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
+        this.upadteHuds(); 
+      }else{
+        cc.game.end()
+      }
 
-
-      this.gameplayNode.active = false;
-      this.levelSelectionNode.active = true;
-      this.setLevelSelectionScreen(this.gameMode);
-      this.modeSelectionNode.active = false;
-      this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
-      
-    }
-    this.upadteHuds();
   }
 
   upadteHuds() {
@@ -402,11 +423,25 @@ export default class Home extends cc.Component {
   }
 
   showPrivacyPolicy(){
+    // this.playLoader();
     SoundManager.getInstance().playEffect(this.buttonPressed, false);
     this.moreInfo.active = false;
     this.privacyPolicy.active = true;
   }
+
+  enabledMoreGamesButton(isActive){
+    this.moreInfo.getChildByName("Background").getChildByName("buttonLayout").getChildByName("moreGames").active = isActive;
+    this.bottomBar.getChildByName("moreGames").active = isActive;
+  }
  
+  // playLoader(){
+  //   this.loaderNode.active = true;
+  //   this.loaderNode.getChildByName("loadingImage").getComponent(cc.Animation).play();
+  // }
+
+  // stopLoader(){
+  //   this.loaderNode.active = false;
+  // }
 
   // update (dt) {}
 }
