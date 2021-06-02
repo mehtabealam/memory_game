@@ -138,6 +138,7 @@ export default class Home extends cc.Component {
     this.modeSelectionNode.zIndex = 5;
     this.futureDetails = cc.instantiate(this.futureDetailsPrefab);
     this.futureDetails.zIndex = 6;
+    this.futureDetails.active = false;
     this.futureDetails.getComponent("gameFutureDetails").setDelegatScript(this);
     this.node.addChild( this.futureDetails)
   
