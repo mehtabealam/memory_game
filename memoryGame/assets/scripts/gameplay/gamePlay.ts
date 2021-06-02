@@ -300,7 +300,7 @@ export default class GamePlay extends cc.Component {
             // SoundManager.getInstance().playEffect(this.clapping, false);
             if(levels[this._level].time > this._timer){
                 levels[this._level].time = this._timer;
-                if(this._level < levels.length){
+                if(this._level < levels.length-1){
                     levels[this._level+1].isUnlock = true;
                 }
                 console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo[this.gameMode])[this._level].time);
@@ -369,7 +369,17 @@ export default class GamePlay extends cc.Component {
     gameEnded (){
         this.node.parent.getComponent("FacebookAudiance").showInterstital();
         this.gameEndAlert.removeFromParent();
-        this.node.parent.getComponent("home").onBack();
+        let level = GameManager.getInstance().getCurrentLevel();
+        let totalLevelInMode = GameManager.getInstance().getLevelInfo(this.gameMode);
+        console.log("level", level == totalLevelInMode.length -1 )
+        if(level == totalLevelInMode.length -1){
+        this.node.parent.getComponent("home").showFutureDetailsScreen();
+        }else{
+            this.node.parent.getComponent("home").onBack();
+        }
+       
+        
+        
     }
 
     // ANIMATION CALLBACKS :
@@ -391,6 +401,9 @@ export default class GamePlay extends cc.Component {
         this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
         this.isTouchBlocked = false;
     }
+
+
+    
 
 
 

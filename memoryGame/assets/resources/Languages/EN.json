@@ -15,7 +15,7 @@
     "backToPlay": "DO YOU WANT TO KEEP PLAYING",
     "cancel":"CANCEL",
     "pleaseChoseLanguage" : "Please select your language",
-    "howToPlayTitle":"HOW TO PLAY FIND 2",
+    "howToPlayTitle":"HOW TO PLAY  MEMORA MAX",
     "find": "FIND %s",
     "levelCleared": "LEVEL CLEARED",
     "congratulations": "CONGRATULATIONS!",
@@ -25,6 +25,8 @@
     "privacyPolicyTitle" : "PRIVACY POLICY",
     "textToShare" : "Memora Max",
     "titleOfShare": "Enjoying playing Memora Max share it with your loved ones",
+    "newLevelsUpdation" : "We are creating new levels, soon the will be available for you.",
+    "backToLevelSelection": "BACK TO PLAY",
     "howToPlayTutoiral" : "Touch a box to uncover it and see the see the image it hides.\n\nTouch another box to uncover it as well.\n\nIf the images match, they will stay face up, otherwise they will be covered again. \n\nFind all the pairs.",
     "privacyInformation" : [
                 "Privacy Policy \nWorking Good (collectively, “Working Good” or “we”, “us”, “our”) create and publish mobile games and applications.",

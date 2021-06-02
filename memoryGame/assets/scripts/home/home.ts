@@ -9,6 +9,9 @@ export default class Home extends cc.Component {
   hudLayer: cc.Node;
   gameMode: string = "";
   opitonLayer: cc.Node;
+
+  futureDetails : cc.Node;
+
   @property(cc.Prefab)
   gameModeBtn: cc.Prefab = null;
 
@@ -61,8 +64,8 @@ export default class Home extends cc.Component {
   @property(cc.Node)
   bottomBar: cc.Node = null;
 
-  // @property(cc.Node)
-  // loaderNode: cc.Node = null;
+  @property(cc.Prefab)
+  futureDetailsPrefab: cc.Prefab = null;
 
 
   onLoad() {
@@ -133,6 +136,11 @@ export default class Home extends cc.Component {
     this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
+    this.futureDetails = cc.instantiate(this.futureDetailsPrefab);
+    this.futureDetails.zIndex = 6;
+    this.futureDetails.getComponent("gameFutureDetails").setDelegatScript(this);
+    this.node.addChild( this.futureDetails)
+  
 
     // MARK: SHOWING BANNER ADS
     this.node.getComponent("FacebookAudiance").showBanner();
@@ -270,7 +278,8 @@ export default class Home extends cc.Component {
   }
 
   onBack() {
-      if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION ) {
+    
+     if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION ) {
         // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); EaseBounces
         this.levelSelectionNode.active = false;
         this.modeSelectionNode.active = true;
@@ -338,6 +347,7 @@ export default class Home extends cc.Component {
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
     
     let modes = GameManager.getInstance().getModesInfo();
+    console.log("inside ti",modes );
     for (let mode of modes) {
     
         let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
@@ -434,6 +444,14 @@ export default class Home extends cc.Component {
     this.moreInfo.getChildByName("Background").getChildByName("buttonLayout").getChildByName("moreGames").active = isActive;
     this.bottomBar.getChildByName("moreGames").active = isActive;
   }
+
+
+  showFutureDetailsScreen(){
+    this.futureDetails.active = true;
+  }
+
+
+
  
   // playLoader(){
   //   this.loaderNode.active = true;
