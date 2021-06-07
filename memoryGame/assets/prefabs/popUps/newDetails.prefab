@@ -30,7 +30,7 @@
         "__id__": 33
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 36
@@ -476,7 +476,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 800,
+      "width": 945,
       "height": 739.2
     },
     "_anchorPoint": {
@@ -488,8 +488,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        30.561,
-        -443.457,
+        0,
+        -653.52,
         0,
         0,
         0,
@@ -543,8 +543,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 600,
-      "height": 244.49999999999997
+      "width": 800,
+      "height": 326
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -597,8 +597,8 @@
     "_dstBlendFactor": 771,
     "_string": "We are creating new levels, soon the will be available for you.",
     "_N$string": "We are creating new levels, soon the will be available for you.",
-    "_fontSize": 75,
-    "_lineHeight": 75,
+    "_fontSize": 100,
+    "_lineHeight": 100,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -1146,23 +1146,23 @@
     "node": {
       "__id__": 11
     },
-    "_enabled": false,
+    "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 18,
-    "_left": 0,
-    "_right": 0,
+    "_alignFlags": 44,
+    "_left": 0.08,
+    "_right": 0.08,
     "_top": 0,
-    "_bottom": 0,
+    "_bottom": 0.08,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
+    "_isAbsLeft": false,
+    "_isAbsRight": false,
     "_isAbsTop": true,
-    "_isAbsBottom": true,
+    "_isAbsBottom": false,
     "_isAbsHorizontalCenter": false,
     "_isAbsVerticalCenter": false,
-    "_originalWidth": 0,
+    "_originalWidth": 800,
     "_originalHeight": 0,
     "_id": ""
   },
@@ -1223,8 +1223,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 700,
-      "height": 700
+      "width": 800,
+      "height": 800
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
