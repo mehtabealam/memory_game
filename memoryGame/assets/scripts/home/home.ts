@@ -1,6 +1,7 @@
 import { GameManager } from "../managers/GameManager";
 import { GAME_MODE, GAME_SCREEN, GAME_LINK } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
+import AdManager from "../managers/AdManager";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -110,7 +111,6 @@ export default class Home extends cc.Component {
     });
 
 
-    // GameManager.getInstance().showBannerAd();
     cc.debug.setDisplayStats(false);
       SoundManager.getInstance().init(this.musicClip);
     if (!cc.sys.localStorage.getItem("Sound")) {
@@ -144,10 +144,18 @@ export default class Home extends cc.Component {
   
 
     // MARK: SHOWING BANNER ADS
-    this.node.getComponent("FacebookAudiance").showBanner();
     if(cc.sys.isMobile){
       sdkbox.PluginShare.init();
+      AdManager.getInstance().init();
+      AdManager.getInstance().setTestDevice('38311228FC168567547515520CBFCF53');
+      AdManager.getInstance().cacheAds('gameover');
+      AdManager.getInstance().cacheAds('banner');
+      
+
     }
+
+
+
     
     
 

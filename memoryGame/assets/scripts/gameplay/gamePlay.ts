@@ -2,6 +2,7 @@
 import {GameManager} from "../managers/GameManager"
 import { GAME_MODE, END_POP_UP } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
+import AdManager from "../managers/AdManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -326,7 +327,8 @@ export default class GamePlay extends cc.Component {
     // pop ups DELEGATE METHODS 
     onPlayAgain (){
         this.gameEndAlert.active = false;
-        this.node.parent.getComponent("FacebookAudiance").showInterstital();
+        // this.node.parent.getComponent("FacebookAudiance").showInterstital();
+        AdManager.getInstance().showInterstital();
         this.node.parent.getComponent("home").onBack();
         console.log("level", this._level.toString());
         this.node.parent.getComponent("home").onLevelSelect( this._level.toString());
@@ -359,7 +361,7 @@ export default class GamePlay extends cc.Component {
 
     onPlayAgainCancel(){
        //MARK : SHOW INTERSTIAL ADS;
-       this.node.parent.getComponent("FacebookAudiance").showInterstital();
+       AdManager.getInstance().showInterstital();
         this.gameEndAlert.active = false;
         this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
@@ -367,7 +369,7 @@ export default class GamePlay extends cc.Component {
     }
 
     gameEnded (){
-        this.node.parent.getComponent("FacebookAudiance").showInterstital();
+        AdManager.getInstance().showInterstital();
         this.gameEndAlert.removeFromParent();
         let level = GameManager.getInstance().getCurrentLevel();
         let totalLevelInMode = GameManager.getInstance().getLevelInfo(this.gameMode);
@@ -378,12 +380,10 @@ export default class GamePlay extends cc.Component {
             this.node.parent.getComponent("home").onBack();
         }
        
-        
-        
     }
 
     // ANIMATION CALLBACKS :
-1
+
     playBounsAnimation(){
         console.log("inside this play bouns animation");
         this.bouns.node.active = true;
