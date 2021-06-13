@@ -6,30 +6,20 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class Home extends cc.Component {
-  gameScreen: GAME_SCREEN = GAME_SCREEN.MODE_SELECTION;
+  gameScreen: GAME_SCREEN = GAME_SCREEN.HOME;
   hudLayer: cc.Node;
   gameMode: string = "";
-  opitonLayer: cc.Node;
-
   futureDetails : cc.Node;
-
-  @property(cc.Prefab)
-  gameModeBtn: cc.Prefab = null;
 
   @property(cc.Layout)
   modeLayout: cc.Layout = null;
 
-  @property(cc.Prefab)
-  options: cc.Prefab = null;
 
   @property(cc.Prefab)
   hud: cc.Prefab = null;
 
   @property(cc.Node)
   howToPlayPopUp: cc.Node = null;
-
-  @property(cc.Node)
-  languagePopUp: cc.Node = null;
 
   @property(cc.Node)
   modeSelectionNode: cc.Node = null;
@@ -69,21 +59,55 @@ export default class Home extends cc.Component {
   futureDetailsPrefab: cc.Prefab = null;
 
 
+  @property(cc.Node)
+  settings: cc.Node = null;
+
+
+  @property(cc.Node)
+  terms: cc.Node = null;
+
+
   onLoad() {
+
+
+    if(!cc.sys.localStorage.getItem("hasLaunchedBefore")){
+      cc.sys.localStorage.clear();
+        cc.sys.localStorage.setItem("hasLaunchedBefore", true)
+    }
+
 
     if (!cc.sys.localStorage.getItem("Language")) {
       cc.sys.localStorage.setItem("Language", "ES");
     }  
+
+    if(!cc.sys.localStorage.getItem("hasTermAccepted")){
+      cc.sys.localStorage.setItem("hasTermAccepted", false);
+    }
+
+
+    if(!cc.sys.localStorage.getItem("lastPlayedLevel")){
+      cc.sys.localStorage.setItem("lastPlayedLevel", 0);
+    }
+
+
+    if(!cc.sys.localStorage.getItem("hint")){
+      cc.sys.localStorage.setItem("hint", 3);
+    }
+
   }
   start() {
 
-    this.languagePopUp.zIndex = 7;
+    console.log("start",GAME_SCREEN.HOME);
+    GameManager.getInstance().pushScene(GAME_SCREEN.HOME);
+    this.terms.zIndex = 10;
+    this.settings.zIndex = 7;
+    this.settings.getComponent("settings").init(this);
     this.howToPlayPopUp.zIndex =7;
     this.moreInfo.zIndex =7;
     this.privacyPolicy.zIndex = 7;
-    var animationClips =  this.gameplayNode.getComponent(cc.Animation)
-    // console.log("animation clips",animationClips );
-    // animationClips.on('finished', this.onLevelAnimationCompleted, this);
+    this.terms.active = !JSON.parse(cc.sys.localStorage.getItem("hasTermAccepted"));
+    console.log("active", this.terms.active, cc.sys.localStorage.getItem("hasTermAccepted"));
+    
 
     GameManager.getInstance()
     .loadGameConfig()
@@ -131,11 +155,9 @@ export default class Home extends cc.Component {
   }
 
   setupUI() {
-
-    this.setupModes();
-    this.setOptions();
     this.setHud();
     this.modeSelectionNode.zIndex = 5;
+    this.levelSelectionNode.zIndex = 6;
     this.futureDetails = cc.instantiate(this.futureDetailsPrefab);
     this.futureDetails.zIndex = 6;
     this.futureDetails.active = false;
@@ -147,57 +169,18 @@ export default class Home extends cc.Component {
     if(cc.sys.isMobile){
       sdkbox.PluginShare.init();
       AdManager.getInstance().init();
-      AdManager.getInstance().setTestDevice('38311228FC168567547515520CBFCF53');
+      // AdManager.getInstance().setTestDevice('38311228FC168567547515520CBFCF53');
       AdManager.getInstance().cacheAds('gameover');
-      AdManager.getInstance().cacheAds('banner');
+      // AdManager.getInstance().cacheAds('banner');
       
 
     }
-
-
-
-    
-    
-
-    // this.gameplayNode.zIndex = 5;
-    // this.levelSelectionNode.zIndex =5;
   }
 
   onAnimationEnd (){
     console.log("animation ended");
   }
-
-  setupModes() {
-    let spaceingY = [150, 70, 30, 20, 10];
-    let modes = GameManager.getInstance().getModesInfo();
-    console.log("modes", modes);
-    this.modeLayout.spacingY = spaceingY[modes.length - 1];
-    for (let mode of modes) {
-      let button = cc.instantiate(this.gameModeBtn);
-      
-      button.getChildByName("title").getComponent(cc.Label).string = mode.title;
-      button.getChildByName("title").getComponent("localiser").key = mode.key;
-      let clickEventHandler = new cc.Component.EventHandler();
-      clickEventHandler.target = this.node;
-      clickEventHandler.component = "home";
-      clickEventHandler.handler = "onModeSelect";
-      clickEventHandler.customEventData = mode.key;
-      console.log("button has been created",mode.key );
-      button.getComponent(cc.Button).clickEvents.push(clickEventHandler);
-      this.modeLayout.node.addChild(button);
-    }
-  }
-
-  setOptions() {
-    this.opitonLayer = cc.instantiate(this.options);
-    this.opitonLayer
-    .getComponent("options").setDelegate(this);
-    this.opitonLayer
-      .getComponent("options")
-      .setUpUI(this.gameScreen, this.gameMode);
-    this.node.addChild(this.opitonLayer);
-    this.opitonLayer.zIndex = 5;
-  }
+ 
 
   setHud() {
     this.hudLayer = cc.instantiate(this.hud);
@@ -207,28 +190,27 @@ export default class Home extends cc.Component {
     this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
   }
 
-  onModeSelect(event: Event, mode: string) {
-    console.log("mode", mode);
-    SoundManager.getInstance().playEffect(this.buttonPressed, false);
-    GameManager.getInstance().setGameMode(mode);
-    console.log("onMode selectons", event, mode);
-    this.modeSelectionNode.active = false;
-  
-    this.gameMode = mode;
-    this.showLevelSelection();
-  }
 
 
 
   showLevelSelection(){
+    if(this.levelSelectionNode.active){
+      return;
+    }
     this.levelSelectionNode.active = true;  
-    this.setLevelSelectionScreen(this.gameMode);
+    this.setLevelSelectionScreen();
+    this.gameScreen == GAME_SCREEN.SETTINGS && GameManager.getInstance().popScene();
+    this.gameScreen == GAME_SCREEN.GAME_PLAY && GameManager.getInstance().popScene();
+    this.changeSceneVisiblity(this.gameScreen, false);
     this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
-    this.upadteHuds();
+    GameManager.getInstance().pushScene(GAME_SCREEN.LEVEL_SELECTION)
     this.enabledMoreGamesButton(  GameManager.getInstance().getGameConfiguration().isMoreGameAvilable);
     // this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
  
   }
+
+
+ 
 
   //button callbacks:
   showHowToPlayPopUp() {
@@ -242,8 +224,8 @@ export default class Home extends cc.Component {
     this.howToPlayPopUp.active = false;
   }
 
-  setLevelSelectionScreen(mode: string) {
-    let levels = GameManager.getInstance().getLevelInfo(mode);
+  setLevelSelectionScreen() {
+    let levels = GameManager.getInstance().getLevelInfo();
     this.scrollViewLayout.node.removeAllChildren();
 
     let totalFrame = Math.ceil(levels.length / 10);
@@ -265,7 +247,7 @@ export default class Home extends cc.Component {
     }
 
     let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-    let levelsInfoForMode = JSON.parse(levelsInfo[mode]);
+    let levelsInfoForMode = JSON.parse(levelsInfo.level);
 
     let lastUnlockedLevel = 0;
     for(let item of levelsInfoForMode){
@@ -276,56 +258,86 @@ export default class Home extends cc.Component {
     }
 
 
-    // move scrollView to last played frame;
+   
     let frame = Math.ceil(lastUnlockedLevel/10);
     let offset = this.scrollView.getScrollOffset();
-    let offsetPercent = (frame - 1) * (1 / (this.scrollViewLayout.node.childrenCount - 1));
-    // this.currentPageIndexInScrollview = pageNo;
-    // this.scrollView.scrollToPercentHorizontal(offsetPercent,0.01, false);     
+    let offsetPercent = (frame - 1) * (1 / (this.scrollViewLayout.node.childrenCount - 1));   
     this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
 
   }
 
   onBack() {
-    
-     if (this.gameScreen == GAME_SCREEN.LEVEL_SELECTION ) {
-        // this.levelSelectionNode.getComponent(cc.Animation).play("moveOut"); EaseBounces
-        this.levelSelectionNode.active = false;
-        this.modeSelectionNode.active = true;
-        this.gameScreen = GAME_SCREEN.MODE_SELECTION;
-        this.upadteHuds();
-      } else if(this.gameScreen == GAME_SCREEN.GAME_PLAY){
-        this.gameplayNode.active = false;
-        this.levelSelectionNode.active = true;
-        this.setLevelSelectionScreen(this.gameMode);
-        this.modeSelectionNode.active = false;
-        this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
-        this.upadteHuds(); 
-      }else{
-        cc.game.end()
-      }
+    let currentScene = GameManager.getInstance().popScene();
+    let lastScene = GameManager.getInstance().popScene();
 
+    console.log("curerntScene", currentScene, lastScene);
+    if(currentScene == GAME_SCREEN.HOME){
+      cc.game.end();
+      return;
+    }
+    else if(currentScene == GAME_SCREEN.FUTURE_ANNOCMENTS){
+      GameManager.getInstance().removeAllScene();
+      this.levelSelectionNode.active = false;
+      this.settings.active = false;
+      this.gameplayNode.active = false;  
+      this.modeSelectionNode.active = true;
+      this.gameScreen = GAME_SCREEN.HOME;
+      GameManager.getInstance().pushScene(GAME_SCREEN.HOME);
+      return;
+
+    }
+    this.gameScreen = lastScene;
+    this.changeSceneVisiblity(currentScene, false);
+    this.changeSceneVisiblity(lastScene, true);
+    
+    GameManager.getInstance().pushScene(lastScene);
+    console.log("scene arra",GameManager.getInstance().screen )
   }
 
-  upadteHuds() {
-    this.opitonLayer
-      .getComponent("options")
-      .setUpUI(this.gameScreen, this.gameMode);
-    this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
+  changeSceneVisiblity(currentScene, isActive){
+    console.log("scnenes",currentScene, isActive)
+    switch(currentScene){
+      case GAME_SCREEN.LEVEL_SELECTION:
+        this.levelSelectionNode.active = isActive;
+        isActive && this.setLevelSelectionScreen();
+        break;
+      case GAME_SCREEN.SETTINGS:
+        this.settings.getComponent('settings').closeAllPopUps();
+        this.settings.active = isActive;
+        break;
+      case GAME_SCREEN.GAME_PLAY:
+         this.gameplayNode.active = isActive;  
+         break;
+      case GAME_SCREEN.HOME:
+        this.modeSelectionNode.active = isActive;   
+          break;  
+
+      
+    }
+  }
+
+
+
+  startGame(){
+    // disable the last scne pushed 
+
+    
+    let lastPlayedLevel = cc.sys.localStorage.getItem("lastPlayedLevel")
+    this.onLevelSelect(lastPlayedLevel);
   }
 
   onLevelSelect( level: string) {
     SoundManager.getInstance().playEffect(this.buttonPressed, false);
     GameManager.getInstance().setCurrentLevel(parseInt(level));
+    this.changeSceneVisiblity(this.gameScreen , false);
+    GameManager.getInstance().pushScene(GAME_SCREEN.GAME_PLAY);
     this.gameScreen = GAME_SCREEN.GAME_PLAY;
     this.levelSelectionNode.active = false;
     this.modeSelectionNode.active = false
     this.gameplayNode.active = true;
     this.gameplayNode
     .getComponent("gamePlay")
-    .setUpUI( GameManager.getInstance().getCurrentLevel(), this.gameMode, this.opitonLayer);
-    // let anim =  this.gameplayNode.getComponent(cc.Animation).play("gameMoveIn");
-    this.upadteHuds();
+    .setUpUI( GameManager.getInstance().getCurrentLevel());
   }
 
 
@@ -340,8 +352,8 @@ export default class Home extends cc.Component {
    * 
    * data is stored in this mannor in the local storage
    * LevelInfo = {
-   * "practice" :[{time :100, isUnlock : true} , ... ]  
-   * "normal" :[{time :100, isUnlock : true} , ... ]  
+   * "levels" :[{time :100, isUnlock : true} , ... ]  
+   * 
    *  * }
    * 
    */
@@ -355,26 +367,22 @@ export default class Home extends cc.Component {
 
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
     
-    let modes = GameManager.getInstance().getModesInfo();
-    console.log("inside ti",modes );
-    for (let mode of modes) {
-    
-        let totalLevels = GameManager.getInstance().getLevelInfo(mode.key).length;
-        let levelObj = {time :500, isUnlock : false}
-       if(!levelInfo[mode.key]) {
+    let totalLevels = GameManager.getInstance().getLevelInfo().length;
+        let levelObj = {time :500, isUnlock : true}
+       if(!levelInfo.level) {
         let levelObjectArray =[];
         for(let i = 0; i< totalLevels; i++){
           levelObjectArray[i] = Object.assign({id: i}, levelObj);
         }
          levelObjectArray[0].isUnlock = true;
          console.log(levelObjectArray[0]===levelObjectArray[1]);
-         levelInfo[mode.key] = JSON.stringify(levelObjectArray); 
+         levelInfo["level"] = JSON.stringify(levelObjectArray); 
        }else{
 
         // New Level added in the json file
-         let levelArray = JSON.parse(levelInfo[mode.key]);
+         let levelArray = JSON.parse(levelInfo.level);
          if(levelArray.length < totalLevels){
-          let difference = GameManager.getInstance().getLevelInfo(mode.key).filter(item => ! levelArray.some(data => data.id == item.id));
+          let difference = GameManager.getInstance().getLevelInfo().filter(item => ! levelArray.some(data => data.id == item.id));
           let timeArray = [];
           for(let i =0; i< difference.length; i++){
            timeArray[i] = Object.assign({id :difference[i].id }, levelObj);
@@ -385,7 +393,7 @@ export default class Home extends cc.Component {
           
         }else{
           // OLD Level removed from the json file
-          let difference = levelArray.filter(item => ! GameManager.getInstance().getLevelInfo(mode.key).some(data => data.id == item.id));
+          let difference = levelArray.filter(item => ! GameManager.getInstance().getLevelInfo().some(data => data.id == item.id));
           console.log("difference", difference);
           for(let i = 0; i< difference.length; i++){
             let index = levelArray.findIndex(item => item.id == difference[i].id);
@@ -397,19 +405,10 @@ export default class Home extends cc.Component {
          }
           console.log("level Daata", levelArray);
           levelArray[0].isUnlock = true;
-          levelInfo[mode.key] = JSON.stringify(levelArray);
-         }
-       
-       }
-    console.log("levelObjectArray", levelInfo);
-    cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
+          levelInfo["level"] = JSON.stringify(levelArray);
+      }
+        cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
   }
-
-  openLocalisationPopUp(){
-    SoundManager.getInstance().playEffect(this.buttonPressed, false);
-     this.languagePopUp.active = true;
-  }
-
 
 
   onShare(){
@@ -431,16 +430,6 @@ export default class Home extends cc.Component {
     cc.sys.openURL(GAME_LINK.URL);
   }
 
-  openMoreInfoPopUp(){
-    SoundManager.getInstance().playEffect(this.buttonPressed, false);
-    console.log('inside this');
-    this.moreInfo.active = true;
-  }
-
-  hideMoreInfoPopUp(){
-    // SoundManager.getInstance().playEffect(this.buttonPressed, false);
-    this.moreInfo.active = false;
-  }
 
   showPrivacyPolicy(){
     // this.playLoader();
@@ -460,16 +449,24 @@ export default class Home extends cc.Component {
   }
 
 
+  openSettings(){
+    if(this.settings.active){
+      return;
+    }
+    this.gameScreen == GAME_SCREEN.LEVEL_SELECTION && GameManager.getInstance().popScene();
+    this.changeSceneVisiblity(this.gameScreen, false);
+    this.gameScreen = GAME_SCREEN.SETTINGS;
+    GameManager.getInstance().pushScene(GAME_SCREEN.SETTINGS);
+    this.settings.active = true;
+    console.log(GameManager.getInstance().screen);
+  }
 
- 
-  // playLoader(){
-  //   this.loaderNode.active = true;
-  //   this.loaderNode.getChildByName("loadingImage").getComponent(cc.Animation).play();
-  // }
+  onTermsAccept(){
+    this.terms.active = false;
+    cc.sys.localStorage.setItem("hasTermAccepted", true);
 
-  // stopLoader(){
-  //   this.loaderNode.active = false;
-  // }
+  }
 
-  // update (dt) {}
+
+
 }

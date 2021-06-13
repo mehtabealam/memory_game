@@ -1,8 +1,18 @@
 
 import {GameManager} from "../managers/GameManager"
-import { GAME_MODE, END_POP_UP } from "../helper/constants";
+import { GAME_MODE, END_POP_UP, GAME_SCREEN } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 import AdManager from "../managers/AdManager";
+
+
+const   cardIndex = {
+     GROUP_3_4 : 0,
+     GROUP_4_4 : 1,
+     GROUP_4_5 : 2,
+     GROUP_4_6 : 3,
+     GROUP_4_7 : 4
+}
+
 
 const {ccclass, property} = cc._decorator;
 
@@ -20,18 +30,17 @@ export default class GamePlay extends cc.Component {
     private isTouchBlocked = false;
     private totalTime = 0;
     private groupOf = 2;
-    
-
     private progresser = null;
-   
     gameMode = '';
-
     gameStartAlert = null;
     gameEndAlert = null;
     optionLayer = null;
 
     @property(cc.Prefab)
     cardPrefab: cc.Prefab = null;
+
+    @property(cc.Prefab)
+    options: cc.Prefab = null;
 
     @property(cc.ProgressBar)
     timerBar : cc.ProgressBar = null;
@@ -48,19 +57,16 @@ export default class GamePlay extends cc.Component {
     @property(cc.Prefab)
     gameEndPopUp = null;
 
+    @property(cc.Node)
+    containerNode = null;
 
     @property(cc.AudioClip)
     correctAnswerAudio: cc.AudioClip = null;
 
-
-
     @property(cc.AudioClip)
     wrongAnswerAudiodFlip: cc.AudioClip = null;
-
-
     @property(cc.AudioClip)
     last5Sec: cc.AudioClip = null;
-
 
     @property(cc.AudioClip)
     clapping: cc.AudioClip = null;
@@ -68,8 +74,8 @@ export default class GamePlay extends cc.Component {
     @property(cc.AudioClip)
     timesUp: cc.AudioClip = null;
 
-
-    
+    @property([cc.SpriteFrame])
+    cardsSpriteFrames: cc.SpriteFrame[] = [];
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -81,9 +87,8 @@ export default class GamePlay extends cc.Component {
         this.progresser = this.timerBar.node.getChildByName("bar");
         var animationClips = this.bouns.node.getComponent(cc.Animation);
         animationClips.on('finished', this.bounsAnimationCompleted, this);
-       
+        this.setOptions();
     }
-
 
     onDisable(){
       clearInterval(this.interval)  ;
@@ -92,15 +97,21 @@ export default class GamePlay extends cc.Component {
       this.bouns.node.active = false; 
     }
 
+    setOptions() {
+        this.optionLayer = cc.instantiate(this.options);
+        this.optionLayer
+        .getComponent("options").setDelegate(this);
+        this.node.addChild(this.optionLayer);
+        this.optionLayer.zIndex = 5;
+      }
 
     // SETTING UP UI
 
-    setUpUI(level : number, gameMode:string, optionRef){
+    setUpUI(level : number, gameMode:string){
         this.gameLayout.node.active = false;
         this.gameMode = gameMode;
         this._level = level;
         this.levelData = GameManager.getInstance().getLevelData(this._level , this.gameMode);
-        this.optionLayer = optionRef;
         console.log("called 1000 times", this.levelData , this._level );
         this.setUpAlerts();
         this.loadLevelImages();
@@ -126,8 +137,6 @@ export default class GamePlay extends cc.Component {
         });
      }
     setUpAlerts (){
-
-        let gameModeDetails = GameManager.getInstance().getModeInfo(this.gameMode);
         this.gameStartAlert = cc.instantiate(this.startPopUp);
         let timerTitle =  this.gameMode == GAME_MODE.PRACTICE ? 
         GameManager.getInstance().getString(GameManager.getInstance().getSelectedMode()):
@@ -145,18 +154,27 @@ export default class GamePlay extends cc.Component {
 
     setGrid() {
         this.gameLayout.getComponent(cc.Widget).updateAlignment();
+        this.containerNode.getComponent(cc.Widget).updateAlignment();
         this.gameLayout.node.removeAllChildren();
+        let index = cardIndex[`GROUP_${this._gridInfo.col}_${this._gridInfo.row}`];
+       
+        let totalHeight = (this.containerNode.height - (this.gameLayout.spacingX*this._gridInfo.row));
         let spacing = this.gameLayout.spacingX * this._gridInfo.col;
-        let width = this.gameLayout.node.width - spacing;
+        let width = this.containerNode.width - spacing;
+        let scale = 1;
+        let dummyWidth =1;
         for(let i = 0; i < this._cards.length; i++){
             let card = cc.instantiate(this.cardPrefab);
-            let blockSize = width / this._gridInfo.col;
-            card.setScale(blockSize/card.width);
             card.getComponent("cards").setDelegate(this);
-            card.getComponent("cards").setUpUI(this._cards[i].name, this._level, this.gameMode);
+            card.getComponent("cards").setUpUI(this._cards[i].name, this._level, this.gameMode, this.cardsSpriteFrames[index]);
+            let blockSize = width / this._gridInfo.col;
+            let height = totalHeight/ this._gridInfo.row;
+            card.setScale(Math.min(blockSize/card.width, height/card.height));
+            scale = card.scale;
+            dummyWidth = card.width;
             this.gameLayout.node.addChild(card);
         }  
-        
+        this.gameLayout.node.width =   this._gridInfo.col * (scale * dummyWidth ) + spacing;
         this.optionLayer.active = false;    
     }
 
@@ -175,10 +193,14 @@ export default class GamePlay extends cc.Component {
             this._cards[randomIndex] = currentElement;
         }
 
+        if(this._level % 11 == 0){
+            // set up tutorials
+        
+        }
+
     }
 
     FlipAllCards(){
-        
         for(let child of this.gameLayout.node.children){
             child.getComponent("cards").unreveal();
         }
@@ -246,12 +268,12 @@ export default class GamePlay extends cc.Component {
                 return;
             }
 
-            if(this.gameMode != GAME_MODE.PRACTICE){  
-                this.playBounsAnimation();
+            // if(this.gameMode != GAME_MODE.PRACTICE){  
+            //     this.playBounsAnimation();
+            //     this.isTouchBlocked = true;
+            // }else{
                 this.isTouchBlocked = true;
-            }else{
-                this.isTouchBlocked = true;
-                this.node.runAction(cc.sequence(cc.delayTime(0.5), cc.callFunc(()=>{
+                this.node.runAction(cc.sequence(cc.delayTime(0.2), cc.callFunc(()=>{
                    for(let cardScipt of cards){
                     cardScipt.playCorrectAnimation();
                    }
@@ -259,7 +281,7 @@ export default class GamePlay extends cc.Component {
                    })));
 
                
-            }
+            // }
             for(let cardScipt of cards){
                 this.OpenCards.push(cardScipt.getCardName());
                }
@@ -297,15 +319,15 @@ export default class GamePlay extends cc.Component {
         if(isWon){
             let isNewRecord = false;
             let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-            let levels =  JSON.parse(levelInfo[this.gameMode]);
+            let levels =  JSON.parse(levelInfo.level);
             // SoundManager.getInstance().playEffect(this.clapping, false);
             if(levels[this._level].time > this._timer){
                 levels[this._level].time = this._timer;
                 if(this._level < levels.length-1){
                     levels[this._level+1].isUnlock = true;
                 }
-                console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo[this.gameMode])[this._level].time);
-                levelInfo[this.gameMode] = JSON.stringify(levels);
+                console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo.level)[this._level].time);
+                levelInfo.level = JSON.stringify(levels);
                 cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
                 isNewRecord = true;
             }
@@ -327,10 +349,10 @@ export default class GamePlay extends cc.Component {
     // pop ups DELEGATE METHODS 
     onPlayAgain (){
         this.gameEndAlert.active = false;
-        // this.node.parent.getComponent("FacebookAudiance").showInterstital();
-        AdManager.getInstance().showInterstital();
-        this.node.parent.getComponent("home").onBack();
-        console.log("level", this._level.toString());
+        if(!cc.sys.isBrowser){
+                 AdManager.getInstance().showInterstital();
+        }
+        //MARK : TO DO CHECK WORK AFTER ADS COMES
         this.node.parent.getComponent("home").onLevelSelect( this._level.toString());
     }
 
@@ -361,7 +383,7 @@ export default class GamePlay extends cc.Component {
 
     onPlayAgainCancel(){
        //MARK : SHOW INTERSTIAL ADS;
-       AdManager.getInstance().showInterstital();
+    //    AdManager.getInstance().showInterstital();
         this.gameEndAlert.active = false;
         this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
@@ -369,15 +391,18 @@ export default class GamePlay extends cc.Component {
     }
 
     gameEnded (){
-        AdManager.getInstance().showInterstital();
+        // AdManager.getInstance().showInterstital();
         this.gameEndAlert.removeFromParent();
         let level = GameManager.getInstance().getCurrentLevel();
         let totalLevelInMode = GameManager.getInstance().getLevelInfo(this.gameMode);
         console.log("level", level == totalLevelInMode.length -1 )
         if(level == totalLevelInMode.length -1){
-        this.node.parent.getComponent("home").showFutureDetailsScreen();
-        }else{
+          
+          this.node.parent.getComponent("home").showFutureDetailsScreen();
+          GameManager.getInstance().pushScene(GAME_SCREEN.FUTURE_ANNOCMENTS);
+            cc.sys.localStorage.setItem("lastPlayedLevel", this._level + 1);
             this.node.parent.getComponent("home").onBack();
+            this.node.parent.getComponent("home").startGame();
         }
        
     }

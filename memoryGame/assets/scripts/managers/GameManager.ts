@@ -11,6 +11,8 @@ import { GAME_MODE} from "../helper/constants";
     private _currentLevel = 0;
     private placementId = null;
 
+    public screen = [];
+
     static getInstance(){
         if(!GameManager._instance){
            GameManager. _instance = new GameManager();
@@ -141,15 +143,15 @@ import { GAME_MODE} from "../helper/constants";
 
     }
 
-    getLevelInfo(levelMode : string){
+    getLevelInfo(){
         if(this._levelsData){
-            return this._levelsData[levelMode]["levels"];
+            return this._levelsData["levels"];
         }
     }
 
-    getLevelData(levelNo: number, levelMode : string){
+    getLevelData(levelNo: number){
         if(this._levelsData){
-            return this._levelsData[levelMode]["levels"][levelNo];
+            return this._levelsData["levels"][levelNo];
         }
 
     }
@@ -246,6 +248,19 @@ import { GAME_MODE} from "../helper/constants";
         //     }).catch((e) => {
         //         cc.log("interstital catch", e);
         //     });
+     }
+
+     pushScene(scene){
+         console.log("scnee", scene);
+         this.screen.push(scene);
+     }
+
+     popScene(){
+        return this.screen.pop();
+     }
+
+     removeAllScene(){
+         this.screen.length = 0;
      }
     
        

@@ -7,9 +7,11 @@
 
 
 export const enum GAME_SCREEN {
-    MODE_SELECTION = 1,
+    HOME = 1,
     LEVEL_SELECTION,
-    GAME_PLAY
+    GAME_PLAY,
+    SETTINGS,
+    FUTURE_ANNOCMENTS
 }
 
 

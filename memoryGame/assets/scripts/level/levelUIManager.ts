@@ -44,10 +44,9 @@ export default class LevelUIManager extends cc.Component {
         this.title.node.getComponent("localiser").replaceValue(`${(startIndex/10) + 1}`)
         this.title.node.getComponent("localiser").setStringForKey();
         this.layout.node.removeAllChildren();
-        let mode = GameManager.getInstance().getSelectedMode();
-        let levels = GameManager.getInstance().getLevelInfo(mode);
+        let levels = GameManager.getInstance().getLevelInfo();
         let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-        let levelsInfoForMode = JSON.parse(levelsInfo[mode]);
+        let levelsInfoForMode = JSON.parse(levelsInfo.level);
         let endIndex = (startIndex + 10) > levels.length ? levels.length : (startIndex +10);
         for (let i = startIndex; i < endIndex; i++) {
             let button = cc.instantiate(this.levelSelectionButton);

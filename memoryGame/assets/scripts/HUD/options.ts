@@ -42,8 +42,8 @@ export default class Options extends cc.Component {
         this.deactiveAllNodes();
 
         switch(screen){
-            case GAME_SCREEN.MODE_SELECTION:
-                this.more.node.active = true;
+            case GAME_SCREEN.HOME:
+                this.more.node.active = false;
                 break;
             case GAME_SCREEN.LEVEL_SELECTION:
              
@@ -69,8 +69,8 @@ export default class Options extends cc.Component {
     }
 
 
-    openModeMenu(){
-        this._delegateScript.openMoreInfoPopUp();
+    onHint(){
+        // this._delegateScript.openMoreInfoPopUp();
 
     }
 

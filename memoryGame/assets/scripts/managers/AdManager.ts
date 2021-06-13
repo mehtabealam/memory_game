@@ -31,9 +31,9 @@ export default class AdManager extends cc.Component {
       sdkbox.PluginAdMob.setListener({
         adViewDidReceiveAd: function(name) {
             console.log("add has been loaded", name)
-            if(name == 'banner'){
-                target.showBanner();
-            }
+            // if(name == 'banner'){
+            //     target.showBanner();
+            // }
         },
         adViewDidFailToReceiveAdWithError: function(name, msg) {
             // target.showInfo('adViewDidFailToReceiveAdWithError name=' + name + ' msg=' + msg);
