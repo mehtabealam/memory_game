@@ -101,6 +101,7 @@ export default class GamePlay extends cc.Component {
         this.optionLayer = cc.instantiate(this.options);
         this.optionLayer
         .getComponent("options").setDelegate(this);
+        this.optionLayer
         this.node.addChild(this.optionLayer);
         this.optionLayer.zIndex = 5;
       }

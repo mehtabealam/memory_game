@@ -21,6 +21,10 @@ export default class Options extends cc.Component {
     gameMode: cc.Label = null;
 
 
+    @property(cc.Label)
+    hint: cc.Label = null;
+
+
     @property(cc.Button)
     more: cc.Button = null;
 
@@ -32,23 +36,24 @@ export default class Options extends cc.Component {
 
     setDelegate (delegate) {
         this._delegateScript = delegate;
+        let hintCount = cc.sys.localStorage.getItem("hint");
+        this.hint.string = `${hintCount}`;
     }
 
     setUpUI (screen : GAME_SCREEN, gameMode: string) {
         console.log("options", screen, gameMode);
-    
         let mode = GameManager.getInstance().getString(gameMode);
         this.gameMode.string = mode;
         this.deactiveAllNodes();
+       
 
         switch(screen){
             case GAME_SCREEN.HOME:
                 this.more.node.active = false;
                 break;
             case GAME_SCREEN.LEVEL_SELECTION:
-             
                 break;
-             case GAME_SCREEN.GAME_PLAY:
+           case GAME_SCREEN.GAME_PLAY:
                 this.timer.node.active = true;
                 this.gameMode.node.active = true;
                  break;
@@ -70,7 +75,14 @@ export default class Options extends cc.Component {
 
 
     onHint(){
-        // this._delegateScript.openMoreInfoPopUp();
+        
+        // add extra five time and update local storage 
+        let hintCount = JSON.parse(cc.sys.localStorage.getItem("hint"));
+        if(hintCount > 0){
+            this._delegateScript.playBounsAnimation();
+            cc.sys.localStorage.setItem("hint", hintCount-1);
+            this.hint.string = `${hintCount-1}`;
+        }
 
     }
 

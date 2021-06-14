@@ -67,6 +67,10 @@ export default class Home extends cc.Component {
   terms: cc.Node = null;
 
 
+  @property(cc.Node)
+  dailyRewards: cc.Node = null;
+
+
   onLoad() {
 
 
@@ -100,6 +104,7 @@ export default class Home extends cc.Component {
     console.log("start",GAME_SCREEN.HOME);
     GameManager.getInstance().pushScene(GAME_SCREEN.HOME);
     this.terms.zIndex = 10;
+    this.dailyRewards.zIndex = 9;
     this.settings.zIndex = 7;
     this.settings.getComponent("settings").init(this);
     this.howToPlayPopUp.zIndex =7;
@@ -156,6 +161,7 @@ export default class Home extends cc.Component {
 
   setupUI() {
     this.setHud();
+    this.dailyRewards.active = true;
     this.modeSelectionNode.zIndex = 5;
     this.levelSelectionNode.zIndex = 6;
     this.futureDetails = cc.instantiate(this.futureDetailsPrefab);

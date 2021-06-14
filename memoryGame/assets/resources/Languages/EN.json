@@ -34,6 +34,9 @@
     "updatedTerms": "We have updated\n our terms",
     "following" : "FOLLOWING",
     "levelCompleted" : "LEVEL \n COMPLETED",
+    "dailyRewards" : "Daily Gift",
+    "pickYourGift":"PICK YOUR GIFT",
+    "pickUp"      : "PICK UP",
     "updatedTermsInfo": "To continue playing, you must confirm that you accept our Terms of Service and that you have read our Privacy Policy.",
     "howToPlayTutoiral" : "Touch a box to uncover it and see the see the image it hides.\n\nTouch another box to uncover it as well.\n\nIf the images match, they will stay face up, otherwise they will be covered again. \n\nFind all the pairs.",
     "privacyInformation" : [
