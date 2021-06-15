@@ -26,6 +26,8 @@ export default class Card extends cc.Component {
     @property(cc.AudioClip)
     cardFlip: cc.Node = null;
 
+    @property(cc.Node)
+    overLay: cc.Node = null;
 
     
 
@@ -50,7 +52,7 @@ export default class Card extends cc.Component {
 
     setUpUI (spriteFrameKey, level, mode, cardSpriteFrame) {
         this._cardName = spriteFrameKey;
-        console.log("card name", spriteFrameKey, cardSpriteFrame);
+        // console.log("card name", spriteFrameKey, cardSpriteFrame);
         this.image.spriteFrame= GameManager.getInstance().getSpriteFrame(mode, level, spriteFrameKey);
         this.front.spriteFrame = cardSpriteFrame;
         this.back.spriteFrame = cardSpriteFrame;
@@ -113,6 +115,17 @@ export default class Card extends cc.Component {
         let bounce = cc.scaleTo(0.1, 0.9,0.9).easing(cc.easeBounceInOut());
         let correctAnimation = cc.sequence(bounce, cc.delayTime(0.2), cc.scaleTo(0.1, 1, 1));
         this.animationNode.runAction(correctAnimation);
+    }
+
+
+    enableOverlay(){
+        this.overLay.active = true;
+
+    }
+
+    disableOverlay(){
+        this.overLay.active = false;
+
     }
 
     // update (dt) {}

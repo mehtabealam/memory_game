@@ -11,6 +11,8 @@ export default class Home extends cc.Component {
   gameMode: string = "";
   futureDetails : cc.Node;
 
+  letloadCount = 0;
+
   @property(cc.Layout)
   modeLayout: cc.Layout = null;
 
@@ -126,6 +128,7 @@ export default class Home extends cc.Component {
             cc.game.emit("onLanguageChanged");
             this.setupUI();
             this.setLevelInfoInLS();
+            this.startImageLoading();
           }).catch((error)=>{
             console.log("error", error);
           })
@@ -161,7 +164,7 @@ export default class Home extends cc.Component {
 
   setupUI() {
     this.setHud();
-    this.dailyRewards.active = true;
+    // this.dailyRewards.active = true;
     this.modeSelectionNode.zIndex = 5;
     this.levelSelectionNode.zIndex = 6;
     this.futureDetails = cc.instantiate(this.futureDetailsPrefab);
@@ -471,6 +474,25 @@ export default class Home extends cc.Component {
     this.terms.active = false;
     cc.sys.localStorage.setItem("hasTermAccepted", true);
 
+  }
+
+  startImageLoading(){
+    let levels = GameManager.getInstance().getLevelInfo();
+    // console.log("eleves", )
+    if(this.letloadCount == levels.length){
+      return;
+    }else{
+      GameManager.getInstance()
+      .loadLevelImages(this.letloadCount).then(()=>{
+        this.letloadCount++;
+        console.log("load level images for", this.letloadCount );
+        this.startImageLoading();
+      }).catch(()=>{
+        console.log("error while loading data");
+      })
+    }
+    
+    
   }
 
 

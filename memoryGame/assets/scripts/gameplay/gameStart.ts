@@ -44,13 +44,13 @@ export default class GameStart extends cc.Component {
                 this.prize.node.active = false;
                 break;
             default :
-            this.prize.node.active = true;    
+            this.prize.node.active = false;    
         }
 
       
         this.timer.getComponent('localiser').replaceValue(`${timerTitle}`);
         this.instraction.getComponent('localiser').replaceValue(`${memoriseTime}`);
-        this.prize.getComponent('localiser').replaceValue(`${bouns}`);
+        // this.prize.getComponent('localiser').replaceValue(`${bouns}`);
 
         // // this.timer.string = `TIME : ${timerTitle}`;
 

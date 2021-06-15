@@ -16,8 +16,8 @@
                   "row":4
               },
               "timer":{
-                "memorizeTime" : 5,
-                "totalTime":30,
+                "memorizeTime" : 1,
+                "totalTime":50,
                 "bounsTime":5
             },
             "groupOf" :2
@@ -49,10 +49,10 @@
                 "id" : 2,
                 "cards":[
                     {"name":  "watermelon"},
-                    {"name":  "shoes"},
+                    {"name":  "redshoes"},
                     {"name":  "perfume"},
                     {"name":  "cupcake"},
-                    {"name":  "flower"},
+                    {"name":  "rose"},
                     {"name":  "cat"}
                 ],
 
@@ -76,8 +76,8 @@
                     {"name":  "armchair"},
                     {"name":  "backpack"},
                     {"name":  "cake"},
-                    {"name":  "ball"},
-                    {"name":  "flower"},
+                    {"name":  "foorball"},
+                    {"name":  "lilly"},
                     {"name":  "duck"},
                     {"name":  "orange"}
                 ],
@@ -145,7 +145,7 @@
             {
                 "id" : 6,
                 "cards":[
-                    {"name":  "cat"},
+                    {"name":  "greycat"},
                     {"name":  "clock"},
                     {"name":  "diamond"},
                     {"name":  "elephant"},
@@ -175,7 +175,7 @@
                     {"name":  "squirrel"},
                     {"name":  "sphere"},
                     {"name":  "perfume"},
-                    {"name":  "flower"},
+                    {"name":  "redrosetiled"},
                     {"name":  "cookie"},
                     {"name":  "coconut"},
                     {"name":  "branch"},
@@ -200,7 +200,7 @@
                     {"name":  "sofa"},
                     {"name":  "sandwich"},
                     {"name":  "sack"},
-                    {"name":  "paddle"},
+                    {"name":  "oragngpaddle"},
                     {"name":  "fruit"},
                     {"name":  "cap"},
                     {"name":  "dog"},
@@ -471,25 +471,142 @@
             {
                 "id" : 20,
                 "cards":[
-                    {"name":  "basket"},
-                    {"name":  "cat"},
-                    {"name":  "dove"},
-                    {"name":  "flowers"},
-                    {"name":  "gifts"},
-                    {"name":  "kettle"},
-                    {"name":  "squirrel"},
-                    {"name":  "stone"}
+                    {"name":  "cake1"},
+                    {"name":  "cake2"},
+                    {"name":  "cupcake1"},
+                    {"name":  "cupcake2"},
+                    {"name":  "kitten1"},
+                    {"name":  "kitten2"}
                 ],
                 "grid":{
-                    "col" : 4,
-                    "row":6
+                    "col" : 3,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 7,
+                  "totalTime":45,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "id" : 21,
+                "cards":[
+                    {"name":  "Cup1"},
+                    {"name":  "Cup2"},
+                    {"name":  "Shoe1"},
+                    {"name":  "Shoe2"},
+                    {"name":  "tree1"},
+                    {"name":  "tree2"}
+                ],
+                "grid":{
+                    "col" : 3,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 57,
+                  "totalTime":45,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "id" : 22,
+                "cards":[
+                    {"name":  "butterfly1"},
+                    {"name":  "butterfly2"},
+                    {"name":  "flamingo1"},
+                    {"name":  "flamingo2"},
+                    {"name":  "puppy1"},
+                    {"name":  "puppy2"}
+                ],
+                "grid":{
+                    "col" : 3,
+                    "row":4
                 },
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":30,
                   "bounsTime":5
               },
-              "groupOf" :3
+              "groupOf" :2
+               
+            },
+            {
+                "id" : 23,
+                "cards":[
+                    {"name":  "ball1"},
+                    {"name":  "ball2"},
+                    {"name":  "candy1"},
+                    {"name":  "candy2"},
+                    {"name":  "juice1"},
+                    {"name":  "juice2"},
+                    {"name":  "shoes1"},
+                    {"name":  "shoes1"},
+                    {"name":  "shoes2"},
+                    {"name":  "shoes2"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "id" : 24,
+                "cards":[
+                    {"name":  "cupcake"},
+                    {"name":  "cupcake2"},
+                    {"name":  "glasses"},
+                    {"name":  "glasses2"},
+                    {"name":  "hand"},
+                    {"name":  "hand2"},
+                    {"name":  "tomato"},
+                    {"name":  "tomato2"}
+
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
+               
+            },
+            {
+                "id" : 25,
+                "cards":[
+                    {"name":  "dog"},
+                    {"name":  "dog2"},
+                    {"name":  "house"},
+                    {"name":  "house2"},
+                    {"name":  "palette"},
+                    {"name":  "palette2"},
+                    {"name":  "toys"},
+                    {"name":  "toys2"}
+                ],
+                "grid":{
+                    "col" : 4,
+                    "row":4
+                },
+                "timer":{
+                  "memorizeTime" : 5,
+                  "totalTime":30,
+                  "bounsTime":5
+              },
+              "groupOf" :2
                
             }
            
