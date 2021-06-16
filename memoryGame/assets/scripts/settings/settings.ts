@@ -38,15 +38,17 @@ export default class Settings extends cc.Component {
 
 
     openTermAndConditions(){
-
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
     }
 
 
     openPrivacyPolicy(){
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
 
     }
 
     onShare(){
+        SoundManager.getInstance().playEffect(this.buttonPressed, false);
         this.delegatScript.onShare();
     }
 

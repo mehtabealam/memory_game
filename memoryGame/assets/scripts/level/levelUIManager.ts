@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import { GameManager } from "../managers/GameManager";
+import { GAME_TYPE } from "../helper/constants";
 
 const {ccclass, property} = cc._decorator;
 
@@ -41,8 +42,13 @@ export default class LevelUIManager extends cc.Component {
 
 
     populateLevels(startIndex){
-        this.title.node.getComponent("localiser").replaceValue(`${(startIndex/10) + 1}`)
-        this.title.node.getComponent("localiser").setStringForKey();
+        let levelInfo = GameManager.getInstance().getLevelData(startIndex);
+ 
+        console.log("level info", levelInfo);
+        this.setLeveltitle(levelInfo.gameType, levelInfo.groupOf)
+
+
+
         this.layout.node.removeAllChildren();
         let levels = GameManager.getInstance().getLevelInfo();
         let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
@@ -69,6 +75,25 @@ export default class LevelUIManager extends cc.Component {
             }
             this.layout.node.addChild(button);
           }
+    }
+
+
+    setLeveltitle(gameType, groupof){
+
+        let keyString = "";
+
+        switch(gameType){
+            case GAME_TYPE.FIND:
+                keyString = "find";
+                break;
+            case GAME_TYPE.MIRROR:
+                keyString = "mirror";
+                break;    
+        }
+        this.title.node.getComponent("localiser").key = keyString;
+        console.log('keyString', keyString);
+        this.title.node.getComponent("localiser").replaceValue(`${groupof}`);
+        this.title.node.getComponent("localiser").setStringForKey();
     }
 
     onLevelSelect(event: Event, level: string){

@@ -46,7 +46,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1126,
+      "width": 1125,
       "height": 2436
     },
     "_anchorPoint": {
@@ -58,7 +58,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        563,
+        562.5,
         1218,
         0,
         0,
@@ -116,7 +116,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1126,
+      "width": 1125,
       "height": 2436
     },
     "_anchorPoint": {
@@ -336,8 +336,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 801,
-      "height": 762
+      "width": 929,
+      "height": 1515
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -419,7 +419,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        278.2437386363636,
+        609.2314488636363,
         0,
         0,
         0,
@@ -513,7 +513,7 @@
       "__id__": 8
     },
     "_enabled": true,
-    "key": "time",
+    "key": "",
     "_id": ""
   },
   {
@@ -711,7 +711,7 @@
       "__id__": 14
     },
     "_enabled": true,
-    "key": "startInstruction",
+    "key": "instruction",
     "_id": ""
   },
   {
@@ -1396,7 +1396,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "accdd7d2-a97e-43a9-ad3b-2e6638d62a7e"
+      "__uuid__": "60ca7057-addc-4068-9a4f-dbf77d919b6d"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1504,7 +1504,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "timer": {
+    "gameName": {
       "__id__": 9
     },
     "prize": {

@@ -36,3 +36,9 @@ export const LANGUAGES = {
 export const GAME_LINK ={
     URL : "https://play.google.com/store/apps/details?id=com.no.color 6"
 }
+
+
+export const GAME_TYPE ={
+    FIND : 1,
+    MIRROR : 2 
+}

@@ -33,6 +33,9 @@ export default class HUD extends cc.Component {
     @property(cc.AudioClip)
     backButtonAudio : cc.AudioClip = null;
 
+    @property(cc.AudioClip)
+    buttonAudio : cc.AudioClip = null;
+
 
     private delegate;
 
@@ -88,11 +91,13 @@ export default class HUD extends cc.Component {
     }
 
     onSetting(){
+        SoundManager.getInstance().playEffect(this.buttonAudio, false);
         this.delegate.openSettings();
 
     }
 
     onLevelSelection(){
+        SoundManager.getInstance().playEffect(this.buttonAudio, false);
         this.delegate.showLevelSelection();
     }
 

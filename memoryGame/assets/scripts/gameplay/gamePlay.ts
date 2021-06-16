@@ -137,7 +137,9 @@ export default class GamePlay extends cc.Component {
         GameManager.getInstance()
         .loadLevelImages(this._level)
         .then((data) => {
-        //   this.gameStartAlert.getComponent("gameStart").accept.interactable = true;
+           
+ 
+
           this.groupOf =  this.levelData.groupOf;
           this.createAndShuffelCards();
           this._gridInfo = this.levelData.grid;
@@ -153,9 +155,8 @@ export default class GamePlay extends cc.Component {
     setUpAlerts (){
         this.gameStartAlert = cc.instantiate(this.startPopUp);
         let timerTitle = `${this.levelData.timer.totalTime}s`;
-        this.gameStartAlert.getComponent("gameStart").setProperties(this, this.gameMode,
-            timerTitle, this.levelData.timer.memorizeTime,
-             this.levelData.timer.bounsTime );
+        let levelInfo = GameManager.getInstance().getLevelData(this._level);
+        this.gameStartAlert.getComponent("gameStart").setProperties(this, levelInfo.gameType, levelInfo.groupOf);
         this.gameEndAlert = cc.instantiate(this.gameEndPopUp);
         this.gameEndAlert.getComponent("gameEnd").setProperties(this, this.gameMode);
         this.node.parent.addChild(this.gameStartAlert,10);
@@ -451,9 +452,9 @@ export default class GamePlay extends cc.Component {
         let totalLevelInMode = GameManager.getInstance().getLevelInfo(this.gameMode);
         console.log("level", level == totalLevelInMode.length -1 )
         if(level == totalLevelInMode.length -1){
-          
           this.node.parent.getComponent("home").showFutureDetailsScreen();
-          GameManager.getInstance().pushScene(GAME_SCREEN.FUTURE_ANNOCMENTS);
+          GameManager.getInstance().pushScene(GAME_SCREEN.FUTURE_ANNOCMENTS);    
+        }else{
             cc.sys.localStorage.setItem("lastPlayedLevel", this._level + 1);
             this.node.parent.getComponent("home").onBack();
             this.node.parent.getComponent("home").startGame();

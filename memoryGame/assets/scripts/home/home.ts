@@ -76,29 +76,7 @@ export default class Home extends cc.Component {
   onLoad() {
 
 
-    if(!cc.sys.localStorage.getItem("hasLaunchedBefore")){
-      cc.sys.localStorage.clear();
-        cc.sys.localStorage.setItem("hasLaunchedBefore", true)
-    }
-
-
-    if (!cc.sys.localStorage.getItem("Language")) {
-      cc.sys.localStorage.setItem("Language", "ES");
-    }  
-
-    if(!cc.sys.localStorage.getItem("hasTermAccepted")){
-      cc.sys.localStorage.setItem("hasTermAccepted", false);
-    }
-
-
-    if(!cc.sys.localStorage.getItem("lastPlayedLevel")){
-      cc.sys.localStorage.setItem("lastPlayedLevel", 0);
-    }
-
-
-    if(!cc.sys.localStorage.getItem("hint")){
-      cc.sys.localStorage.setItem("hint", 3);
-    }
+    
 
   }
   start() {
@@ -116,31 +94,32 @@ export default class Home extends cc.Component {
     console.log("active", this.terms.active, cc.sys.localStorage.getItem("hasTermAccepted"));
     
 
-    GameManager.getInstance()
-    .loadGameConfig()
-    .then((data) => {
-      console.log("data loded successfully", data);
-      GameManager.getInstance()
-        .loadLevels()
-        .then((data) => {
-          GameManager.getInstance().loadLanaguge().then((data)=>{
-            GameManager.getInstance().changeCurrentLanguage();
-            cc.game.emit("onLanguageChanged");
-            this.setupUI();
-            this.setLevelInfoInLS();
-            this.startImageLoading();
-          }).catch((error)=>{
-            console.log("error", error);
-          })
+    cc.game.emit("onLanguageChanged");
+    this.setupUI();
+    this.setLevelInfoInLS();
+    this.startImageLoading();
+    // GameManager.getInstance()
+    // .loadGameConfig()
+    // .then((data) => {
+    //   console.log("data loded successfully", data);
+    //   GameManager.getInstance()
+    //     .loadLevels()
+    //     .then((data) => {
+    //       GameManager.getInstance().loadLanaguge().then((data)=>{
+    //         GameManager.getInstance().changeCurrentLanguage();
+           
+    //       }).catch((error)=>{
+    //         console.log("error", error);
+    //       })
          
-        })
-        .catch((error) => {
-          console.log("erorr", error);
-        });
-    })
-    .catch((error) => {
-      console.log("error while loading resources");
-    });
+    //     })
+    //     .catch((error) => {
+    //       console.log("erorr", error);
+    //     });
+    // })
+    // .catch((error) => {
+    //   console.log("error while loading resources");
+    // });
 
 
     cc.debug.setDisplayStats(false);

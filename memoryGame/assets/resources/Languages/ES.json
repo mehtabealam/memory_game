@@ -16,6 +16,7 @@
     "pleaseChoseLanguage" : "Por favor selecciona tu idioma",
     "howToPlayTitle":"¿CÓMO JUGAR A  MEMORA MAX?",
     "find": "ENCONTRAR %s",
+    "mirror": "ESPEJO %s",
     "levelCleared": "NIVEL COMPLETADO",
     "congratulations": "FELICIDADES!",
     "share" : "COMPARTIR",
@@ -38,6 +39,15 @@
     "pickYourGift":"ESCOGE TU REGALO",
     "pickUp"      : "RECOGER",
     "updatedTermsInfo":"Para continuar jugando, debe confirmar que acepta nuestros Términos de servicio y que ha leído nuestra Política de privacidad.",
+    
+    "instructionsForfind2": "Tendrás 5 segundos para memorizar las imágenes\nToque un cuadro para descubrirlo y\nmira la imagen que esconde.\nToque otro cuadro para averiguarlo también.\nSi las imágenes coinciden, permanecerán boca arriba, de lo contrario se volverán a cubrir.\n\nEncuentra todas las parejas.",
+    "instructionsForfind3": "Tendrás 10 segundos para memorizar las imágenes Si las imágenes coinciden, permanecerán boca arriba, de lo contrario se volverán a cubrir. \nSi los 3 coinciden, se quedarán boca arriba, si no, volverán a atar.\n\nEncuentra todas las parejas.",
+    "instructionsFormirror2": "Es igual que “encontrar 2” pero ahora por cada pareja de imágenes hay otra pareja con la misma imagen pero reflejada horizontalmente en un espejo.Encuentra todas las parejas.",
+    "instructionsFormirror3": "Es igual que “encontrar 3” pero ahora por cada trío de imágenes hay otro trío con la misma imagen pero reflejada horizontalmente en un espejo.Encuentra todas las parejas.",
+
+    
+    
+    
     "howToPlayTutoiral" : "Toca una caja para descubrirla y ver la imagen que esconde.\n\nToca otra caja para descubrirla también.\n\nSi las imágenes coinciden, se quedarán boca arriba, de lo contrario se taparán de nuevo. \n\nEncuentra todos los pares.",
     "privacyInformation" : [
         "Privacy Policy \nWorking Good (collectively, “Working Good” or “we”, “us”, “our”) create and publish mobile games and applications.",
