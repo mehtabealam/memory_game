@@ -157,7 +157,7 @@ export default class Home extends cc.Component {
     if(cc.sys.isMobile){
       sdkbox.PluginShare.init();
       AdManager.getInstance().init();
-      // AdManager.getInstance().setTestDevice('38311228FC168567547515520CBFCF53');
+      AdManager.getInstance().setTestDevice('38311228FC168567547515520CBFCF53');
       AdManager.getInstance().cacheAds('gameover');
       // AdManager.getInstance().cacheAds('banner');
       
@@ -178,8 +178,9 @@ export default class Home extends cc.Component {
     this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
   }
 
-
-
+  showDailyRewards(){
+    this.dailyRewards.active = true;
+  }
 
   showLevelSelection(){
     if(this.levelSelectionNode.active){

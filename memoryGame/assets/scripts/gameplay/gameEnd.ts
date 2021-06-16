@@ -1,7 +1,7 @@
 import { GAME_MODE, END_POP_UP } from "../helper/constants";
 import { GameManager } from "../managers/GameManager";
 import SoundManager from "../managers/SoundManager";
-
+import AdManager from "../managers/AdManager";
 // Learn TypeScript:
 //  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
 // Learn Attribute:
@@ -29,6 +29,9 @@ export default class GameEnd extends cc.Component {
 
     @property(cc.Node)
     timesUp : cc.Node = null;
+
+    @property(cc.Button)
+    adButtons : cc.Button = null;
 
 
 
@@ -84,7 +87,16 @@ export default class GameEnd extends cc.Component {
 
 
     showAds(){
-        
+        if(!cc.sys.isBrowser){
+            AdManager.getInstance().showInterstital(this);
+        }
+    }
+
+    adHasbeenShown(){
+        let  hintCount = JSON.parse(cc.sys.localStorage.getItem("hint"));
+        hintCount +=3; // for now will add new once done
+        cc.sys.localStorage.setItem("hint", JSON.stringify(hintCount));
+        this.adButtons.interactable = false;
     }
 
   

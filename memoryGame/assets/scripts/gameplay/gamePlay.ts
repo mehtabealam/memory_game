@@ -108,6 +108,15 @@ export default class GamePlay extends cc.Component {
       this.OpenCards.length =0;
       this.cardsInPair.length =0;
       this.bouns.node.active = false; 
+      this.tutorialCards.length = 0;
+    }
+
+    onEnable(){
+        if(this.optionLayer){
+            this.optionLayer
+            .getComponent("options").updateHindText();
+        }
+        
     }
 
     setOptions() {
@@ -137,9 +146,6 @@ export default class GamePlay extends cc.Component {
         GameManager.getInstance()
         .loadLevelImages(this._level)
         .then((data) => {
-           
- 
-
           this.groupOf =  this.levelData.groupOf;
           this.createAndShuffelCards();
           this._gridInfo = this.levelData.grid;
@@ -237,14 +243,15 @@ export default class GamePlay extends cc.Component {
     moveTutHand(){
         let card = this.tutorialCards.shift();
         if(!card) return;
+        card.parent.getComponent(cc.Widget).updateAlignment();
         card.getComponent('cards').disableOverlay();
         this.hand.active = true;
-        let worldSpace =card.parent.convertToWorldSpace(card.getPosition());
+        let worldSpace = this.containerNode.convertToWorldSpace(card.getPosition());
         let nodeSpace = this.hand.parent.convertToNodeSpace(worldSpace);
-        console.log("node space", card.getPosition(), worldSpace);
+        console.log("node space", card.getPosition(), worldSpace, card.parent);
         this.hand.y = nodeSpace.y - (card.height  * card.scale);
-        this.hand.x = nodeSpace.x- (card.width *0.5 * card.scale);
-        this.hand.runAction(cc.sequence(cc.moveBy(1,  0 , 50), cc.moveBy(1, 0, -50)).repeat(200));
+        this.hand.x = nodeSpace.x;
+        this.hand.runAction(cc.sequence(cc.moveBy(.5,  0 , 50), cc.moveBy(.5, 0, -50)).repeat(200));
     }
 
 
@@ -367,7 +374,7 @@ export default class GamePlay extends cc.Component {
 
     endGame (isWon) {
          SoundManager.getInstance().stopAllSounds();
-        clearInterval(this.interval);
+         clearInterval(this.interval);
         if(isWon){
             let isNewRecord = false;
             let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
@@ -402,10 +409,11 @@ export default class GamePlay extends cc.Component {
     onPlayAgain (){
         this.gameEndAlert.active = false;
         if(!cc.sys.isBrowser){
-                 AdManager.getInstance().showInterstital();
+                 AdManager.getInstance().showInterstital(this);
         }
         //MARK : TO DO CHECK WORK AFTER ADS COMES
-        this.node.parent.getComponent("home").onLevelSelect( this._level.toString());
+        this.node.parent.getComponent("home").onBack();
+        this.node.parent.getComponent("home").startGame();
     }
 
     
@@ -437,8 +445,7 @@ export default class GamePlay extends cc.Component {
 
 
     onPlayAgainCancel(){
-       //MARK : SHOW INTERSTIAL ADS;
-    //    AdManager.getInstance().showInterstital();
+
         this.gameEndAlert.active = false;
         this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
@@ -446,7 +453,6 @@ export default class GamePlay extends cc.Component {
     }
 
     gameEnded (){
-        // AdManager.getInstance().showInterstital();
         this.gameEndAlert.removeFromParent();
         let level = GameManager.getInstance().getCurrentLevel();
         let totalLevelInMode = GameManager.getInstance().getLevelInfo(this.gameMode);
@@ -488,7 +494,7 @@ export default class GamePlay extends cc.Component {
     }
 
     stopTutorials(){
-       
+        this.isTutoiral = false;
         this.tutorialCards.length = 0;
         this.gameStartAlert.removeFromParent();
         for(let child of this.gameLayout.node.children){
@@ -497,6 +503,11 @@ export default class GamePlay extends cc.Component {
          this.startGameTimer();
    }
     
+
+
+   adHasbeenShown(){
+
+   }
 
 
 

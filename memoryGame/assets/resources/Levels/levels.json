@@ -17,7 +17,7 @@
               },
               "timer":{
                 "memorizeTime" : 1,
-                "totalTime":50
+                "totalTime":30
             },
             "groupOf" :2,
             "gameType": 1
@@ -270,7 +270,7 @@
                   "row":4
               },
               "timer":{
-                "memorizeTime" : 5,
+                "memorizeTime" : 10,
                 "totalTime":30,
                 "bounsTime":5
             },
@@ -293,7 +293,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" :10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -316,7 +316,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -339,7 +339,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -361,7 +361,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -386,7 +386,7 @@
                 "timer":{
                   "memorizeTime" : 5,
                   "totalTime":30,
-                  "bounsTime":5
+                  "bounsTime":10
               },
               "groupOf" :3,
               "gameType": 1
@@ -407,7 +407,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -430,7 +430,7 @@
                     "row":5
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -454,7 +454,7 @@
                     "row":6
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -479,7 +479,7 @@
                     "row":6
                 },
                 "timer":{
-                  "memorizeTime" : 5,
+                  "memorizeTime" : 10,
                   "totalTime":30,
                   "bounsTime":5
               },
@@ -502,7 +502,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 7,
+                  "memorizeTime" : 10,
                   "totalTime":45,
                   "bounsTime":5
               },
@@ -525,7 +525,7 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 57,
+                  "memorizeTime" : 7,
                   "totalTime":45,
                   "bounsTime":5
               },

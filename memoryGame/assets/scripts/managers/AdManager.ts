@@ -14,6 +14,7 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class AdManager extends cc.Component {
 
+    delegate : null;
 
     private static _instance : AdManager = null!;
     public static getInstance(){
@@ -39,16 +40,19 @@ export default class AdManager extends cc.Component {
             // target.showInfo('adViewDidFailToReceiveAdWithError name=' + name + ' msg=' + msg);
         },
         adViewWillPresentScreen: function(name) {
-            // target.showInfo('adViewWillPresentScreen name=' + name);
+            console.log("adViewWillPresentScreen game ", name)
         },
         adViewDidDismissScreen: function(name) {
+            console.log("adViewDidDismissScreen game ", name)
+            target.delegate.adHasbeenShown();
             // target.showInfo('adViewDidDismissScreen name=' + name);
         },
         adViewWillDismissScreen: function(name) {
+            console.log("back game ", name)
             // target.showInfo('adViewWillDismissScreen=' + name);
         },
         adViewWillLeaveApplication: function(name) {
-            // target.showInfo('adViewWillLeaveApplication=' + name);
+            console.log("adViewWillLeaveApplication game ", name)
         }
     });
 
@@ -74,13 +78,14 @@ export default class AdManager extends cc.Component {
 
     }
 
-    public showInterstital(){
+    public showInterstital(inforeToNode){
+        this.delegate = inforeToNode;
         if(sdkbox.PluginAdMob.isAvailable('gameover')){
             sdkbox.PluginAdMob.show('gameover');
             console.log("show ads");
            }else{
                console.log("chacheing add");
-            sdkbox.PluginAdMob.cache('gameover');
+               sdkbox.PluginAdMob.cache('gameover');
            } 
        
     }

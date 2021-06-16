@@ -36,6 +36,11 @@ export default class Options extends cc.Component {
 
     setDelegate (delegate) {
         this._delegateScript = delegate;
+        this.updateHindText();
+        
+    }
+
+    updateHindText(){
         let hintCount = cc.sys.localStorage.getItem("hint");
         this.hint.string = `${hintCount}`;
     }
