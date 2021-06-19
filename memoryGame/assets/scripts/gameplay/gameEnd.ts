@@ -14,6 +14,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class GameEnd extends cc.Component {
 
+    showingAdFromGp =false;
 
     private _delegate = null;
     @property(cc.Label)
@@ -29,6 +30,9 @@ export default class GameEnd extends cc.Component {
 
     @property(cc.Node)
     timesUp : cc.Node = null;
+
+    @property(cc.Node)
+    hintLayer : cc.Node = null;
 
     @property(cc.Button)
     adButtons : cc.Button = null;
@@ -70,6 +74,7 @@ export default class GameEnd extends cc.Component {
         
         this.newRecord.active = false;
         this.timesUp.active = false;
+        this.hintLayer.active = false;
         this.remarks.string = GameManager.getInstance().getString('newRecord');
         switch(type){
             case END_POP_UP.CLEARD: 
@@ -80,6 +85,9 @@ export default class GameEnd extends cc.Component {
             case END_POP_UP.FAILED:
                  this.timesUp.active = true;
                  break;
+            case END_POP_UP.HINT:
+              this.hintLayer.active = true;
+              break;     
             
         }
 
@@ -96,9 +104,24 @@ export default class GameEnd extends cc.Component {
         let  hintCount = JSON.parse(cc.sys.localStorage.getItem("hint"));
         hintCount +=3; // for now will add new once done
         cc.sys.localStorage.setItem("hint", JSON.stringify(hintCount));
-        this.adButtons.interactable = false;
+        if( this.showingAdFromGp){
+             this._delegate.removeHintPopUp();
+        }else{
+            // this.adButtons.interactable = false
+        }
+       
     }
 
+
+    watchAd(){
+        this.showAds();
+        this.showingAdFromGp = true;
+    }
+
+
+    cancelAd(){
+        this._delegate.removeHintPopUp();
+    }
   
     // update (dt) {}
 }

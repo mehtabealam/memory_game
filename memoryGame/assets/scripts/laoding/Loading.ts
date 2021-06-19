@@ -12,9 +12,9 @@ export default class Loading extends cc.Component {
 
 
    start(){
-    if(!cc.sys.localStorage.getItem("hasLaunchedBefore")){
+    if(!cc.sys.localStorage.getItem("hasLaunchedBeforev2")){
         cc.sys.localStorage.clear();
-          cc.sys.localStorage.setItem("hasLaunchedBefore", true)
+          cc.sys.localStorage.setItem("hasLaunchedBeforev2", true)
       }
   
   

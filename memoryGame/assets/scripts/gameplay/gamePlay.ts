@@ -27,7 +27,7 @@ export default class GamePlay extends cc.Component {
     private cardsInPair =[];
     private tutorialCards =[];
     private tutCardName = 0;
-    private isTutoiral = false; 
+    private isTutoiral = true; 
     private levelData = null;
     private interval = null;
     private isTouchBlocked = false;
@@ -38,6 +38,8 @@ export default class GamePlay extends cc.Component {
     gameStartAlert = null;
     gameEndAlert = null;
     optionLayer = null;
+
+    bounsPoints = 0;
     
 
     @property(cc.Prefab)
@@ -101,6 +103,10 @@ export default class GamePlay extends cc.Component {
         var animationClips = this.bouns.node.getComponent(cc.Animation);
         animationClips.on('finished', this.bounsAnimationCompleted, this);
         this.setOptions();
+
+        this.progresser.width = 0;
+        this.timerBar.progress = 0;
+        this.timerBar.totalLength = this.timerBar.node.width;
     }
 
     onDisable(){
@@ -109,6 +115,7 @@ export default class GamePlay extends cc.Component {
       this.cardsInPair.length =0;
       this.bouns.node.active = false; 
       this.tutorialCards.length = 0;
+      this.hand.active = false;this.isTutoiral = true;
     }
 
     onEnable(){
@@ -151,6 +158,7 @@ export default class GamePlay extends cc.Component {
           this._gridInfo = this.levelData.grid;
           this.setGrid();
           this.startGame();
+          this.totalTime = this.levelData.timer.totalTime;
           this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
           
         })
@@ -236,6 +244,8 @@ export default class GamePlay extends cc.Component {
             this.isTutoiral = true;
             this.moveTutHand();
             
+        }else{
+            this.isTutoiral = false;
         }
        
     }
@@ -256,15 +266,8 @@ export default class GamePlay extends cc.Component {
 
 
     startGameTimer (){
-        if(this.gameMode != GAME_MODE.PRACTICE){
-            this.progresser.width = 0;
-            this.timerBar.progress = 0;
-            this.timerBar.totalLength = this.timerBar.node.width;
-        }
-       
-        this._timer = 0;
         let target = this;
-        this.totalTime = this.levelData.timer.totalTime;
+        
         console.log("total length", this.timerBar.totalLength, this.levelData.timer.totalTime);
         this.interval = setInterval(()=>{
             this._timer++;
@@ -339,12 +342,12 @@ export default class GamePlay extends cc.Component {
             }
 
             if(this.isTutoiral){
-
-                this.node.runAction(cc.sequence( cc.callFunc(()=>{
-                    this.showGameInstructionPopUp();
-                   }), cc.delayTime(2), cc.callFunc(()=>{
-                       this.stopTutorials();
-                   }))); 
+                this.showGameInstructionPopUp();
+                // this.node.runAction(cc.sequence( cc.callFunc(()=>{
+                    
+                // //    }), cc.delayTime(2), cc.callFunc(()=>{
+                       
+                //    }))); 
                
 
                 // show game pop up and then end the message 
@@ -411,6 +414,7 @@ export default class GamePlay extends cc.Component {
         if(!cc.sys.isBrowser){
                  AdManager.getInstance().showInterstital(this);
         }
+        cc.sys.localStorage.setItem("lastPlayedLevel", this._level);
         //MARK : TO DO CHECK WORK AFTER ADS COMES
         this.node.parent.getComponent("home").onBack();
         this.node.parent.getComponent("home").startGame();
@@ -418,6 +422,8 @@ export default class GamePlay extends cc.Component {
 
     
     startGame(){
+
+ 
         this.progresser.width = this.timerBar.node.width;   
         this.timerBar.progress = 1;
         let target = this;
@@ -436,7 +442,9 @@ export default class GamePlay extends cc.Component {
                 target.isTouchBlocked = false;
                 target.FlipAllCards();
                 if(!this.isTutoiral){
+                    this._timer = 0;
                     this.startGameTimer();
+
                 }
                 
             }
@@ -471,6 +479,7 @@ export default class GamePlay extends cc.Component {
     // ANIMATION CALLBACKS :
 
     playBounsAnimation(){
+        this.bounsPoints += 5;
         console.log("inside this play bouns animation");
         this.bouns.node.active = true;
         this.bouns.node.position  = new cc.Vec2(0,0);
@@ -482,10 +491,11 @@ export default class GamePlay extends cc.Component {
 
     bounsAnimationCompleted (){
         this.bouns.node.active = false;
-        this.totalTime += this.levelData.timer.bounsTime;
+        this.totalTime += this.bounsPoints//this.levelData.timer.bounsTime;
         console.log("bonys",this.levelData.timer, this.totalTime );
         this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
         this.isTouchBlocked = false;
+        this.bounsPoints = 0;
     }
 
     showGameInstructionPopUp(){
@@ -500,6 +510,7 @@ export default class GamePlay extends cc.Component {
         for(let child of this.gameLayout.node.children){
               child.getComponent('cards').disableOverlay();
          }
+         this._timer = 0;
          this.startGameTimer();
    }
     
@@ -507,6 +518,22 @@ export default class GamePlay extends cc.Component {
 
    adHasbeenShown(){
 
+   }
+
+   isTutorialPlaying(){
+       return this.isTutoiral;
+   }
+
+   removeHintPopUp(){
+       this.gameEndAlert.active = false;
+       this.startGameTimer();
+       this.optionLayer.getComponent('options').updateHindText();
+   }
+
+   showHintPopUP(){
+    this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.HINT, this._level);
+    this.gameEndAlert.active = true;
+    clearInterval(this.interval);
    }
 
 

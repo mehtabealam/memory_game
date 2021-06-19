@@ -920,7 +920,7 @@
         "__id__": 25
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 33
@@ -955,7 +955,7 @@
       "ctor": "Float64Array",
       "array": [
         2.6,
-        -287.5018977272727,
+        -633.3699147727273,
         0,
         0,
         0,
@@ -1184,7 +1184,7 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "3a7bb79f-32fd-422e-ada2-96f518fed422"
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
     "_srcBlendFactor": 770,
@@ -1252,7 +1252,9 @@
       "__id__": 24
     },
     "_enabled": true,
-    "_normalMaterial": null,
+    "_normalMaterial": {
+      "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+    },
     "_grayMaterial": {
       "__uuid__": "3a7bb79f-32fd-422e-ada2-96f518fed422"
     },
@@ -1263,8 +1265,8 @@
         "__id__": 34
       }
     ],
-    "_N$interactable": false,
-    "_N$enableAutoGrayEffect": true,
+    "_N$interactable": true,
+    "_N$enableAutoGrayEffect": false,
     "_N$transition": 3,
     "transition": 3,
     "_N$normalColor": {

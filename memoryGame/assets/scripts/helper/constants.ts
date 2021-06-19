@@ -25,7 +25,8 @@ export const  GAME_MODE = {
 export const enum END_POP_UP {
     NEW_RECORD = 1,
     CLEARD,
-    FAILED
+    FAILED,
+    HINT
 }
 
 export const LANGUAGES = {

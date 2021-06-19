@@ -58,7 +58,7 @@ export default class GameStart extends cc.Component {
 
     onAccept(){
         SoundManager.getInstance().playEffect(this.buttonPressed, false);
-        this._delegate.startGame();
+        this._delegate.stopTutorials();
 
     }
 

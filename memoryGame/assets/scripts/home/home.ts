@@ -357,7 +357,7 @@ export default class Home extends cc.Component {
     let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
     
     let totalLevels = GameManager.getInstance().getLevelInfo().length;
-        let levelObj = {time :500, isUnlock : true}
+        let levelObj = {time :500, isUnlock : false}
        if(!levelInfo.level) {
         let levelObjectArray =[];
         for(let i = 0; i< totalLevels; i++){

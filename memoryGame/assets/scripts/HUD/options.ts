@@ -81,12 +81,18 @@ export default class Options extends cc.Component {
 
     onHint(){
         
+        if(this._delegateScript.isTutorialPlaying()){
+            return;
+        }
         // add extra five time and update local storage 
         let hintCount = JSON.parse(cc.sys.localStorage.getItem("hint"));
-        if(hintCount > 0){
+        console.log("hint", hintCount);
+        if(hintCount > 0 ){
             this._delegateScript.playBounsAnimation();
             cc.sys.localStorage.setItem("hint", hintCount-1);
             this.hint.string = `${hintCount-1}`;
+        }else{
+            this._delegateScript.showHintPopUP();
         }
 
     }

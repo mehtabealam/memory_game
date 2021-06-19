@@ -78,7 +78,7 @@
                     {"name":  "armchair"},
                     {"name":  "backpack"},
                     {"name":  "cake"},
-                    {"name":  "foorball"},
+                    {"name":  "football"},
                     {"name":  "lilly"},
                     {"name":  "duck"},
                     {"name":  "orange"}
@@ -404,7 +404,7 @@
                 ],
                 "grid":{
                     "col" : 4,
-                    "row":4
+                    "row":5
                 },
                 "timer":{
                   "memorizeTime" : 10,
@@ -516,7 +516,7 @@
                     {"name":  "Cup1"},
                     {"name":  "Cup2"},
                     {"name":  "Shoe1"},
-                    {"name":  "Shoe2"},
+                    {"name":  "shoe2"},
                     {"name":  "tree1"},
                     {"name":  "tree2"}
                 ],
@@ -536,8 +536,8 @@
             {
                 "id" : 22,
                 "cards":[
-                    {"name":  "butterfly1"},
-                    {"name":  "butterfly2"},
+                    {"name":  "buttefly1"},
+                    {"name":  "buttefly2"},
                     {"name":  "flamingo1"},
                     {"name":  "flamingo2"},
                     {"name":  "puppy1"},
@@ -566,8 +566,6 @@
                     {"name":  "juice1"},
                     {"name":  "juice2"},
                     {"name":  "shoes1"},
-                    {"name":  "shoes1"},
-                    {"name":  "shoes2"},
                     {"name":  "shoes2"}
                 ],
                 "grid":{
