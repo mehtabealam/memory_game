@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "weigh",
+    "texture": "700d93f5-63df-4570-825a-f7807f5a463a",
+    "atlas": "",
+    "rect": [
+      60,
+      6,
+      225,
+      334
+    ],
+    "offset": [
+      0,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

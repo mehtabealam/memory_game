@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "clock",
+    "texture": "69964e57-0649-40b4-896d-a6c29039998c",
+    "atlas": "",
+    "rect": [
+      57,
+      7,
+      231,
+      331
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

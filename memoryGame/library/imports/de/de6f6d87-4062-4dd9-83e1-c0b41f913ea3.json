@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "greycat",
+    "texture": "d3b4b192-5055-4ffb-a911-d6feb74e7454",
+    "atlas": "",
+    "rect": [
+      36,
+      2,
+      273,
+      341
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

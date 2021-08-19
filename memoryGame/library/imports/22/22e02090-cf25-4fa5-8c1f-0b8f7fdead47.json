@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "sweater",
+    "texture": "9fb223f7-2ca4-47d5-aa6c-2da8b33b0ea6",
+    "atlas": "",
+    "rect": [
+      27,
+      5,
+      291,
+      333
+    ],
+    "offset": [
+      0,
+      1
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

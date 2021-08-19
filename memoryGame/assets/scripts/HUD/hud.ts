@@ -72,17 +72,6 @@ export default class HUD extends cc.Component {
         this.volume.node.active = true;
         this.setting.node.active = true;
         this.level.node.active = true;
-        // switch(gameScreen){
-        //     case GAME_SCREEN.HOME:
-        //         this.back.node.active = false;
-        //         break;
-        //     case GAME_SCREEN.LEVEL_SELECTION:
-        //     case GAME_SCREEN.GAME_PLAY:
-        //         this.back.node.active = true;
-        //         break;
-        //     default:
-        //         console.log("option error in setVisibility");    
-        // }
     }
 
     updateVolumeIcon(){
@@ -101,6 +90,7 @@ export default class HUD extends cc.Component {
         this.delegate.showLevelSelection();
     }
 
+    
 
 
 }

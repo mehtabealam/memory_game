@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "blackberry",
+    "texture": "cb7cfea2-0b30-4ee0-a698-2fb95725f2d1",
+    "atlas": "",
+    "rect": [
+      8,
+      28,
+      330,
+      288
+    ],
+    "offset": [
+      0.5,
+      0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

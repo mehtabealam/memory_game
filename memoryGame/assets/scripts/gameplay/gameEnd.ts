@@ -37,12 +37,24 @@ export default class GameEnd extends cc.Component {
     @property(cc.Button)
     adButtons : cc.Button = null;
 
+    @property(cc.Button)
+    wantHint : cc.Button = null;
 
 
     @property(cc.AudioClip)
     buttonPressed : cc.AudioClip = null;
 
 
+
+    @property(cc.Label)
+    powerUpTitle: cc.Label = null;
+
+    @property(cc.Label)
+    powerUpCover: cc.Label = null;
+
+
+
+    isForClue :boolean =  false;
     start () {
 
     }
@@ -76,18 +88,28 @@ export default class GameEnd extends cc.Component {
         this.timesUp.active = false;
         this.hintLayer.active = false;
         this.remarks.string = GameManager.getInstance().getString('newRecord');
+        // console.log("is ad present", AdManager.getInstance().isAdAvailable());
         switch(type){
             case END_POP_UP.CLEARD: 
                  this.remarks.string = GameManager.getInstance().getString('congratulations');
             case END_POP_UP.NEW_RECORD:
+                this.adButtons.interactable = AdManager.getInstance().isAdAvailable();
                 this.newRecord.active = true;
                 break;         
             case END_POP_UP.FAILED:
                  this.timesUp.active = true;
                  break;
-            case END_POP_UP.HINT:
+            case END_POP_UP.FOR_CLUE:
               this.hintLayer.active = true;
-              break;     
+              this.isForClue = true;
+              this.updatePowerUpTitle()
+              break;    
+              
+            case END_POP_UP.FOR_HIT:
+               this.hintLayer.active = true;
+               this.isForClue = false;
+               this.updatePowerUpTitle();
+                break;      
             
         }
 
@@ -96,15 +118,31 @@ export default class GameEnd extends cc.Component {
 
     showAds(){
         if(!cc.sys.isBrowser){
-            AdManager.getInstance().showInterstital(this);
+            if(!AdManager.getInstance().showInterstital(this)){
+                this.adHasbeenShown();
+                console.log("no ad avilable right now");
+            };
         }
     }
 
     adHasbeenShown(){
-        let  hintCount = JSON.parse(cc.sys.localStorage.getItem("hint"));
-        hintCount +=3; // for now will add new once done
-        cc.sys.localStorage.setItem("hint", JSON.stringify(hintCount));
+        if(  this.isForClue){
+            let  clueCount = JSON.parse(cc.sys.localStorage.getItem("clue"));
+            clueCount +=1; // for now will add new once done
+            cc.sys.localStorage.setItem("clue", clueCount);
+        }
+        else{
+            let  hintCount = JSON.parse(cc.sys.localStorage.getItem("hint"));
+            console.log("hint count before", hintCount);
+            hintCount +=3; // for now will add new once done
+            console.log("hint count after", hintCount);
+            cc.sys.localStorage.setItem("hint", hintCount);
+        }
+    
+
+        this.isForClue = false;
         if( this.showingAdFromGp){
+            console.log("remove ads");
              this._delegate.removeHintPopUp();
         }else{
             // this.adButtons.interactable = false
@@ -114,8 +152,9 @@ export default class GameEnd extends cc.Component {
 
 
     watchAd(){
-        this.showAds();
         this.showingAdFromGp = true;
+        this.showAds();
+       
     }
 
 
@@ -123,5 +162,14 @@ export default class GameEnd extends cc.Component {
         this._delegate.removeHintPopUp();
     }
   
-    // update (dt) {}
+
+    updatePowerUpTitle(){
+        let key = !this.isForClue? "noMoreHints" : "noMoreClue" 
+        let key2 = !this.isForClue? "WatchAdsForHint" : "WatchAdsForClues"
+        this.powerUpTitle.string =  GameManager.getInstance().getString(key);
+        this.powerUpCover.string =  GameManager.getInstance().getString(key2);
+
+
+    }
+
 }

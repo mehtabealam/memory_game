@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "cherry",
+    "texture": "04a7d8ef-e821-4c18-a052-68b5cbefd1aa",
+    "atlas": "",
+    "rect": [
+      1,
+      3,
+      343,
+      342
+    ],
+    "offset": [
+      0,
+      -1.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

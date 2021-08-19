@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "cookie2",
+    "texture": "7c822984-4110-47ab-9315-01ec2ec60bd5",
+    "atlas": "",
+    "rect": [
+      28,
+      63,
+      288,
+      241
+    ],
+    "offset": [
+      -0.5,
+      -11
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

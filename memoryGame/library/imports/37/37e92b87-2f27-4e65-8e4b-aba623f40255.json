@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "headphone",
+    "texture": "4ec1963d-589f-4e14-bb86-33b0412ed80f",
+    "atlas": "",
+    "rect": [
+      5,
+      9,
+      335,
+      326
+    ],
+    "offset": [
+      0,
+      0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

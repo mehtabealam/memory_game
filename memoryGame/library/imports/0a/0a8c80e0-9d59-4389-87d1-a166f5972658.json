@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "notepad",
+    "texture": "b4c9baee-64f2-4922-8c4c-b747ff005320",
+    "atlas": "",
+    "rect": [
+      4,
+      20,
+      337,
+      305
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

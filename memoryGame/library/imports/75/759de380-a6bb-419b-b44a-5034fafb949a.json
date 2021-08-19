@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "follow",
+    "texture": "1a9b7b38-7bd9-4270-be59-55c6c4eec793",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      849,
+      211
+    ],
+    "offset": [
+      -1,
+      0
+    ],
+    "originalSize": [
+      851,
+      211
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

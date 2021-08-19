@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "suitcase1",
+    "texture": "ee84aca4-279b-468d-9670-0ff5912f44d7",
+    "atlas": "",
+    "rect": [
+      75,
+      9,
+      197,
+      318
+    ],
+    "offset": [
+      1,
+      4.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

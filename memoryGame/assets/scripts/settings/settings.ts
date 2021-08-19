@@ -15,6 +15,8 @@ export default class Settings extends cc.Component {
     @property(cc.Node)
     languagePopUp: cc.Node = null;
 
+
+
     @property(cc.AudioClip)
     buttonPressed: cc.AudioClip = null;
 
@@ -38,12 +40,13 @@ export default class Settings extends cc.Component {
 
 
     openTermAndConditions(){
-        SoundManager.getInstance().playEffect(this.buttonPressed, false);
+        this.delegatScript.openTermAndConditions();
     }
 
 
     openPrivacyPolicy(){
-        SoundManager.getInstance().playEffect(this.buttonPressed, false);
+
+        this.delegatScript.openPrivacyPolicy();
 
     }
 
@@ -55,6 +58,9 @@ export default class Settings extends cc.Component {
     closeAllPopUps(){
         this.languagePopUp.active = false;
     }
+
+
+
 
 
 

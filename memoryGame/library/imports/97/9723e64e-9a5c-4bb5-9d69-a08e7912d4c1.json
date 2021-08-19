@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "taco",
+    "texture": "f2c47eeb-552c-4e46-8eb8-9a363b3bfb13",
+    "atlas": "",
+    "rect": [
+      3,
+      63,
+      339,
+      229
+    ],
+    "offset": [
+      0,
+      -5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

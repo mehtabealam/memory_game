@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "timeBg",
+    "texture": "7d7fb60a-7d7b-4b38-94b2-7d59fdd07589",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      580,
+      499
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      580,
+      499
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

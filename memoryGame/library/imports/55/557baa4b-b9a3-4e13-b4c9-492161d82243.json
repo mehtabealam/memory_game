@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "wine",
+    "texture": "c1f0e601-2fc1-4827-a90a-53354b1247e6",
+    "atlas": "",
+    "rect": [
+      84,
+      8,
+      164,
+      331
+    ],
+    "offset": [
+      -6.5,
+      -1
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

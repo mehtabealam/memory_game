@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "button accept",
+    "texture": "83232c24-98d6-4579-b818-a3605d58419a",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      380,
+      136
+    ],
+    "offset": [
+      -0.5,
+      0
+    ],
+    "originalSize": [
+      381,
+      136
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

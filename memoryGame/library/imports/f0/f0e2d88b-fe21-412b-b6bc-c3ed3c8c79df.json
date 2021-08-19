@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "nail",
+    "texture": "3fbdc9e8-c33b-4179-9d0f-dd4d22966411",
+    "atlas": "",
+    "rect": [
+      91,
+      3,
+      164,
+      339
+    ],
+    "offset": [
+      0.5,
+      0
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

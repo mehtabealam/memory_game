@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "levelUnlocked",
+    "texture": "507297d1-17f6-40e1-b633-5b8ddcd89cba",
+    "atlas": "",
+    "rect": [
+      14,
+      0,
+      845,
+      127
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      873,
+      127
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

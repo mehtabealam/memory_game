@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "sucker",
+    "texture": "9b8bb22c-8d22-4b36-b03d-775bba86d8ab",
+    "atlas": "",
+    "rect": [
+      29,
+      5,
+      289,
+      335
+    ],
+    "offset": [
+      1,
+      0
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

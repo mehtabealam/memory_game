@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "privacyTc",
+    "texture": "67c81d34-4d88-492f-8b7d-9f25898f84f8",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      929,
+      1515
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      929,
+      1515
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

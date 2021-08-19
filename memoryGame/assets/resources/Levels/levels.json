@@ -16,7 +16,7 @@
                   "row":4
               },
               "timer":{
-                "memorizeTime" : 1,
+                "memorizeTime" : 5,
                 "totalTime":30
             },
             "groupOf" :2,
@@ -258,6 +258,7 @@
               "gameType": 1
             },
             {
+
                 "id" : 10,
                 "cards":[
                     {"name":  "banana"},
@@ -271,7 +272,7 @@
               },
               "timer":{
                 "memorizeTime" : 10,
-                "totalTime":30,
+                "totalTime":50,
                 "bounsTime":5
             },
             "groupOf" :3,
@@ -294,7 +295,7 @@
                 },
                 "timer":{
                   "memorizeTime" :10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -317,7 +318,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -340,7 +341,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -362,7 +363,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -384,9 +385,9 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
-                  "bounsTime":10
+                  "memorizeTime" : 10,
+                  "totalTime":50,
+                  "bounsTime":5
               },
               "groupOf" :3,
               "gameType": 1
@@ -408,7 +409,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -431,7 +432,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -455,7 +456,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -480,7 +481,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":30,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -503,7 +504,7 @@
                 },
                 "timer":{
                   "memorizeTime" : 10,
-                  "totalTime":45,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -525,8 +526,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 7,
-                  "totalTime":45,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -548,8 +549,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -573,8 +574,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -599,8 +600,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -624,8 +625,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" :10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -639,20 +640,20 @@
                     {"name":  "bird2"},
                     {"name":  "icecream1"},
                     {"name":  "icecream2"},
-                    {"name":  "milkshare1"},
+                    {"name":  "milkshake1"},
                     {"name":  "milkshake2"},
                     {"name":  "purse1"},
                     {"name":  "purse2"},
-                    {"name":  "rose1"},
-                    {"name":  "rose2"}
+                    {"name":  "roses1"},
+                    {"name":  "roses2"}
                 ],
                 "grid":{
                     "col" : 4,
                     "row":5
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -678,8 +679,8 @@
                     "row":5
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -711,8 +712,8 @@
                     "row":7
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -742,8 +743,8 @@
                     "row":7
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :2,
@@ -763,8 +764,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":45,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -784,8 +785,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 7,
-                  "totalTime":45,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -805,8 +806,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -827,8 +828,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -850,8 +851,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -872,8 +873,8 @@
                     "row":4
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -895,8 +896,8 @@
                     "row":5
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" :10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -918,8 +919,8 @@
                     "row":5
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -943,8 +944,8 @@
                     "row":6
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,
@@ -968,8 +969,8 @@
                     "row":6
                 },
                 "timer":{
-                  "memorizeTime" : 5,
-                  "totalTime":30,
+                  "memorizeTime" : 10,
+                  "totalTime":50,
                   "bounsTime":5
               },
               "groupOf" :3,

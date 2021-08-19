@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "sushi",
+    "texture": "36250c47-17a3-4cf8-9f62-59d656ca6e15",
+    "atlas": "",
+    "rect": [
+      11,
+      9,
+      325,
+      328
+    ],
+    "offset": [
+      1,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

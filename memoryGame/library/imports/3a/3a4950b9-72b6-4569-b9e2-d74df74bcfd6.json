@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "siccsors1",
+    "texture": "4e1d3ae3-2992-4e93-9a26-b1518301c842",
+    "atlas": "",
+    "rect": [
+      76,
+      18,
+      229,
+      319
+    ],
+    "offset": [
+      18,
+      -5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

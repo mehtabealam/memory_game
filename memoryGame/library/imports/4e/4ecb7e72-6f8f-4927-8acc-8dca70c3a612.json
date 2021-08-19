@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "cradle",
+    "texture": "1597b8f7-90af-48e6-aa21-56b15e01051e",
+    "atlas": "",
+    "rect": [
+      7,
+      29,
+      331,
+      297
+    ],
+    "offset": [
+      0,
+      -5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

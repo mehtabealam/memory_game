@@ -38,8 +38,10 @@ export default class GamePlay extends cc.Component {
     gameStartAlert = null;
     gameEndAlert = null;
     optionLayer = null;
+    gameTutorials = null;
 
     bounsPoints = 0;
+    isSoundPlaying = false
     
 
     @property(cc.Prefab)
@@ -86,11 +88,20 @@ export default class GamePlay extends cc.Component {
     @property(cc.Node)
     hand: cc.Node = null;
 
+    @property(cc.Node)
+    netError: cc.Node = null;
+
+
+    @property(cc.Label)
+    levelLabel: cc.Label = null;
+
 
     @property(cc.Node)
     gameInstructions: cc.Node = null;
 
-   
+    @property(cc.Prefab)
+    tutorials: cc.Prefab = null;
+
     // LIFE-CYCLE CALLBACKS:
 
      onLoad () {
@@ -99,25 +110,32 @@ export default class GamePlay extends cc.Component {
 
     start () {
         this.hand.zIndex = 20;
+        this.netError.zIndex = 20;
         this.progresser = this.timerBar.node.getChildByName("bar");
         var animationClips = this.bouns.node.getComponent(cc.Animation);
         animationClips.on('finished', this.bounsAnimationCompleted, this);
         this.setOptions();
-
         this.progresser.width = 0;
         this.timerBar.progress = 0;
         this.timerBar.totalLength = this.timerBar.node.width;
-    }
 
+    }
     onDisable(){
-      clearInterval(this.interval)  ;
-      this.OpenCards.length =0;
-      this.cardsInPair.length =0;
-      this.bouns.node.active = false; 
-      this.tutorialCards.length = 0;
-      this.hand.active = false;this.isTutoiral = true;
+        if( !this.node.parent.getComponent("home").isforSetting){
+            clearInterval(this.interval)  ;
+            this.OpenCards.length = 0;
+            this.cardsInPair.length = 0;
+            this.hand.parent = this.node;
+            this.bouns.node.active = false; 
+            this.tutorialCards.length = 0;
+            this.hand.active = false;
+            this.isTutoiral = true;
+            SoundManager.getInstance().stopAllSounds();
+            this.optionLayer.getComponent("options").disableClockButton();
+        }else{
+            SoundManager.getInstance().stopAllSounds(); 
+        }
     }
-
     onEnable(){
         if(this.optionLayer){
             this.optionLayer
@@ -125,7 +143,6 @@ export default class GamePlay extends cc.Component {
         }
         
     }
-
     setOptions() {
         this.optionLayer = cc.instantiate(this.options);
         this.optionLayer
@@ -136,13 +153,11 @@ export default class GamePlay extends cc.Component {
       }
 
     // SETTING UP UI
-
     setUpUI(level : number, gameMode:string){
         this.gameLayout.node.active = false;
         this.gameMode = gameMode;
         this._level = level;
         this.levelData = GameManager.getInstance().getLevelData(this._level , this.gameMode);
-        console.log("called 1000 times", this.levelData , this._level );
         this.setUpAlerts();
         this.loadLevelImages();
         
@@ -157,13 +172,10 @@ export default class GamePlay extends cc.Component {
           this.createAndShuffelCards();
           this._gridInfo = this.levelData.grid;
           this.setGrid();
-          this.startGame();
-          this.totalTime = this.levelData.timer.totalTime;
-          this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
+          
           
         })
         .catch((error) => {
-          console.log("erorr", error);
         });
      }
     setUpAlerts (){
@@ -173,14 +185,13 @@ export default class GamePlay extends cc.Component {
         this.gameStartAlert.getComponent("gameStart").setProperties(this, levelInfo.gameType, levelInfo.groupOf);
         this.gameEndAlert = cc.instantiate(this.gameEndPopUp);
         this.gameEndAlert.getComponent("gameEnd").setProperties(this, this.gameMode);
-        this.node.parent.addChild(this.gameStartAlert,10);
-        this.node.parent.addChild(this.gameEndAlert,10);
+        this.node.parent.addChild(this.gameStartAlert,7);
+        this.node.parent.addChild(this.gameEndAlert,7);
         this.gameEndAlert.active = false;
         this.gameStartAlert.active = false;
     }
-
     setGrid() {
-        console.log("set Grid dude");
+        console.log("inside set card elements");
         this.gameLayout.getComponent(cc.Widget).updateAlignment();
         this.containerNode.getComponent(cc.Widget).updateAlignment();
         this.gameLayout.node.removeAllChildren();
@@ -202,16 +213,34 @@ export default class GamePlay extends cc.Component {
             this.gameLayout.node.addChild(card);
         }  
         this.gameLayout.node.width =   this._gridInfo.col * (scale * dummyWidth ) + spacing;
-        this.optionLayer.active = false;    
+        this.optionLayer.active = false;   
+        this.gameLayout.node.active = true;
+        this.levelLabel.node.parent.active = true; 
+        console.log("inisde this we have set the cards");
+        this.updateGamePlay();
+
     }
 
+    updateGamePlay(){
+        this.levelLabel.getComponent("localiser").replaceValue(`${this._level+1}`); 
+          this.levelLabel.getComponent("localiser").setStringForKey();
+          this.levelLabel.node.parent.runAction(cc.sequence(cc.scaleTo(1.5, 1), cc.delayTime(0.5), cc.callFunc(()=>{
+              this.levelLabel.node.parent.active = false;
+              this.levelLabel.node.parent.scale = 0.5;
+            if((this._level+1) % 10 == 1){
+                this.showTutorials();
+            }else{
+                this.startGame();
+            }   
+          })));
+          this.totalTime = this.levelData.timer.totalTime;
+          this.bouns.node.getChildByName("bonus").string = this.levelData.timer.bounsTime;
+    }
     createAndShuffelCards(){
         this._cards.length =0;
-        for(let i =0; i<this.groupOf; i++){
+        for(let i =0; i < this.groupOf; i++){
             this._cards.push(...this.levelData.cards);
         }
-    
-        console.log("cards", this._cards, this._level );
         for(let index = this._cards.length-1; index>= 0; index--){
             let randomIndex = Math.floor(Math.random() * (index - 0) + 0);
             let swapElement = this._cards[randomIndex];
@@ -228,19 +257,15 @@ export default class GamePlay extends cc.Component {
 
 
     }
-
-    FlipAllCards(){
+    flipAllCards(){
         for(let child of this.gameLayout.node.children){
             child.getComponent("cards").unreveal();
             if((this._level+1) % 10 != 1){
               child.getComponent('cards').disableOverlay();
             }
         }
-
         if((this._level+1) % 10 == 1){
             this.tutorialCards = this.gameLayout.node.children.filter(item =>  item.getComponent('cards').getCardName() == this.tutCardName); 
-            console.log("tutorial cards",  this.tutorialCards);
-            // this.this.gameLayout.node.children
             this.isTutoiral = true;
             this.moveTutHand();
             
@@ -249,8 +274,8 @@ export default class GamePlay extends cc.Component {
         }
        
     }
-
     moveTutHand(){
+        console.log("move tut hand");
         let card = this.tutorialCards.shift();
         if(!card) return;
         card.parent.getComponent(cc.Widget).updateAlignment();
@@ -258,25 +283,43 @@ export default class GamePlay extends cc.Component {
         this.hand.active = true;
         let worldSpace = this.containerNode.convertToWorldSpace(card.getPosition());
         let nodeSpace = this.hand.parent.convertToNodeSpace(worldSpace);
-        console.log("node space", card.getPosition(), worldSpace, card.parent);
         this.hand.y = nodeSpace.y - (card.height  * card.scale);
         this.hand.x = nodeSpace.x;
-        this.hand.runAction(cc.sequence(cc.moveBy(.5,  0 , 50), cc.moveBy(.5, 0, -50)).repeat(200));
+        this.hand.stopAllActions();
+        this.hand.runAction(cc.sequence(cc.moveBy(.5,  0 , 50), cc.moveBy(.5, 0, -50)).repeat(1000));
     }
-
-
+    moveTudHandsOnHints(isOnMagnifineGlass){
+        this.hand.parent = this.gameTutorials;
+        let position = this.optionLayer.getComponent("options").getChildrenPosition(isOnMagnifineGlass);
+        let worldSpace = this.optionLayer.parent.convertToWorldSpaceAR(position);
+        let nodeSpace = this.gameTutorials.convertToNodeSpaceAR(worldSpace);
+        this.hand.y = nodeSpace.y + this.node.height * 0.3;
+        this.hand.x = nodeSpace.x;
+    }
     startGameTimer (){
         let target = this;
-        
-        console.log("total length", this.timerBar.totalLength, this.levelData.timer.totalTime);
+        target.optionLayer.getComponent("options").updateTimer(0 , this.totalTime)
         this.interval = setInterval(()=>{
             this._timer++;
+
             target.optionLayer.getComponent("options").updateTimer(this._timer , this.totalTime)
+
+            // console.log("inside this maximum time inside this", this.totalTime);
             if(this.gameMode != GAME_MODE.PRACTICE){
                 this.timerBar.progress  = this._timer  / this.totalTime;
-                Math.abs(this._timer  - this.totalTime) == 5
-                 && 
-                SoundManager.getInstance().playEffect(this.last5Sec, false);
+
+                if(Math.abs(this._timer  - this.totalTime) == 10 || 
+                     (!this.isSoundPlaying && Math.abs(this._timer  - this.totalTime) < 10)){
+                    SoundManager.getInstance().playEffect(this.last5Sec, false);
+                    this.isSoundPlaying = true;
+                    this.optionLayer.getComponent("options").enableClockButton();
+                    console.log("inside thie we are here hhheheheh");
+                    this.showTenSecondsPopUp();
+                }else if(this.isSoundPlaying && Math.abs(this._timer  - this.totalTime) > 10){
+                    SoundManager.getInstance().stopAllSounds();
+                    this.optionLayer.getComponent("options").disableClockButton();
+                    this.isSoundPlaying = false;
+                }
                 if(this._timer  == this.totalTime){
                     this.isTouchBlocked = true;
                     clearInterval(this.interval);  
@@ -286,10 +329,7 @@ export default class GamePlay extends cc.Component {
             
         }, 1000);
     }
-
-
     showCard(card){
-        console.log("shoow card of the game play", card);
         if(this.cardsInPair.length >= this.groupOf || this.isTouchBlocked){
             return;
         }
@@ -301,8 +341,6 @@ export default class GamePlay extends cc.Component {
        
         // this.isTutoiral 
     }
-
-    
     isPair(){
         let cards = [];
         cards.length = 0;
@@ -317,14 +355,14 @@ export default class GamePlay extends cc.Component {
                 break;
             }
 
-        }
-        console.log("isMatch", isMatch);
-        if( isMatch ){
-            console.log("inside this");
+        } 
+        if( isMatch ){   
             if(this.cardsInPair.length != this.groupOf){
                 return
             }
-           this.isTouchBlocked = true;
+        
+            this.playBounsAnimation();
+            this.isTouchBlocked = true;
             this.node.runAction(cc.sequence(cc.delayTime(0.2), cc.callFunc(()=>{
             for(let cardScipt of cards){
                     cardScipt.playCorrectAnimation();
@@ -342,16 +380,11 @@ export default class GamePlay extends cc.Component {
             }
 
             if(this.isTutoiral){
-                this.showGameInstructionPopUp();
-                // this.node.runAction(cc.sequence( cc.callFunc(()=>{
-                    
-                // //    }), cc.delayTime(2), cc.callFunc(()=>{
-                       
-                //    }))); 
-               
-
-                // show game pop up and then end the message 
-                // loading 
+                this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
+                    // this();
+                    this.continueTutorial();
+                   }))); 
+                
             }
 
         }else{
@@ -366,16 +399,14 @@ export default class GamePlay extends cc.Component {
             })));
           
         }
-
-        console.log("play sound", this.correctAnswerAudio, isMatch);
         this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc( ()=>{
             let clip = isMatch ? this.correctAnswerAudio : this.wrongAnswerAudiodFlip;
             SoundManager.getInstance().playEffect(clip, false);
         })));
     }
-
-
     endGame (isWon) {
+
+        this.optionLayer.getComponent("options").disableClockButton();
          SoundManager.getInstance().stopAllSounds();
          clearInterval(this.interval);
         if(isWon){
@@ -388,7 +419,6 @@ export default class GamePlay extends cc.Component {
                 if(this._level < levels.length-1){
                     levels[this._level+1].isUnlock = true;
                 }
-                console.log("current level infp", levels[this._level].time, this._timer, JSON.parse(levelInfo.level)[this._level].time);
                 levelInfo.level = JSON.stringify(levels);
                 cc.sys.localStorage.setItem("LevelInfo", JSON.stringify(levelInfo));
                 isNewRecord = true;
@@ -412,7 +442,9 @@ export default class GamePlay extends cc.Component {
     onPlayAgain (){
         this.gameEndAlert.active = false;
         if(!cc.sys.isBrowser){
-                 AdManager.getInstance().showInterstital(this);
+            if(AdManager.getInstance().isAdAvailable()){
+                AdManager.getInstance().showInterstital(this);
+            };
         }
         cc.sys.localStorage.setItem("lastPlayedLevel", this._level);
         //MARK : TO DO CHECK WORK AFTER ADS COMES
@@ -420,18 +452,16 @@ export default class GamePlay extends cc.Component {
         this.node.parent.getComponent("home").startGame();
     }
 
-    
     startGame(){
-
- 
+        console.log("inside this");
+        this.levelLabel.node.parent.active= false;
         this.progresser.width = this.timerBar.node.width;   
         this.timerBar.progress = 1;
         let target = this;
         let time = this.levelData.timer.memorizeTime;
-        // this.gameStartAlert.removeFromParent();
         target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
         target.optionLayer.active = true;
-        this.gameLayout.node.active = true;
+        
         this.isTouchBlocked = true;
         this.interval = setInterval(()=>{
             target.optionLayer.getComponent("options").updateTimer(time, this.levelData.timer.totalTime)
@@ -440,7 +470,7 @@ export default class GamePlay extends cc.Component {
             if(time === -1){
                 clearInterval(this.interval);
                 target.isTouchBlocked = false;
-                target.FlipAllCards();
+                target.flipAllCards();
                 if(!this.isTutoiral){
                     this._timer = 0;
                     this.startGameTimer();
@@ -451,9 +481,7 @@ export default class GamePlay extends cc.Component {
         }, 1000);
     }
 
-
     onPlayAgainCancel(){
-
         this.gameEndAlert.active = false;
         this.gameEndAlert.removeFromParent();
         this.node.parent.getComponent("home").onBack();
@@ -464,7 +492,6 @@ export default class GamePlay extends cc.Component {
         this.gameEndAlert.removeFromParent();
         let level = GameManager.getInstance().getCurrentLevel();
         let totalLevelInMode = GameManager.getInstance().getLevelInfo(this.gameMode);
-        console.log("level", level == totalLevelInMode.length -1 )
         if(level == totalLevelInMode.length -1){
           this.node.parent.getComponent("home").showFutureDetailsScreen();
           GameManager.getInstance().pushScene(GAME_SCREEN.FUTURE_ANNOCMENTS);    
@@ -477,32 +504,43 @@ export default class GamePlay extends cc.Component {
     }
 
     // ANIMATION CALLBACKS :
-
-    playBounsAnimation(){
-        this.bounsPoints += 5;
-        console.log("inside this play bouns animation");
+    playBounsAnimation(isFromPowerUp = false){
+        console.log("is from popwe up ", isFromPowerUp);
+        let additonPoints = isFromPowerUp ? 10 : 5;
+        this.bounsPoints += additonPoints;
         this.bouns.node.active = true;
         this.bouns.node.position  = new cc.Vec2(0,0);
         this.bouns.node.scale = 2;
+        this.bouns.node.getComponentInChildren(cc.Label).string = `+${additonPoints}`;
         this.bouns.node.opacity = 255;
         this.bouns.node.getComponent(cc.Animation).play();
 
     }
-
     bounsAnimationCompleted (){
         this.bouns.node.active = false;
         this.totalTime += this.bounsPoints//this.levelData.timer.bounsTime;
-        console.log("bonys",this.levelData.timer, this.totalTime );
         this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
         this.isTouchBlocked = false;
         this.bounsPoints = 0;
     }
-
+    showTutorials(){
+        this.gameTutorials = cc.instantiate(this.tutorials);
+        this.gameTutorials.getComponent("tutorials").setDelegate(this);
+        this.gameTutorials.getComponent("tutorials").showMemoriseTime(this.levelData.timer.memorizeTime);
+        this.hand.setPosition(0,0);
+        this.node.parent.addChild(this.gameTutorials, 100);
+        
+    }
+    continueTutorial(){
+        this.gameTutorials.active = true;
+        this.gameTutorials.getComponent("tutorials").moveToNextSlide();
+        
+    }
     showGameInstructionPopUp(){
+        console.log("inside this we have to see the ");
         this.gameStartAlert.active = true;
         this.hand.active = false;
     }
-
     stopTutorials(){
         this.isTutoiral = false;
         this.tutorialCards.length = 0;
@@ -512,30 +550,93 @@ export default class GamePlay extends cc.Component {
          }
          this._timer = 0;
          this.startGameTimer();
-   }
-    
+    } 
+    adHasbeenShown(){
 
-
-   adHasbeenShown(){
-
-   }
-
-   isTutorialPlaying(){
+    }
+    isTutorialPlaying(){
        return this.isTutoiral;
-   }
-
-   removeHintPopUp(){
+    }
+    removeHintPopUp(){
        this.gameEndAlert.active = false;
        this.startGameTimer();
        this.optionLayer.getComponent('options').updateHindText();
+    }
+    showHintPopUP(type){
+       console.log("cc.sys.getNetworkType()", cc.sys.getNetworkType(),  cc.sys.NetworkType.LAN, cc.sys.NetworkType.WWAN)
+    if (cc.sys.getNetworkType() == cc.sys.NetworkType.LAN || cc.sys.getNetworkType() == cc.sys.NetworkType.WWAN){
+        this.gameEndAlert.getComponent("gameEnd").showPopUpFor(type, this._level);
+        this.gameEndAlert.active = true;
+        clearInterval(this.interval);
+    }else{
+        console.log("show error pop up",this.netError);
+        this.showNetErroPopUP();
+    }
+      
+    }
+    showNetErroPopUP(){
+
+       this.netError.active = true;
+
+       this.netError.getComponentInChildren(cc.Label).string = GameManager.getInstance().getString('openNet');
+       cc.tween(this.netError)
+       .delay(2)
+       .call(()=> this.netError.active = false)
+       .start();
+    }
+    openPairCards(){
+
+    let hiddenCards  = [];
+    let targetCard = null;
+
+    
+    if(this.cardsInPair.length == this.groupOf || this.isTouchBlocked){
+        console.log("please. return");
+        return;
+    }
+    else if(this.cardsInPair.length!=0 && this.cardsInPair.length <= this.groupOf){
+        hiddenCards = this.cardsInPair;
+    }else{
+        // console.log("innside else");
+          hiddenCards =  this.gameLayout.node.children.filter(item =>  !item.getComponent('cards').isOpen());  
+    }
+
+
+    // console.log("hidden cards hehhehe", hiddenCards, this.cardsInPair);
+    if(hiddenCards.length > 0){
+      let card = hiddenCards[0];
+      let pairs =  this.gameLayout.node.children.filter(item => 
+      item.getComponent('cards').getCardName() ==  card.getComponent('cards').getCardName() ); 
+    //   console.log("pairs", pairs, card.getComponent('cards').getCardName());
+      pairs.forEach(card=>{
+          if(!card.getComponent('cards').isOpen()){
+            this.showCard(card)
+        }
+    });
+        
+       
+     }
+            
+       
+     
+    }
+    showTenSecondsPopUp(){
+       console.log("inside this we have to show ten seconds timer here hehe", JSON.parse(cc.sys.localStorage.getItem("lastTenSeconds")));
+       if(!JSON.parse(cc.sys.localStorage.getItem("lastTenSeconds"))){
+        cc.sys.localStorage.setItem("lastTenSeconds", true);
+        clearInterval(this.interval);
+        this.node.parent.getComponent("home").showLastSecondsPopUp();
+    }
+    }
+
+   hideTenSecondsPopUp(){
+    this.node.parent.getComponent("home").hideLastSecondsPopUp();
+    this.startGameTimer();
    }
 
-   showHintPopUP(){
-    this.gameEndAlert.getComponent("gameEnd").showPopUpFor(END_POP_UP.HINT, this._level);
-    this.gameEndAlert.active = true;
-    clearInterval(this.interval);
-   }
 
+
+    
 
 
 

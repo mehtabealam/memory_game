@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "Post it",
+    "texture": "85a6badf-db10-4626-8318-a36306506575",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      801,
+      147
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      801,
+      147
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

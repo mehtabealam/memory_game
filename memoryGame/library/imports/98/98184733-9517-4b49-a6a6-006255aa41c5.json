@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "buttefly1",
+    "texture": "c4d6ecc2-166f-46c0-9430-b0bb7a51ccb5",
+    "atlas": "",
+    "rect": [
+      10,
+      10,
+      326,
+      326
+    ],
+    "offset": [
+      0.5,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

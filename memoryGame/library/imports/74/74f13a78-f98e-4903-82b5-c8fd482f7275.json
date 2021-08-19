@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "lilly",
+    "texture": "26081ff9-9e19-4c07-8d20-84ec81fee25d",
+    "atlas": "",
+    "rect": [
+      7,
+      5,
+      331,
+      334
+    ],
+    "offset": [
+      0,
+      0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

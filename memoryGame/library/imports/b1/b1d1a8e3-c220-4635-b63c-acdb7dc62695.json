@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "redshoes",
+    "texture": "86b13b89-db80-4512-bdd3-ec7a5a326dcf",
+    "atlas": "",
+    "rect": [
+      17,
+      5,
+      306,
+      335
+    ],
+    "offset": [
+      -2.5,
+      0
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

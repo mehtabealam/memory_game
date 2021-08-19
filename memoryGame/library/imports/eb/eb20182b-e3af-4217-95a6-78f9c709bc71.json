@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "macaron",
+    "texture": "eca18381-f537-436b-bca5-65598b8446bc",
+    "atlas": "",
+    "rect": [
+      8,
+      7,
+      329,
+      332
+    ],
+    "offset": [
+      0,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

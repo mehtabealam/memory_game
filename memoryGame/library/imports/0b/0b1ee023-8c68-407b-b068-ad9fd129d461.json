@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "juice",
+    "texture": "5d2d4d2b-cbfb-4f24-bf84-90d354db32ed",
+    "atlas": "",
+    "rect": [
+      30,
+      5,
+      284,
+      336
+    ],
+    "offset": [
+      -0.5,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

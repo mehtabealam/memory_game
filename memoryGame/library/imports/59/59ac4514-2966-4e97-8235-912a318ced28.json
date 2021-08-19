@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "squirrel",
+    "texture": "34395e0b-93ff-4862-b386-33103b441bd9",
+    "atlas": "",
+    "rect": [
+      0,
+      8,
+      341,
+      333
+    ],
+    "offset": [
+      -2,
+      -2
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "soda",
+    "texture": "80e178bf-a896-48a7-9889-68ab558d4490",
+    "atlas": "",
+    "rect": [
+      57,
+      5,
+      232,
+      334
+    ],
+    "offset": [
+      0.5,
+      0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

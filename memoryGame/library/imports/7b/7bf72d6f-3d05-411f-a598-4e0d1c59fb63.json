@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "armchair",
+    "texture": "b03dab56-e8ae-42c1-abd0-9aced5dc965e",
+    "atlas": "",
+    "rect": [
+      5,
+      26,
+      333,
+      311
+    ],
+    "offset": [
+      -1,
+      -9
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

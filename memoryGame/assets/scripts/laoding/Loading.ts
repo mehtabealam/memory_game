@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import { GameManager } from "../managers/GameManager";
+import { NetworkManager } from "../managers/NetworkManager";
+import { API_END_POINTS, REQUEST_TYPE } from "../managers/NetworkConfig";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -12,6 +14,7 @@ export default class Loading extends cc.Component {
 
 
    start(){
+    NetworkManager.getInstance().init();
     if(!cc.sys.localStorage.getItem("hasLaunchedBeforev2")){
         cc.sys.localStorage.clear();
           cc.sys.localStorage.setItem("hasLaunchedBeforev2", true)
@@ -35,38 +38,66 @@ export default class Loading extends cc.Component {
       if(!cc.sys.localStorage.getItem("hint")){
         cc.sys.localStorage.setItem("hint", 3);
       }
+
+
+      if(!cc.sys.localStorage.getItem("clue")){
+        cc.sys.localStorage.setItem("clue", 3);
+      }
+
+      if(!cc.sys.localStorage.getItem("lastTenSeconds")){
+        cc.sys.localStorage.setItem("lastTenSeconds", false);
+      }
+
+
+      if(!cc.sys.localStorage.getItem("rewardClaimDate")){
+        cc.sys.localStorage.setItem("rewardClaimDate", new Date(98,1,1).toDateString());
+      }
+
       cc.debug.setDisplayStats(false);
-     this.startLoading();
+      
+
+      console.log("isonline", cc.sys.getNetworkType());
+      if (cc.sys.getNetworkType() == cc.sys.NetworkType.LAN || cc.sys.getNetworkType() == cc.sys.NetworkType.WWAN) {
+        NetworkManager.getInstance().sendRequest(API_END_POINTS.GET_TIME, 
+          REQUEST_TYPE.GET, {},
+          (data, error) => {
+            if(data) {
+              let parseData = JSON.parse(data);
+              let date = parseData.currentDateTime;
+              let day = date.split("T")[0];
+              GameManager.getInstance().setCurrentDate(day);
+            }
+            console.log("isonline data", data);
+            this.startLoading();
+          },
+          (error, data) =>{
+            console.log("isonline error", error, data);
+            GameManager.getInstance().setCurrentDate( cc.sys.localStorage.getItem("rewardClaimDate"));
+            this.startLoading();
+          },true);
+      }else{
+        console.log("new network saving local time");
+        GameManager.getInstance().setCurrentDate( cc.sys.localStorage.getItem("rewardClaimDate"));
+        this.startLoading();
+      }
+    
+     
    }
 
    startLoading(){
-    GameManager.getInstance()
-    .loadGameConfig()
-    .then((data) => {
-      console.log("data loded successfully", data);
-      GameManager.getInstance()
-        .loadLevels()
-        .then((data) => {
-          GameManager.getInstance().loadLanaguge().then((data)=>{
-            console.log("lanaguga data loaded succesfully");
-            GameManager.getInstance().changeCurrentLanguage();
-            GameManager.getInstance().loadLevelImages(0).then(()=>{
-              console.log("level image loaded succesfully");
-                cc.director.loadScene('home');
-            })
-          }).catch((error)=>{
-            console.log("error", error);
-          })
-         
-        })
-        .catch((error) => {
-          console.log("erorr", error);
-        });
+    GameManager.getInstance().loadGameConfig()
+    .then(()=>  GameManager.getInstance().loadLevels())
+    .then(()=> GameManager.getInstance().loadLanaguge())
+    .then(()=>{
+      GameManager.getInstance().changeCurrentLanguage();
+      return GameManager.getInstance().loadLevelImages(JSON.parse(cc.sys.localStorage.getItem("lastPlayedLevel")));
     })
-    .catch((error) => {
-      console.log("error while loading resources");
-    });
-
-
+    .then(() => {console.log("Data has been loaded")
+      cc.director.loadScene('home');
+    })
+    .catch((error)=> console.error("Error while loading resources", error));
    }
+
+
+   
 }

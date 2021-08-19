@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "gameOverBg",
+    "texture": "398740bc-331c-4287-98d8-bc5f57f5bd21",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      1125,
+      1979
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      1125,
+      1979
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

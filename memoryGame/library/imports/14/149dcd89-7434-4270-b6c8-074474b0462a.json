@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "reloj",
+    "texture": "70efca73-cd6d-4a8a-afa9-e1d7b796b1c3",
+    "atlas": "",
+    "rect": [
+      6,
+      6,
+      71,
+      71
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      83,
+      83
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

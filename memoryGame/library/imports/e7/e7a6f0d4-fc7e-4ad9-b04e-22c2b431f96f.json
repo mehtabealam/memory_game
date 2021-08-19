@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "cupcake",
+    "texture": "88f1d2e2-4c6b-4675-8ee6-16bf6236be3d",
+    "atlas": "",
+    "rect": [
+      22,
+      4,
+      301,
+      338
+    ],
+    "offset": [
+      0,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

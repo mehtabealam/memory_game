@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "bonusBg",
+    "texture": "1a7ef526-1279-4a42-a34d-e229cb1be02b",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      390,
+      390
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      390,
+      390
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

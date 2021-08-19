@@ -14,57 +14,80 @@ const {ccclass, property} = cc._decorator;
 export default class PrivacyPolicy extends cc.Component {
 
     @property(cc.Label)
-    label: cc.Label = null;
+    pLabel: cc.Label = null;
 
+
+    @property(cc.Label)
+    layout: cc.Label = null;
+
+
+    @property(cc.Label)
+    header: cc.Label = null;
+
+    isTerm :boolean =  false;
+
+    stringArray: string[] = [];
     
   @property(cc.AudioClip)
   buttonPressed: cc.Node = null;
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+
+        console.log("on load is called");
+    }
 
     start () {
         console.log("on start called");
-
-
     }
 
     onEnable(){
-        this.node.getComponent(cc.Animation).play("moveIn");
-        this.node.runAction(cc.sequence(cc.delayTime(0),cc.callFunc(()=>{
-            this.setString();
-           
-        })))
-        
-        // let ans = "";
-        // for(let item of stringArray){
-        //     ans += item;
-        // }
-
+       
     }
 
-    onInAnimationEnd(){
-        
-    }
-
-
-    setString(){
-        let   stringArray= GameManager.getInstance().getString("privacyInformation");
-        this.label.string = stringArray;      
-    }
 
 
 
     onBack(){
-        this.node.getComponent(cc.Animation).play("privacyPloicyMoveOut");
+        this.node.active = false;
     }
+
+
+     setTerm(loader){
+        this.isTerm = true;
+        this.header.string = GameManager.getInstance().getString("termAndConditions")
+        this.stringArray= GameManager.getInstance().getString("terms");
+        this.addRemainingLabel()
+       
+
+     }
+
+     
+     setPrivacy(loader){
+         this.header.string = GameManager.getInstance().getString("privacyPolicyTitle")
+        this.isTerm = false;
+        this.stringArray= GameManager.getInstance().getString("privacyInformation");
+        this.addRemainingLabel()
+     }
+
+
+
+     addRemainingLabel(){
+        this.pLabel.string = this.stringArray.reduce((a,b) => a+b, "");
+        console.log("sreting", this.stringArray);
+     }
 
 
     onBackAnimationEnd(){
         console.log("called");
         SoundManager.getInstance().playEffect(this.buttonPressed, false);
-        this.node.active = false;
+        this.node.active = false;    
     }
-    // update (dt) {}
+
+    openLink (){
+       let url =  this.isTerm ? "https://docs.google.com/document/d/12RJd81VYPFEyNzqEyg1g5EmGlJGAxenEiC3ls-mltVQ/edit":
+        "https://docs.google.com/document/d/1cE961cfk3GJ70BfWmswVd5Spl_70XduWoZTMP9jvizk/edit#heading=h.4ox8fqtrw08x"
+        cc.sys.openURL(url);
+    }
 }

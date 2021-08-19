@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "terminateTutorials",
+    "texture": "97d3c2cb-ddbd-4d72-856f-a4fffc833171",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      613,
+      136
+    ],
+    "offset": [
+      -0.5,
+      0
+    ],
+    "originalSize": [
+      614,
+      136
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

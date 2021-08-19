@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "marble",
+    "texture": "763b8c32-e4ff-4030-a917-16c7aec7df0b",
+    "atlas": "",
+    "rect": [
+      9,
+      9,
+      327,
+      328
+    ],
+    "offset": [
+      0,
+      -0.5
+    ],
+    "originalSize": [
+      345,
+      345
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

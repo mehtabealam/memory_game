@@ -9,7 +9,7 @@ import { GAME_MODE} from "../helper/constants";
     private _languageData = null;
     private _selectedMode = GAME_MODE.PRACTICE;
     private _currentLevel = 0;
-    private placementId = null;
+    private _currentDate = null;
 
     public screen = [];
 
@@ -20,8 +20,12 @@ import { GAME_MODE} from "../helper/constants";
         return GameManager._instance;
     }
 
-    setAdIds(idObj){
-        this.placementId = idObj;
+    setCurrentDate(date){
+        this._currentDate = date;
+    }
+
+    getCurrentDate(){
+        return this._currentDate;
     }
 
     loadGameConfig() {
@@ -193,26 +197,16 @@ import { GAME_MODE} from "../helper/constants";
         return this._currentLevel;
     }
 
-
-    
-
-     pushScene(scene){
+    pushScene(scene){
          console.log("scnee", scene);
          this.screen.push(scene);
      }
 
-     popScene(){
+    popScene(){
         return this.screen.pop();
      }
 
-     removeAllScene(){
+    removeAllScene(){
          this.screen.length = 0;
      }
-    
-       
-    
-
-
-
-    
 }

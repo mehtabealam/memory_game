@@ -1,14 +1,3 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-
-
-
-
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -74,21 +63,27 @@ export default class AdManager extends cc.Component {
         console.log("not avilable banner ads");
         sdkbox.PluginAdMob.cache('banner');
        } 
-       
-
     }
 
     public showInterstital(inforeToNode){
         this.delegate = inforeToNode;
         if(sdkbox.PluginAdMob.isAvailable('gameover')){
             sdkbox.PluginAdMob.show('gameover');
-            console.log("show ads");
+              return true;
            }else{
                console.log("chacheing add");
                sdkbox.PluginAdMob.cache('gameover');
+               return false;
            } 
        
     }
 
-   
+    public isAdAvailable(){
+        if(sdkbox.PluginAdMob.isAvailable('gameover')){
+            return true;
+        }else{
+            sdkbox.PluginAdMob.cache('gameover');
+            return false;
+        }
+    }
 }
