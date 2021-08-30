@@ -1,5 +1,6 @@
 import {GameManager} from "../managers/GameManager";
 import SoundManager from "../managers/SoundManager";
+import GamePlay from "./gamePlay";
 
 const {ccclass, property} = cc._decorator;
 
@@ -8,7 +9,7 @@ export default class Card extends cc.Component {
 
     private _cardName : string = "";
     private _isOpen : boolean = true;
-    private _delagateScript : cc.Component = null;
+    private _delagateScript : GamePlay = null;
 
     @property(cc.Sprite)
     image: cc.Sprite = null;
@@ -29,24 +30,13 @@ export default class Card extends cc.Component {
     @property(cc.Node)
     overLay: cc.Node = null;
 
-    
-
-
-  
-
-
-
-
-
-    // LIFE-CYCLE CALLBACKS:
-
     // onLoad () {}
 
     start () {
 
     }
 
-    setDelegate(delegate:cc.Component){
+    setDelegate(delegate: GamePlay){
         this._delagateScript = delegate;
     }
 
@@ -84,26 +74,29 @@ export default class Card extends cc.Component {
         this._isOpen = showFace;
     }
 
-    reveal( ): void {
-        if(this._isOpen){
-            return;
+    reveal( ): boolean {
+        if(this._isOpen || this.animationNode.getNumberOfRunningActions() > 0){
+            console.log("card in", this.node.getNumberOfRunningActions());
+            return false;
         }
-
         SoundManager.getInstance().playEffect(this.cardFlip,false);
         let callFunc1 = cc.callFunc(function () {
             this.setFaceUp(true);
         }, this);
-        let callFunc2 = cc.callFunc(function () {
-            // callFunc();
-        }, this);
+       
         let initialScale = 1;
         // console.log("initialScale", initialScale);
         let revealAction = cc.sequence(cc.scaleTo(0.1, 0, this.node.scale), callFunc1, cc.scaleTo(0.1, initialScale, initialScale));
         this.animationNode.runAction(revealAction);
+        return true;
     }
 
 
     unreveal ( ) {
+
+        if(!this._isOpen || this.animationNode.getNumberOfRunningActions() >0){
+            return;
+        }
         let callFunc1 = cc.callFunc(function () {
             this.setFaceUp(false);
         }, this);

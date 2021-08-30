@@ -1,6 +1,6 @@
 
 import {GameManager} from "../managers/GameManager"
-import { GAME_MODE, END_POP_UP, GAME_SCREEN } from "../helper/constants";
+import { GAME_MODE, END_POP_UP, GAME_SCREEN, GAME_TYPE } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 import AdManager from "../managers/AdManager";
 
@@ -18,7 +18,6 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class GamePlay extends cc.Component {
-
     private _cards = [];
     private _gridInfo = null;
     private _level  =  0;
@@ -26,7 +25,7 @@ export default class GamePlay extends cc.Component {
     private OpenCards =[];
     private cardsInPair =[];
     private tutorialCards =[];
-    private tutCardName = 0;
+    private mirrorOPenCards =[];
     private isTutoiral = true; 
     private levelData = null;
     private interval = null;
@@ -39,17 +38,15 @@ export default class GamePlay extends cc.Component {
     gameEndAlert = null;
     optionLayer = null;
     gameTutorials = null;
-
     bounsPoints = 0;
-    isSoundPlaying = false
-    
+    isSoundPlaying = false;
+    currentCardName = '';
 
     @property(cc.Prefab)
     cardPrefab: cc.Prefab = null;
 
     @property(cc.Prefab)
     options: cc.Prefab = null;
-
     @property(cc.ProgressBar)
     timerBar : cc.ProgressBar = null;
 
@@ -128,10 +125,14 @@ export default class GamePlay extends cc.Component {
             this.hand.parent = this.node;
             this.bouns.node.active = false; 
             this.tutorialCards.length = 0;
+            this.mirrorOPenCards.length = 0;
+            this.timerBar.progress = 1;
             this.hand.active = false;
             this.isTutoiral = true;
             SoundManager.getInstance().stopAllSounds();
-            this.optionLayer.getComponent("options").disableClockButton();
+            this.levelLabel.node.parent.stopAllActions();
+            this.levelLabel.node.parent.scale = 0.5;
+            this.node.stopAllActions();
         }else{
             SoundManager.getInstance().stopAllSounds(); 
         }
@@ -220,14 +221,13 @@ export default class GamePlay extends cc.Component {
         this.updateGamePlay();
 
     }
-
     updateGamePlay(){
         this.levelLabel.getComponent("localiser").replaceValue(`${this._level+1}`); 
           this.levelLabel.getComponent("localiser").setStringForKey();
           this.levelLabel.node.parent.runAction(cc.sequence(cc.scaleTo(1.5, 1), cc.delayTime(0.5), cc.callFunc(()=>{
               this.levelLabel.node.parent.active = false;
               this.levelLabel.node.parent.scale = 0.5;
-            if((this._level+1) % 10 == 1){
+            if((this._level+1) % 10 == 1 && !JSON.parse(cc.sys.localStorage.getItem(`shownTutorial${this._level}`))){
                 this.showTutorials();
             }else{
                 this.startGame();
@@ -238,7 +238,7 @@ export default class GamePlay extends cc.Component {
     }
     createAndShuffelCards(){
         this._cards.length =0;
-        for(let i =0; i < this.groupOf; i++){
+        for(let i = 0; i < this.groupOf; i++){
             this._cards.push(...this.levelData.cards);
         }
         for(let index = this._cards.length-1; index>= 0; index--){
@@ -248,24 +248,17 @@ export default class GamePlay extends cc.Component {
             this._cards[index] = swapElement;
             this._cards[randomIndex] = currentElement;
         }
-
-        if((this._level +1)% 10 == 1){
-           this.tutCardName = this._cards[Math.floor(Math.random() * (this._cards.length - 1) + 0)].name;
-          
-        }
-
-
-
     }
     flipAllCards(){
         for(let child of this.gameLayout.node.children){
             child.getComponent("cards").unreveal();
-            if((this._level+1) % 10 != 1){
+            if((this._level+1) % 10 != 1 || JSON.parse(cc.sys.localStorage.getItem(`shownTutorial${this._level}`))){
               child.getComponent('cards').disableOverlay();
             }
         }
-        if((this._level+1) % 10 == 1){
-            this.tutorialCards = this.gameLayout.node.children.filter(item =>  item.getComponent('cards').getCardName() == this.tutCardName); 
+        if((this._level+1) % 10 == 1 && !JSON.parse(cc.sys.localStorage.getItem(`shownTutorial${this._level}`))){
+            let demoCard = this.levelData.demoCard;
+            this.tutorialCards = this.gameLayout.node.children.filter(item =>  item.getComponent('cards').getCardName() == demoCard); 
             this.isTutoiral = true;
             this.moveTutHand();
             
@@ -275,7 +268,7 @@ export default class GamePlay extends cc.Component {
        
     }
     moveTutHand(){
-        console.log("move tut hand");
+        console.log("current tut hand", this.currentCardName);
         let card = this.tutorialCards.shift();
         if(!card) return;
         card.parent.getComponent(cc.Widget).updateAlignment();
@@ -298,10 +291,9 @@ export default class GamePlay extends cc.Component {
     }
     startGameTimer (){
         let target = this;
-        target.optionLayer.getComponent("options").updateTimer(0 , this.totalTime)
+        target.optionLayer.getComponent("options").updateTimer(0 , this.totalTime);
         this.interval = setInterval(()=>{
             this._timer++;
-
             target.optionLayer.getComponent("options").updateTimer(this._timer , this.totalTime)
 
             // console.log("inside this maximum time inside this", this.totalTime);
@@ -330,90 +322,151 @@ export default class GamePlay extends cc.Component {
         }, 1000);
     }
     showCard(card){
-        if(this.cardsInPair.length >= this.groupOf || this.isTouchBlocked){
+        
+        this.cardsInPair.forEach(card=>{
+            console.log("card in show card", card.getComponent("cards").getCardName(),this.cardsInPair.length, this.isTouchBlocked);
+        })
+
+        if(this.cardsInPair.length == 0 && this.mirrorOPenCards.length == 0){
+            this.currentCardName = card.getComponent("cards").getCardName();
+        }
+        if((this.cardsInPair.length >= this.groupOf  && this.mirrorOPenCards.length == 0)|| this.isTouchBlocked){
             return;
         }
-        card.getComponent("cards").reveal();
-        this.cardsInPair.push(card);
-        this.isTutoiral && this.moveTutHand();
-        this.cardsInPair.length > 1 && this.isPair();
-       
-       
-        // this.isTutoiral 
-    }
-    isPair(){
-        let cards = [];
-        cards.length = 0;
-        for(let i=0; i< this.cardsInPair.length; i++){
-            cards.push(this.cardsInPair[i].getComponent('cards'))
+        if(card.getComponent("cards").reveal()){
+            this.cardsInPair.push(card);
+            this.isTutoiral && this.moveTutHand();
+            this.addToOpenList();
         }
 
+        
+        
+        // console.log("card in 2: ",...this.OpenCards);
+    }
+
+    addToOpenList(){
+        let cards = [];
+        cards.length = 0;
+        for(let i=0; i < this.cardsInPair.length; i++){
+            cards.push(this.cardsInPair[i].getComponent('cards'))
+        }
+        let isMatch = this.isPair(cards);
+        if(isMatch){
+            if( this.isTutoiral){
+                this.checkIsTutPoint();               
+            }
+
+            console.log("testing chacking cards", this.cardsInPair.length, this.groupOf);
+
+            if(this.cardsInPair.length != this.groupOf){
+                    return
+            }
+            if(this.levelData.gameType == GAME_TYPE.MIRROR){
+                    if(this.isMirrorCardPresent()){
+                        if(this.isTutoiral){ 
+                            this.tutorialCards = this.gameLayout.node.children.filter(item =>  item.getComponent('cards').getCardName() == this.currentCardName); // add these card in tutoarils card;   
+                            this.moveTutHand();   
+                        }
+                        return;
+                    }
+
+                    
+                    cards.length = 0;
+                    for(let i=0; i < this.mirrorOPenCards.length; i++){
+                    cards.push(this.mirrorOPenCards[i].getComponent('cards'));
+                }
+                }
+
+                this.isTouchBlocked = true;
+                !this.isTutoiral && this.playBounsAnimation();
+                this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc(()=>{
+                    for(let cardScipt of cards){
+                            cardScipt.playCorrectAnimation();
+                    }}), cc.delayTime(0.3), cc.callFunc(()=>{
+                        this.isTouchBlocked = false;
+                        this.cardsInPair.length = 0;
+                        this.mirrorOPenCards.length = 0;
+                    })));
+
+
+                for(let cardScript of cards){
+                        this.OpenCards.push(cardScript.getCardName());
+                 }
+
+                 if(this.OpenCards.length == this._cards.length){
+                    this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
+                     this.endGame(true);
+                    }))); 
+                 }
+     
+                 if(this.isTutoiral){
+                     this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
+                         // this();
+                         this.continueTutorial();
+                        })));      
+                 }
+        }else{
+            this.isTouchBlocked = true;
+            this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc(()=>{
+                for(let cardScipt of cards){
+                    cardScipt.unreveal();  
+                } 
+            }),cc.delayTime(0.3), cc.callFunc( ()=>{
+                this.isTouchBlocked = false;
+                this.cardsInPair.length = 0;
+            })));
+        }
+
+        this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc( ()=>{
+            let clip = isMatch ? this.correctAnswerAudio : this.wrongAnswerAudiodFlip;
+            SoundManager.getInstance().playEffect(clip, false);
+        })));
+
+    }  
+    isMirrorCardPresent(){
+              let currentCard = this.currentCardName;
+               let lastCharacter = currentCard[currentCard.length - 1];
+               let nextCard = currentCard.replace(lastCharacter, lastCharacter == '1'? '2':'1');
+               let count = 0;
+               this.mirrorOPenCards = [...this.mirrorOPenCards,...this.cardsInPair];
+               this.cardsInPair.length = 0;
+               for(let child of this.gameLayout.node.children){
+                    if(child.getComponent("cards").getCardName() == nextCard  && !child.getComponent("cards").isOpen()){
+                        count++;
+                    }
+                    
+                }
+                this.currentCardName = nextCard;
+                console.log("next card is", nextCard, count);
+                return  count!=0;
+            
+        
+    }
+    isPair(cards){
+        console.log("inisde is pair", cards.length);
         let isMatch  = true;
-        for(let i = 0; i < cards.length - 1; i++ ){
-            if(cards[i].getCardName() !== cards[i+1].getCardName()){
+        for(let i = 0; i < cards.length; i++ ){
+            console.log("current card name", this.currentCardName, cards[i].getCardName());
+            if(cards[i].getCardName() !== this.currentCardName){
                 isMatch = false;
                 break;
             }
 
         } 
-        if( isMatch ){   
-            if(this.cardsInPair.length != this.groupOf){
-                return
-            }
-        
-            this.playBounsAnimation();
-            this.isTouchBlocked = true;
-            this.node.runAction(cc.sequence(cc.delayTime(0.2), cc.callFunc(()=>{
-            for(let cardScipt of cards){
-                    cardScipt.playCorrectAnimation();
-            }
-            this.isTouchBlocked = false;
-            })));
-            for(let cardScipt of cards){
-                this.OpenCards.push(cardScipt.getCardName());
-               }
-            this.cardsInPair.length = 0;
-            if(this.OpenCards.length == this._cards.length){
-               this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
-                this.endGame(true);
-               }))); 
-            }
 
-            if(this.isTutoiral){
-                this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
-                    // this();
-                    this.continueTutorial();
-                   }))); 
-                
-            }
-
-        }else{
-            let target = this;
-            this.isTouchBlocked = true;
-            this.node.runAction(cc.sequence(cc.delayTime(1), cc.callFunc(()=>{
-                for(let cardScipt of cards){
-                    cardScipt.unreveal();
-                    this.isTouchBlocked = false;
-                }
-                this.cardsInPair.length = 0;
-            })));
-          
-        }
-        this.node.runAction(cc.sequence(cc.delayTime(0.3), cc.callFunc( ()=>{
-            let clip = isMatch ? this.correctAnswerAudio : this.wrongAnswerAudiodFlip;
-            SoundManager.getInstance().playEffect(clip, false);
-        })));
+        return isMatch;
     }
     endGame (isWon) {
-
         this.optionLayer.getComponent("options").disableClockButton();
          SoundManager.getInstance().stopAllSounds();
+        
+         console.log("stop inteval remoiving interval");
          clearInterval(this.interval);
         if(isWon){
             let isNewRecord = false;
             let levelInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
             let levels =  JSON.parse(levelInfo.level);
-            // SoundManager.getInstance().playEffect(this.clapping, false);
+            SoundManager.getInstance().playEffect(this.clapping, false);
             if(levels[this._level].time > this._timer){
                 levels[this._level].time = this._timer;
                 if(this._level < levels.length-1){
@@ -437,7 +490,6 @@ export default class GamePlay extends cc.Component {
         })));
         
     }
-
     // pop ups DELEGATE METHODS 
     onPlayAgain (){
         this.gameEndAlert.active = false;
@@ -453,7 +505,7 @@ export default class GamePlay extends cc.Component {
     }
 
     startGame(){
-        console.log("inside this");
+        console.log("starr game called");;
         this.levelLabel.node.parent.active= false;
         this.progresser.width = this.timerBar.node.width;   
         this.timerBar.progress = 1;
@@ -514,13 +566,14 @@ export default class GamePlay extends cc.Component {
         this.bouns.node.getComponentInChildren(cc.Label).string = `+${additonPoints}`;
         this.bouns.node.opacity = 255;
         this.bouns.node.getComponent(cc.Animation).play();
+    
 
     }
     bounsAnimationCompleted (){
         this.bouns.node.active = false;
         this.totalTime += this.bounsPoints//this.levelData.timer.bounsTime;
         this.optionLayer.getComponent("options").updateTimer(this._timer,  this.totalTime);
-        this.isTouchBlocked = false;
+
         this.bounsPoints = 0;
     }
     showTutorials(){
@@ -533,7 +586,13 @@ export default class GamePlay extends cc.Component {
     }
     continueTutorial(){
         this.gameTutorials.active = true;
-        this.gameTutorials.getComponent("tutorials").moveToNextSlide();
+        if(this._level ==0){
+            this.gameTutorials.getComponent("tutorials").moveToNextSlide();
+        }else{
+            this.gameTutorials.getComponent("tutorials").showTerminationPopUp();
+        }
+        
+       
         
     }
     showGameInstructionPopUp(){
@@ -543,8 +602,15 @@ export default class GamePlay extends cc.Component {
     }
     stopTutorials(){
         this.isTutoiral = false;
+        this.hand.active = false;
+        console.log("open card", this.OpenCards);
+        let openCards = this.gameLayout.node.children.filter(item => item.getComponent('cards').isOpen()); 
         this.tutorialCards.length = 0;
+        this.cardsInPair.length = 0;
         this.gameStartAlert.removeFromParent();
+        openCards.forEach(card => card.getComponent("cards").unreveal());
+        this.OpenCards.length = 0;
+        console.log("open cards here", this.OpenCards); cc.sys.localStorage.setItem(`shownTutorial${this._level}`, true);
         for(let child of this.gameLayout.node.children){
               child.getComponent('cards').disableOverlay();
          }
@@ -557,11 +623,13 @@ export default class GamePlay extends cc.Component {
     isTutorialPlaying(){
        return this.isTutoiral;
     }
+
     removeHintPopUp(){
        this.gameEndAlert.active = false;
        this.startGameTimer();
        this.optionLayer.getComponent('options').updateHindText();
     }
+
     showHintPopUP(type){
        console.log("cc.sys.getNetworkType()", cc.sys.getNetworkType(),  cc.sys.NetworkType.LAN, cc.sys.NetworkType.WWAN)
     if (cc.sys.getNetworkType() == cc.sys.NetworkType.LAN || cc.sys.getNetworkType() == cc.sys.NetworkType.WWAN){
@@ -585,39 +653,42 @@ export default class GamePlay extends cc.Component {
        .start();
     }
     openPairCards(){
-
     let hiddenCards  = [];
     let targetCard = null;
-
-    
     if(this.cardsInPair.length == this.groupOf || this.isTouchBlocked){
         console.log("please. return");
         return;
     }
-    else if(this.cardsInPair.length!=0 && this.cardsInPair.length <= this.groupOf){
+    else if(this.cardsInPair.length !=0 && this.cardsInPair.length <= this.groupOf){
         hiddenCards = this.cardsInPair;
     }else{
-        // console.log("innside else");
-          hiddenCards =  this.gameLayout.node.children.filter(item =>  !item.getComponent('cards').isOpen());  
+
+        console.log("inside thiswe are here");
+          if(this.mirrorOPenCards.length ==0){
+            hiddenCards =  this.gameLayout.node.children.filter(item =>  !item.getComponent('cards').isOpen());  
+            this.currentCardName = hiddenCards[0].getComponent("cards").getCardName();
+          }else{
+            hiddenCards =  this.gameLayout.node.children.filter(item =>  item.getComponent("cards").getCardName() == this.currentCardName);  
+          }
+          console.log("hidden cards", hiddenCards);
+          
     }
 
 
     // console.log("hidden cards hehhehe", hiddenCards, this.cardsInPair);
     if(hiddenCards.length > 0){
-      let card = hiddenCards[0];
+      let card = this.currentCardName;
       let pairs =  this.gameLayout.node.children.filter(item => 
-      item.getComponent('cards').getCardName() ==  card.getComponent('cards').getCardName() ); 
+      item.getComponent('cards').getCardName() ==  card ); 
     //   console.log("pairs", pairs, card.getComponent('cards').getCardName());
       pairs.forEach(card=>{
           if(!card.getComponent('cards').isOpen()){
             this.showCard(card)
         }
-    });
-        
-       
-     }
-            
-       
+       });
+    
+    }
+           
      
     }
     showTenSecondsPopUp(){
@@ -634,7 +705,35 @@ export default class GamePlay extends cc.Component {
     this.startGameTimer();
    }
 
+   checkIsTutPoint(){
+    if(this._level ==0){
+        return;
+    }
+    console.log("current open card length is ", this.cardsInPair.length, this.levelData.groupOf);
+    switch(this._level){
+        case 10:
+            this.cardsInPair.length == this.levelData.groupOf-1
+               &&
+            this.gameTutorials.getComponent("tutorials").showGameInfoPopUp();
+            break;
+        case 20:
+            console.log("inisde this but not sure if this will work");
+            this.cardsInPair.length == this.levelData.groupOf
+                            &&
+            this.mirrorOPenCards.length ==0 
+                            &&            
+            this.gameTutorials.getComponent("tutorials").showGameInfoPopUp();
+            break;
+        case 30:
+            this.cardsInPair.length == this.levelData.groupOf
+                            &&
+            this.mirrorOPenCards.length == 0
+                            && 
+            this.gameTutorials.getComponent("tutorials").showGameInfoPopUp();
+           break;
 
+    }
+   }
 
     
 

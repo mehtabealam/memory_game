@@ -81,12 +81,9 @@ export default class LevelUIManager extends cc.Component {
         let levelInfo = GameManager.getInstance().getLevelData(startIndex);
         this.setLeveltitle(levelInfo.gameType, levelInfo.groupOf)
         let levelsInfo = JSON.parse(cc.sys.localStorage.getItem("LevelInfo"));
-        let levels = GameManager.getInstance().getLevelInfo();
-        let endIndex = (startIndex + 10) > levels.length ? levels.length : (startIndex +10);
         let levelsInfoForMode = JSON.parse(levelsInfo.level);
-        for (let i = startIndex; i < endIndex; i++) {
-            let button = cc.instantiate(this.levelSelectionButton);
-            if(levelsInfoForMode[i].isUnlock){
+        for (let button of this.layout.node.children) {
+            if(levelsInfoForMode[+button.name].isUnlock){
                 button.getChildByName("Background").getComponent("cc.Sprite").spriteFrame = this.unlocked;
                 button.getChildByName("lock").active = false;
                 button.getComponent(cc.Button).interactable = true;
@@ -95,7 +92,6 @@ export default class LevelUIManager extends cc.Component {
                 button.getChildByName("lock").active = true;
                 button.getComponent(cc.Button).interactable = false;
             }
-            this.layout.node.addChild(button);
        }
     }
 

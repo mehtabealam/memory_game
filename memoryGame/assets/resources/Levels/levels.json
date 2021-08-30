@@ -20,7 +20,8 @@
                 "totalTime":30
             },
             "groupOf" :2,
-            "gameType": 1
+            "gameType": 1,
+            "demoCard":"flower"
              
             },
             {
@@ -271,12 +272,13 @@
                   "row":4
               },
               "timer":{
-                "memorizeTime" : 10,
+                "memorizeTime" : 2,
                 "totalTime":50,
                 "bounsTime":5
             },
             "groupOf" :3,
-            "gameType": 1
+            "gameType": 1,
+            "demoCard":"banana"
              
             },
             {
@@ -493,8 +495,8 @@
                 "cards":[
                     {"name":  "cake1"},
                     {"name":  "cake2"},
-                    {"name":  "cupcake1"},
-                    {"name":  "cupcake2"},
+                    {"name":  "banana1"},
+                    {"name":  "banana2"},
                     {"name":  "kitten1"},
                     {"name":  "kitten2"}
                 ],
@@ -508,18 +510,21 @@
                   "bounsTime":5
               },
               "groupOf" :2,
-              "gameType": 2
-               
+              "gameType": 2,
+              "demoCard":"banana1",
+              "pairs" : [
+                  ["cake1", "cake2"],["cupcake1", "cupcake2"], ["kitten1","kitten2"]
+              ]
             },
             {
                 "id" : 21,
                 "cards":[
-                    {"name":  "Cup1"},
-                    {"name":  "Cup2"},
-                    {"name":  "Shoe1"},
-                    {"name":  "shoe2"},
-                    {"name":  "tree1"},
-                    {"name":  "tree2"}
+                    {"name":  "cherry1"},
+                    {"name":  "cherry2"},
+                    {"name":  "cup1"},
+                    {"name":  "cup2"},
+                    {"name":  "phone1"},
+                    {"name":  "phone2"}
                 ],
                 "grid":{
                     "col" : 3,
@@ -585,13 +590,13 @@
             {
                 "id" : 24,
                 "cards":[
-                    {"name":  "cupcake"},
+                    {"name":  "cupcake1"},
                     {"name":  "cupcake2"},
-                    {"name":  "glasses"},
+                    {"name":  "glasses1"},
                     {"name":  "glasses2"},
-                    {"name":  "hand"},
+                    {"name":  "hand1"},
                     {"name":  "hand2"},
-                    {"name":  "tomato"},
+                    {"name":  "tomato1"},
                     {"name":  "tomato2"}
 
                 ],
@@ -611,13 +616,13 @@
             {
                 "id" : 25,
                 "cards":[
-                    {"name":  "dog"},
+                    {"name":  "dog1"},
                     {"name":  "dog2"},
-                    {"name":  "house"},
+                    {"name":  "house1"},
                     {"name":  "house2"},
-                    {"name":  "palette"},
+                    {"name":  "palette1"},
                     {"name":  "palette2"},
-                    {"name":  "toys"},
+                    {"name":  "toys1"},
                     {"name":  "toys2"}
                 ],
                 "grid":{
@@ -640,8 +645,8 @@
                     {"name":  "bird2"},
                     {"name":  "icecream1"},
                     {"name":  "icecream2"},
-                    {"name":  "milkshake1"},
-                    {"name":  "milkshake2"},
+                    {"name":  "ring1"},
+                    {"name":  "ring2"},
                     {"name":  "purse1"},
                     {"name":  "purse2"},
                     {"name":  "roses1"},
@@ -690,19 +695,19 @@
             {
                 "id" : 28,
                 "cards":[
-                    {"name":  "car"},
+                    {"name":  "car1"},
                     {"name":  "car2"},
-                    {"name":  "chair"},
+                    {"name":  "chair1"},
                     {"name":  "chair2"},
-                    {"name":  "dog"},
+                    {"name":  "dog1"},
                     {"name":  "dog2"},
-                    {"name":  "donut"},
+                    {"name":  "donut1"},
                     {"name":  "donut2"},
-                    {"name":  "emoji"},
+                    {"name":  "emoji1"},
                     {"name":  "emoji2"},
-                    {"name":  "flower"},
+                    {"name":  "flower1"},
                     {"name":  "flower2"},
-                    {"name":  "key"},
+                    {"name":  "key1"},
                     {"name":  "key2"}
                     
 
@@ -723,19 +728,19 @@
             {
                 "id" : 29,
                 "cards":[
-                    {"name":  "cat"},
-                    {"name":  "cat2"},
-                    {"name":  "flowers"},
+                    {"name":  "flowers1"},
                     {"name":  "flowers2"},
-                    {"name":  "ghost"},
+                    {"name":  "ghost1"},
                     {"name":  "ghost2"},
-                    {"name":  "monkey"},
+                    {"name":  "monkey1"},
                     {"name":  "monkey2"},
-                    {"name":  "pizza"},
+                    {"name":  "pizza1"},
                     {"name":  "pizza2"},
-                    {"name":  "plant"},
+                    {"name":  "plant1"},
                     {"name":  "plant2"},
-                    {"name":  "telephone"},
+                    {"name":  "pear1"},
+                    {"name":  "pear2"},
+                    {"name":  "telephone1"},
                     {"name":  "telephone2"}
                 ],
                 "grid":{
@@ -769,7 +774,8 @@
                   "bounsTime":5
               },
               "groupOf" :3,
-              "gameType": 2
+              "gameType": 2,
+              "demoCard":"boot1"
                
             },
             {
@@ -843,7 +849,7 @@
                     {"name":  "dog2"},
                     {"name":  "flower1"},
                     {"name":  "flower2"},
-                    {"name":  "icecream"}
+                    {"name":  "icecream1"}
 
                 ],
                 "grid":{
@@ -886,8 +892,8 @@
                 "cards":[
                     {"name":  "cookie1"},
                     {"name":  "cookie2"},
-                    {"name":  "gloves1"},
-                    {"name":  "gloves2"},
+                    {"name":  "elephant1"},
+                    {"name":  "elephant2"},
                     {"name":  "pizza1"},
                     {"name":  "pizza2"}
                 ],
@@ -930,8 +936,8 @@
             {
                 "id" : 38,
                 "cards":[
-                    {"name":  "duck1"},
-                    {"name":  "duck2"},
+                    {"name":  "apricort1"},
+                    {"name":  "apricort2"},
                     {"name":  "flower1"},
                     {"name":  "flower2"},
                     {"name":  "lemon1"},

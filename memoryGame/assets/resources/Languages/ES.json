@@ -44,7 +44,6 @@
     "WatchAdsForHint": "Mira el anuncio para obtener una pista",
     "WatchAdsForClues": "Mira el anuncio para tener una pista",
     "updatedTermsInfo":"Para continuar jugando, debe confirmar que acepta nuestros Términos de servicio y que ha leído nuestra Política de privacidad.",
-    
     "instructionsForfind2": "Tendrás 5 segundos para memorizar las imágenes\nToque un cuadro para descubrirlo y\nmira la imagen que esconde.\nToque otro cuadro para averiguarlo también.\nSi las imágenes coinciden, permanecerán boca arriba, de lo contrario se volverán a cubrir.\n\nEncuentra todas las parejas.",
     "instructionsForfind3": "Tendrás 10 segundos para memorizar las imágenes Si las imágenes coinciden, permanecerán boca arriba, de lo contrario se volverán a cubrir. \nSi los 3 coinciden, se quedarán boca arriba, si no, volverán a atar.\n\nEncuentra todas las parejas.",
     "instructionsFormirror2": "Es igual que “encontrar 2” pero ahora por cada pareja de imágenes hay otra pareja con la misma imagen pero reflejada horizontalmente en un espejo.Encuentra todas las parejas.",
@@ -56,23 +55,29 @@
     "howToPlayTutoiral" : "Toca una caja para descubrirla y ver la imagen que esconde.\n\nToca otra caja para descubrirla también.\n\nSi las imágenes coinciden, se quedarán boca arriba, de lo contrario se taparán de nuevo. \n\nEncuentra todos los pares.",
     "openNet":"Habilite Internet para obtener pistas",
     "readMore": "Leer más",
-    
     "tutorials":[
-
       {
         "slide1": "Memoriza las imágenes\nen %s segundos"
       },
       {
-        "slide2": "Si las imágenes coinciden\n,permanecerán boca arriba,de lo \ncontrario se volverán a \ncubrir."
+        "slide2": "Si las imágenes coinciden\npermanecerán boca arriba,de lo \ncontrario se volverán a \ncubrir."
       },
       {
         "slide3":"Las lupas funcionan para\ndescubrir un par de cartas.\nPodrás ganar más dando click\n en ellas y viendo videos."
       },
       {
-        "slide4": "Los focos funcionan para\n agregar 5 segundos más\nal límite de tiempo.\n\nPodrás ganar más dando click\nen ellas y viendo videos."
+        "slide4": "Los focos funcionan para\n agregar 10 segundos más\nal límite de tiempo.\n\nPodrás ganar más dando click\nen ellas y viendo videos."
       }
 
     ],
+    "titleFind2"   : "TUTORIAL",
+    "titleFind3"   : "ENCUENTRA 3 CARTAS \nTUTORIAL",
+    "titleMirror2" : "NIVEL ESPEJO - TUTORIAL",
+    "titleMirror3" : "NIVEL ESPEJO 3 - TUTORIAL",
+    "infoFind3":"Toca una tercera casilla para\n descubrirla también.",
+    "infoMirror2":"Ahora encuentra la misma\nimagen pero al revés.",
+    "infoMirror3":"Ahora encuentra 3 cartas iguales\npero ahora estarán al revés.",
+    "endTutorials": "Encuentra todas las parejas.",
     "privacyInformation" : [
       "Privacy Policy \n\nWorking Good (collectively, “Working Good” or “we”, “us”, “our”) create and publish mobile games and applications.",
       "\n\nThis Privacy Policy (“Policy”) applies to all of our games, websites and related services, collectively referred here as our services.",

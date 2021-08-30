@@ -59,16 +59,29 @@
         "slide1": "Memorizes images\nin %s seconds"
       },
       {
-        "slide2": "If the images match,\n they will remain face up,\notherwise they will be\ncovered."
+        "slide2": "If the images match\n they will remain face up,\notherwise they will be\ncovered."
       },
       {
         "slide3":"The magnifying glasses work to\nuncover a pair of cards.\n\nYou can earn more by clicking\nand watching videos."
       },
       {
-        "slide4": "The spotlights work to\nadd 5 more seconds\nto the time limit.\n\nYou can earn more by clicking\non them and watching videos."
+        "slide4": "The spotlights work to\nadd 10 more seconds\nto the time limit.\n\nYou can earn more by clicking\non them and watching videos."
       }
 
     ],
+
+    "titleFind2"   : "TUTORIAL",
+    "titleFind3"   : "FIND 3 CARDS \nTUTORIAL",
+    "titleMirror2" : "LEVEL MIRROR - TUTORIAL",
+    "titleMirror3" : "LEVEL MIRROR 3 - TUTORIAL",
+
+    "infoFind3":"Touch a third box to\n discover it as well.",
+    "infoMirror2":"Now find the same\nimage but in reverse",
+    "infoMirror3":"Now find 3 of the same cards\n but now they will be reverse.",
+
+    "endTutorials": "Encuentra todas las parejas.",
+
+
     "privacyInformation" : [
                 "Privacy Policy \nWorking Good (collectively, “Working Good” or “we”, “us”, “our”) create and publish mobile games and applications.",
                 "\n\nThis Privacy Policy (“Policy”) applies to all of our games, websites and related services, collectively referred here as our services.",

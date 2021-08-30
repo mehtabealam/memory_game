@@ -1,29 +1,21 @@
 const {ccclass, property} = cc._decorator;
 
+import GamePlay from "../gameplay/gamePlay";
 import {END_POP_UP, GAME_SCREEN} from "../helper/constants"
 import { GameManager } from "../managers/GameManager";
 @ccclass
 export default class Options extends cc.Component {
-
-    private _delegateScript : null;
-  
+    private _delegateScript  : GamePlay = null!;
     @property(cc.Label)
     timer: cc.Label = null;
-
     @property(cc.Label)
     gameMode: cc.Label = null;
-
-
     @property(cc.Label)
     hint: cc.Label = null;
-
     @property(cc.Label)
     clues: cc.Label = null;
-
     @property(cc.Button)
     clueButton: cc.Button = null;
-
-
     @property(cc.Button)
     hintButton: cc.Button = null;  
 

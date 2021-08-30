@@ -337,7 +337,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 248.16,
-      "height": 131.04
+      "height": 119.7
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -349,7 +349,7 @@
       "ctor": "Float64Array",
       "array": [
         -13.666,
-        280.237,
+        305.35,
         0,
         0,
         0,
@@ -391,7 +391,7 @@
     "_string": "TUTORIAL",
     "_N$string": "TUTORIAL",
     "_fontSize": 90,
-    "_lineHeight": 104,
+    "_lineHeight": 95,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -421,7 +421,7 @@
     "_alignFlags": 1,
     "_left": 0,
     "_right": 0,
-    "_top": 0.07208292079207917,
+    "_top": 0.04801980198019798,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -477,7 +477,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 84.42
+      "height": 83.16
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -489,7 +489,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        12.745000000000001,
+        -37.062,
         0,
         0,
         0,
@@ -531,7 +531,7 @@
     "_string": "",
     "_N$string": "",
     "_fontSize": 64,
-    "_lineHeight": 67,
+    "_lineHeight": 66,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "6a4ea3d7-d316-41b4-ac54-26c8c59ad0bb"
@@ -563,7 +563,7 @@
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
-    "_verticalCenter": 0.01577351485148515,
+    "_verticalCenter": -0.04586881188118812,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,
@@ -1485,7 +1485,7 @@
     },
     "component": "",
     "_componentId": "d5cdepIQH5PSpwNpwXvLSJg",
-    "handler": "onAccept",
+    "handler": "terminateTutorials",
     "customEventData": ""
   },
   {
@@ -2124,7 +2124,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 29.38,
+      "width": 14.43,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -2176,8 +2176,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "+5",
-    "_N$string": "+5",
+    "_string": "5",
+    "_N$string": "5",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2497,6 +2497,15 @@
     },
     "audioClip": {
       "__uuid__": "f92da3d2-9179-4f93-b6ee-6074714e3588"
+    },
+    "bgForTut3": {
+      "__uuid__": "b7325613-c8c3-45ab-9035-103208de3808"
+    },
+    "bgForTut4": {
+      "__uuid__": "04d03469-7424-49e8-8eb0-b729597dc1b0"
+    },
+    "title": {
+      "__id__": 8
     },
     "_id": ""
   },

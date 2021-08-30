@@ -14,6 +14,9 @@ export default class Loading extends cc.Component {
 
 
    start(){
+
+
+    
     NetworkManager.getInstance().init();
     if(!cc.sys.localStorage.getItem("hasLaunchedBeforev2")){
         cc.sys.localStorage.clear();

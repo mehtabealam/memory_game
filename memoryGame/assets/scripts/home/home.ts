@@ -85,28 +85,19 @@ export default class Home extends cc.Component {
 
   }
   start() {
-
-    console.log("start",GAME_SCREEN.HOME);
     GameManager.getInstance().pushScene(GAME_SCREEN.HOME);
     this.terms.zIndex = 10;
     this.dailyRewards.zIndex = 9;
     this.settings.zIndex = 9;
     this.settings.getComponent("settings").init(this);
     this.howToPlayPopUp.zIndex =7;
-    // this.moreInfo.zIndex =7;
     this.loader.zIndex = 12;
     this.privacyPolicy.zIndex = 50;
     this.lastTenSeconds.zIndex = 60;
-    // this.privacyPolicy.getComponent("policy").setTerm();
-    // this.privacyPolicy.getComponent("policy").setPrivacy();
-
     this.terms.active = !JSON.parse(cc.sys.localStorage.getItem("hasTermAccepted"));
-    console.log("active", this.terms.active, cc.sys.localStorage.getItem("hasTermAccepted"));
-    
-
+    this.setLevelInfoInLS();
     cc.game.emit("onLanguageChanged");
     this.setupUI();
-    this.setLevelInfoInLS();
     this.startImageLoading();
 
     cc.debug.setDisplayStats(false);
@@ -126,7 +117,10 @@ export default class Home extends cc.Component {
   }
 
   setupUI() {
+
+    this.setLevelSelectionScreen();
     this.setHud();
+
     this.modeSelectionNode.zIndex = 5;
     this.levelSelectionNode.zIndex = 6;
     this.futureDetails = cc.instantiate(this.futureDetailsPrefab);
@@ -135,16 +129,12 @@ export default class Home extends cc.Component {
     this.futureDetails.getComponent("gameFutureDetails").setDelegatScript(this);
     this.dailyRewards.getComponent("dailyRewards").setDelegate(this);
     this.node.addChild( this.futureDetails)
-    // this.addLevelsInLevelSelection();
   
-
-    // MARK: SHOWING BANNER ADS
     if(cc.sys.isMobile){
       // sdkbox.PluginShare.init();
       AdManager.getInstance().init();
       AdManager.getInstance().setTestDevice('12FA347A3FF2FE36F7A2E2AB230AC410');
       AdManager.getInstance().cacheAds('gameover');
-      // AdManager.getInstance().cacheAds('banner');
     }
 
 
@@ -153,9 +143,9 @@ export default class Home extends cc.Component {
       // check the last time daily reward wag given 
       let rewardGivenAt = cc.sys.localStorage.getItem("rewardClaimDate");
       let today = GameManager.getInstance().getCurrentDate();
-      console.log("today", today,rewardGivenAt );
+      // console.log("today", today,rewardGivenAt );
       if(rewardGivenAt != today){
-        console.log("show daily reward pop up")
+        // console.log("show daily reward pop up")
         this.dailyRewards.active = true;
       }else{
         this.startGame();
@@ -167,7 +157,7 @@ export default class Home extends cc.Component {
   }
 
   onAnimationEnd (){
-    console.log("animation ended");
+
   }
  
 
@@ -187,16 +177,14 @@ export default class Home extends cc.Component {
     if(this.levelSelectionNode.active){
       return;
     }
-
-    
     this.levelSelectionNode.active = true;  
-    this.setLevelSelectionScreen();
+    this.levelSelectionNode.getComponent("level")
     this.gameScreen == GAME_SCREEN.SETTINGS && GameManager.getInstance().popScene();
     this.gameScreen == GAME_SCREEN.GAME_PLAY && GameManager.getInstance().popScene();
     this.changeSceneVisiblity(this.gameScreen, false);
     this.gameScreen = GAME_SCREEN.LEVEL_SELECTION;
     GameManager.getInstance().pushScene(GAME_SCREEN.LEVEL_SELECTION);
- 
+    this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
   }
 
 
@@ -213,20 +201,9 @@ export default class Home extends cc.Component {
   }
 
 
-  addLevelsInLevelSelection(){
-    let levels = GameManager.getInstance().getLevelInfo();
-    this.scrollViewLayout.node.removeAllChildren();
-    let totalFrame = Math.ceil(levels.length / 10);
-    for(let i = 0; i <  totalFrame; i++){
-      let levelHolder = cc.instantiate(this.levelHolderPrefab);
-      levelHolder.getComponent("levelUIManager").setDelegateComponent(this);
-      levelHolder.getComponent("levelUIManager").populateLevels(i * 10);
-      this.scrollViewLayout.node.addChild(levelHolder);
-    }
-  }
-
   setLevelSelectionScreen() {
     let levels = GameManager.getInstance().getLevelInfo();
+    // console.log("levels getting levesl information", JSON.stringify(levels));
     this.scrollViewLayout.node.removeAllChildren();
     let totalFrame = Math.ceil(levels.length / 10);
     for(let i = 0; i <  totalFrame; i++){
@@ -256,20 +233,39 @@ export default class Home extends cc.Component {
       lastUnlockedLevel++;
     }
 
-
-   
     let frame = Math.ceil(lastUnlockedLevel/10);
     let offset = this.scrollView.getScrollOffset();
     let offsetPercent = (frame - 1) * (1 / (this.scrollViewLayout.node.childrenCount - 1));   
-    this.levelSelectionNode.getComponent(cc.Animation).play("moveIn");
-
   }
+
+  updateLevelSelctionScreen(){
+    // console.log("update level selection screen");
+    let levels = GameManager.getInstance().getLevelInfo();
+    let startIndex = 0;
+    let totalFrame = Math.ceil(levels.length / 10);
+    for( let child of this.scrollViewLayout.node.children){
+       child.getComponent("levelUIManager").updateLevels(startIndex);
+       startIndex +=10;
+    }
+    if(totalFrame == 1){
+      this.scrollViewLayout.node.children[0].width = 1000;
+      this.scrollViewLayout.node.getComponent(cc.Widget).isAlignHorizontalCenter = true;
+      this.scrollViewLayout.getComponent(cc.Widget).updateAlignment();
+      this.scrollViewLayout.updateLayout();
+    }else{
+      this.scrollViewLayout.node.getComponent(cc.Widget).isAlignHorizontalCenter = false;
+      this.scrollViewLayout.getComponent(cc.Widget).updateAlignment();
+    }
+
+  
+  }
+
 
   onBack() {
     let currentScene = GameManager.getInstance().popScene();
     let lastScene = GameManager.getInstance().popScene();
 
-    console.log("curerntScene", currentScene, lastScene);
+    // console.log("curerntScene", currentScene, lastScene);
     if(currentScene == GAME_SCREEN.HOME){
       cc.game.end();
       return;
@@ -291,15 +287,15 @@ export default class Home extends cc.Component {
     this.changeSceneVisiblity(lastScene, true);
     
     GameManager.getInstance().pushScene(lastScene);
-    console.log("scene arra",GameManager.getInstance().screen )
+    // console.log("scene arra",GameManager.getInstance().screen )
   }
 
   changeSceneVisiblity(currentScene, isActive){
-    console.log("scnenes",currentScene, isActive)
+    // console.log("scnenes",currentScene, isActive)
     switch(currentScene){
       case GAME_SCREEN.LEVEL_SELECTION:
         this.levelSelectionNode.active = isActive;
-        isActive && this.setLevelSelectionScreen();
+        isActive && this.updateLevelSelctionScreen();
         break;
       case GAME_SCREEN.SETTINGS:
         this.settings.getComponent('settings').closeAllPopUps();
@@ -331,7 +327,7 @@ export default class Home extends cc.Component {
     GameManager.getInstance().setCurrentLevel(parseInt(level));
     cc.sys.localStorage.setItem("lastPlayedLevel", parseInt(level));
     this.changeSceneVisiblity(this.gameScreen , false);
-   
+    this.updateLevelSelctionScreen();
     GameManager.getInstance().pushScene(GAME_SCREEN.GAME_PLAY);
     console.log("we have pushed game scene", GameManager.getInstance().screen);
     this.gameScreen = GAME_SCREEN.GAME_PLAY;
@@ -390,17 +386,17 @@ export default class Home extends cc.Component {
           for(let i =0; i< difference.length; i++){
            timeArray[i] = Object.assign({id :difference[i].id }, levelObj);
           }
-          console.log("time ArraY", timeArray);
+          // console.log("time ArraY", timeArray);
           levelArray.push(...timeArray);
-          console.log("time ArraY", levelArray);
+          // console.log("time ArraY", levelArray);
           
         }else{
           // OLD Level removed from the json file
           let difference = levelArray.filter(item => ! GameManager.getInstance().getLevelInfo().some(data => data.id == item.id));
-          console.log("difference", difference);
+          // console.log("difference", difference);
           for(let i = 0; i< difference.length; i++){
             let index = levelArray.findIndex(item => item.id == difference[i].id);
-            console.log("index", index);
+            // console.log("index", index);
             if(index !=-1){
                levelArray.splice(index, 1);
             }
@@ -434,7 +430,7 @@ export default class Home extends cc.Component {
     SoundManager.getInstance().playEffect(this.buttonPressed, false);
     // this.moreInfo.active = false;
     this.privacyPolicy.active = true;
-    console.log("show privact plicty");
+    // console.log("show privact plicty");
 
   }
 
@@ -460,7 +456,7 @@ export default class Home extends cc.Component {
     GameManager.getInstance().pushScene(GAME_SCREEN.SETTINGS);
     this.settings.active = true;
     this.hudLayer.zIndex = 8;
-    console.log(GameManager.getInstance().screen);
+    // console.log(GameManager.getInstance().screen);
   }
 
   onTermsAccept(){
@@ -492,7 +488,7 @@ export default class Home extends cc.Component {
 
   onRewardCollected(){
     if(!this.isAfterTerms){
-      this.startGame();
+      this.showLevelSelection();
     }
    
   }
@@ -500,11 +496,8 @@ export default class Home extends cc.Component {
 
 openTermAndConditions(){
   this.privacyPolicy.active = true;
-  this.privacyPolicy.getComponent("policy").setTerm(this.loader);
-
-  
+  this.privacyPolicy.getComponent("policy").setTerm(this.loader); 
 }
-
 
 openPrivacyPolicy(){
  
@@ -516,7 +509,7 @@ openPrivacyPolicy(){
 
 showLastSecondsPopUp(){
 
-  console.log("inside this we are  not going anywhere", cc.sys.localStorage.getItem("lastTenSeconds"));
+  // console.log("inside this we are  not going anywhere", cc.sys.localStorage.getItem("lastTenSeconds"));
   this.lastTenSeconds.active = true;
   // if(!cc.sys.localStorage.getItem("lastTenSeconds")){
    
@@ -528,7 +521,7 @@ showLastSecondsPopUp(){
 
 
 hideLastSecondsPopUp(){
-  console.log("inside this last seconds ere are here ");
+  // console.log("inside this last seconds ere are here ");
   this.lastTenSeconds.active = false;
 }
 
