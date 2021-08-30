@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "2ebnpCRdBF96XAFI4zhgC1"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "cupcake1",
+      "rect": [
+        23,
+        3,
+        223,
+        260
+      ],
+      "offset": [
+        -0.5,
+        2
+      ],
+      "originalSize": [
+        270,
+        270
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

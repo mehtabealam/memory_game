@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "20wRbvbSJNHJkQHHvWld4P"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "juice1",
+      "rect": [
+        26,
+        10,
+        210,
+        242
+      ],
+      "offset": [
+        -1,
+        1
+      ],
+      "originalSize": [
+        264,
+        264
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

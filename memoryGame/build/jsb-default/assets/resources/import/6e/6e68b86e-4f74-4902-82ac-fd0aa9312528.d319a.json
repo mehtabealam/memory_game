@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "39tesUvxJPGLoJ/N8SPFDu"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "puppy1",
+      "rect": [
+        43,
+        9,
+        217,
+        293
+      ],
+      "offset": [
+        -4,
+        0
+      ],
+      "originalSize": [
+        311,
+        311
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

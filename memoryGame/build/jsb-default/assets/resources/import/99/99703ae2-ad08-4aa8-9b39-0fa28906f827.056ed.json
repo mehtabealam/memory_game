@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "c4eLhWiEJBPJKj+pEfWiH+"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "banana1",
+      "rect": [
+        6,
+        31,
+        276,
+        218
+      ],
+      "offset": [
+        -0.5,
+        4.5
+      ],
+      "originalSize": [
+        289,
+        289
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "26qoNjwalJNInk/C6Tv2Ct"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "lemonade1",
+      "rect": [
+        35,
+        7,
+        191,
+        240
+      ],
+      "offset": [
+        0,
+        3.5
+      ],
+      "originalSize": [
+        261,
+        261
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

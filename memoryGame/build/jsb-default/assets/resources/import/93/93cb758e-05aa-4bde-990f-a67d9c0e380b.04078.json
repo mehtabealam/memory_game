@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "4eqd554VZKDLwtqDA3ldnf"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "hat2",
+      "rect": [
+        36,
+        11,
+        155,
+        220
+      ],
+      "offset": [
+        -7.5,
+        0
+      ],
+      "originalSize": [
+        242,
+        242
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

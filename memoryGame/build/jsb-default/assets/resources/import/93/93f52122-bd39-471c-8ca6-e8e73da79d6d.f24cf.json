@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "e7lVSSR5pHEonCzAmUvKg0"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "chair1",
+      "rect": [
+        38,
+        3,
+        140,
+        220
+      ],
+      "offset": [
+        -4.5,
+        -0.5
+      ],
+      "originalSize": [
+        225,
+        225
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

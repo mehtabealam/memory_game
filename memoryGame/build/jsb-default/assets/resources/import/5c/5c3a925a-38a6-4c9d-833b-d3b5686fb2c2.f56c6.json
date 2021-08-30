@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "b7cRjPoKFABq1yTwG39/pT"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "car2",
+      "rect": [
+        3,
+        14,
+        203,
+        182
+      ],
+      "offset": [
+        -0.5,
+        0
+      ],
+      "originalSize": [
+        210,
+        210
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

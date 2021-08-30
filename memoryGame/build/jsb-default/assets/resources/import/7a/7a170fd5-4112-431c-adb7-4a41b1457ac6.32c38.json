@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "637/cE4wNNRp5e1mPyqkhb"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "apricort2",
+      "rect": [
+        6,
+        9,
+        228,
+        175
+      ],
+      "offset": [
+        -0.5,
+        -1
+      ],
+      "originalSize": [
+        241,
+        191
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

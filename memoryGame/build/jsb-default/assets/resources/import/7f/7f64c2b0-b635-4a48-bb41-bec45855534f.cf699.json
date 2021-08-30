@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "7336+S5rZFwqPg6H6uiI8u"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "house2",
+      "rect": [
+        7,
+        7,
+        254,
+        254
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "originalSize": [
+        268,
+        268
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

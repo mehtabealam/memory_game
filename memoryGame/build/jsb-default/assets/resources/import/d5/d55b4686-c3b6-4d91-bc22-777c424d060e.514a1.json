@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "bcAoVhCKpGu7FTtvOnFnwO"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "pizza1",
+      "rect": [
+        10,
+        8,
+        209,
+        210
+      ],
+      "offset": [
+        0,
+        1.5
+      ],
+      "originalSize": [
+        229,
+        229
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

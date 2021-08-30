@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "ceZQPEXEpJi5IcB4A9U+tF"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "ring2",
+      "rect": [
+        9,
+        8,
+        190,
+        235
+      ],
+      "offset": [
+        0,
+        -0.5
+      ],
+      "originalSize": [
+        208,
+        250
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "abnSF9nZVJ+K5VBXMHuIHf"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "cookie1",
+      "rect": [
+        22,
+        49,
+        228,
+        191
+      ],
+      "offset": [
+        0,
+        -8.5
+      ],
+      "originalSize": [
+        272,
+        272
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

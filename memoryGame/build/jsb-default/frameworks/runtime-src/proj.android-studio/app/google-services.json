@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680577527661",
+    "project_id": "memoramax-a70f2",
+    "storage_bucket": "memoramax-a70f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680577527661:android:a1273c2422abbe0934b464",
+        "android_client_info": {
+          "package_name": "com.game.memoramax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680577527661-ubu3p79bf1m2jsme9a6qrn3cfq5q9qo2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGX0De4e8CLPJdZG6vfzReODzhZ1xb8_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680577527661-ubu3p79bf1m2jsme9a6qrn3cfq5q9qo2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

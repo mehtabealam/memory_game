@@ -35,6 +35,10 @@
 
 USING_NS_CC;
 #ifdef SDKBOX_ENABLED
+#include "PluginFirebaseJS.hpp"
+#include "PluginFirebaseJSHelper.h"
+#endif
+#ifdef SDKBOX_ENABLED
 #include "PluginAdMobJS.hpp"
 #include "PluginAdMobJSHelper.h"
 #endif
@@ -69,6 +73,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     });
 
     jsb_register_all_modules();
+#ifdef SDKBOX_ENABLED
+    se->addRegisterCallback(register_all_PluginFirebaseJS);
+    se->addRegisterCallback(register_all_PluginFirebaseJS_helper);
+#endif
 #ifdef SDKBOX_ENABLED
     se->addRegisterCallback(register_all_PluginAdMobJS);
     se->addRegisterCallback(register_all_PluginAdMobJS_helper);

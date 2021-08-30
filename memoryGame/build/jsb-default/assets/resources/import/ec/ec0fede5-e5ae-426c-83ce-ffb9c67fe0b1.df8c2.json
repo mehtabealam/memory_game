@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "5fboVEx/hP2Y2ZRTEUR/yb"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "key2",
+      "rect": [
+        8,
+        3,
+        197,
+        209
+      ],
+      "offset": [
+        0,
+        -1
+      ],
+      "originalSize": [
+        213,
+        213
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

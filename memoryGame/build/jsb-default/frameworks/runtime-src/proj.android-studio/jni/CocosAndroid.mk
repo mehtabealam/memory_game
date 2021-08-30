@@ -17,7 +17,9 @@ LOCAL_SRC_FILES := hellojavascript/main.cpp \
 ../../Classes/PluginSdkboxAdsJSHelper.cpp \
 ../../Classes/SDKBoxJSHelper.cpp \
 ../../Classes/PluginAdMobJS.cpp \
-../../Classes/PluginAdMobJSHelper.cpp
+../../Classes/PluginAdMobJSHelper.cpp \
+../../Classes/PluginFirebaseJS.cpp \
+../../Classes/PluginFirebaseJSHelper.cpp
 LOCAL_CPPFLAGS := -DSDKBOX_ENABLED \
 -DSDKBOX_COCOS_CREATOR
 LOCAL_LDLIBS := -landroid \
@@ -26,6 +28,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 LOCAL_WHOLE_STATIC_LIBRARIES += PluginSdkboxAds
 LOCAL_WHOLE_STATIC_LIBRARIES += sdkbox
 LOCAL_WHOLE_STATIC_LIBRARIES += PluginAdMob
+LOCAL_WHOLE_STATIC_LIBRARIES += PluginFirebase
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
 
@@ -36,3 +39,4 @@ $(call import-module, cocos)
 $(call import-module, ./sdkbox)
 $(call import-module, ./PluginSdkboxAds)
 $(call import-module, ./PluginAdMob)
+$(call import-module, ./PluginFirebase)

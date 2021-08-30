@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "b5LtccREREL6V5JX0VxMkZ"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "toys2",
+      "rect": [
+        9,
+        4,
+        244,
+        253
+      ],
+      "offset": [
+        -0.5,
+        1
+      ],
+      "originalSize": [
+        263,
+        263
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

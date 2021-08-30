@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "ddfc9aBPdJGIrUggciYbn+"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "dove2",
+      "rect": [
+        35,
+        6,
+        206,
+        262
+      ],
+      "offset": [
+        0,
+        1
+      ],
+      "originalSize": [
+        276,
+        276
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,6 +1,8 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
@@ -10,7 +12,7 @@ android {
         applicationId "com.game.memoramax"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 15
+        versionCode 16
         versionName "1.0"
         multiDexEnabled true
         externalNativeBuild {
@@ -138,4 +140,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation 'com.facebook.android:facebook-marketing:[4,5)'
     implementation 'com.google.android.gms:play-services-base:16.1.0'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-database'
 }
+dependencies { implementation platform('com.google.firebase:firebase-bom:26.8.0') }
+dependencies { implementation 'com.google.firebase:firebase-analytics' }

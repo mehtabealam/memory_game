@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "1bbD7pj91CbZjBcVRsuRui"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "purse2",
+      "rect": [
+        27,
+        15,
+        218,
+        243
+      ],
+      "offset": [
+        -0.5,
+        0
+      ],
+      "originalSize": [
+        273,
+        273
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

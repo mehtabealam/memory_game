@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "b9eF8I2HxNppB8xha0nPlQ"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "hand2",
+      "rect": [
+        8,
+        7,
+        227,
+        232
+      ],
+      "offset": [
+        0,
+        -1.5
+      ],
+      "originalSize": [
+        243,
+        243
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "03wgZm+eNMNJXm1rRvyzsn"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "fish2",
+      "rect": [
+        4,
+        41,
+        249,
+        166
+      ],
+      "offset": [
+        -0.5,
+        5
+      ],
+      "originalSize": [
+        258,
+        258
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

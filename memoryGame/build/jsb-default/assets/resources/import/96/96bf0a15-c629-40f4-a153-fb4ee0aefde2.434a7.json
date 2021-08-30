@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "a8HriguIdGbp2BYq7cm71p"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "bird1",
+      "rect": [
+        7,
+        28,
+        251,
+        220
+      ],
+      "offset": [
+        -0.5,
+        -5
+      ],
+      "originalSize": [
+        266,
+        266
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

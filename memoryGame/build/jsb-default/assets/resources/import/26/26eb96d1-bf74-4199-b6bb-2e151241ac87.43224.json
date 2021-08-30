@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "7fyWgMFKBIv60BjAFESI0v"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "icecream2",
+      "rect": [
+        50,
+        10,
+        189,
+        264
+      ],
+      "offset": [
+        0,
+        2.5
+      ],
+      "originalSize": [
+        289,
+        289
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

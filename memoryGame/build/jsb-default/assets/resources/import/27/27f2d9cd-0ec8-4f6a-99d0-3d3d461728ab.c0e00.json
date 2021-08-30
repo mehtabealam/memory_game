@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "90cYna90JBfqAp5iGQ7U9H"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "flower2",
+      "rect": [
+        30,
+        24,
+        250,
+        257
+      ],
+      "offset": [
+        11,
+        -8.5
+      ],
+      "originalSize": [
+        288,
+        288
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

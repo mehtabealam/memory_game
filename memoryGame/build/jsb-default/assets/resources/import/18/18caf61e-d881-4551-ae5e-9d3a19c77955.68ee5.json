@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "6cUV1MjRVPoZVfcYeWdWZL"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "donut1",
+      "rect": [
+        2,
+        6,
+        222,
+        215
+      ],
+      "offset": [
+        0,
+        -0.5
+      ],
+      "originalSize": [
+        226,
+        226
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

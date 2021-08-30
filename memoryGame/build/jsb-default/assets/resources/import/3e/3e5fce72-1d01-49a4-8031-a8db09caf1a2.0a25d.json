@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "86zf2dsVVFZZJIISaAiW5y"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "glasses2",
+      "rect": [
+        6,
+        9,
+        251,
+        227
+      ],
+      "offset": [
+        3,
+        6
+      ],
+      "originalSize": [
+        257,
+        257
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

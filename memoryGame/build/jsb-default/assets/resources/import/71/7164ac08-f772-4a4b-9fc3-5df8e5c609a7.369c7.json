@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "caMEVSYQxFhrDxNeXVSAw0"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "lime1",
+      "rect": [
+        12,
+        40,
+        242,
+        190
+      ],
+      "offset": [
+        3,
+        -5
+      ],
+      "originalSize": [
+        260,
+        260
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

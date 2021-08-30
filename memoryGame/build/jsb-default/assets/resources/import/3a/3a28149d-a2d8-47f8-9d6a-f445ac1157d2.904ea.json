@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "ccKzXvRllAEYi/TScycjmP"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "boot2",
+      "rect": [
+        20,
+        17,
+        265,
+        272
+      ],
+      "offset": [
+        -0.5,
+        0
+      ],
+      "originalSize": [
+        306,
+        306
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

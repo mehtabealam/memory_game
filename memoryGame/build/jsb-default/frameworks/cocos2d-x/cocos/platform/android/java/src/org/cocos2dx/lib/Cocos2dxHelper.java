@@ -166,6 +166,9 @@ public class Cocos2dxHelper {
 
     public static void runOnGLThread(final Runnable r) {
         ((Cocos2dxActivity)sActivity).runOnGLThread(r);
+
+        // so do we have to make changes herre this is what i'm assuming
+        Cocos2dxJavascriptJavaBridge.evalString("");
     }
 
     private static boolean sInited = false;

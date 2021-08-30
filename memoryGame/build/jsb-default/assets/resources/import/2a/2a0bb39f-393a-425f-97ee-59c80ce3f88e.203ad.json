@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "b5CSMAOBlMEZPlNtUuNNma"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "umbrella2",
+      "rect": [
+        10,
+        32,
+        226,
+        196
+      ],
+      "offset": [
+        -3,
+        -4
+      ],
+      "originalSize": [
+        252,
+        252
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "1b81ipnp9HKo/kYuYLdt+l"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "emoji1",
+      "rect": [
+        11,
+        17,
+        212,
+        211
+      ],
+      "offset": [
+        0,
+        -5.5
+      ],
+      "originalSize": [
+        234,
+        234
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "bezaS8l5xFL7De+xGZblOC"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "elephant2",
+      "rect": [
+        22,
+        26,
+        202,
+        257
+      ],
+      "offset": [
+        4,
+        -10
+      ],
+      "originalSize": [
+        238,
+        289
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "2eVYmo/kxON6XhuZR2eXKM"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "dog2",
+      "rect": [
+        14,
+        7,
+        215,
+        228
+      ],
+      "offset": [
+        0,
+        0.5
+      ],
+      "originalSize": [
+        243,
+        243
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "eehKykJ5tGjZZwD/WRL0TX"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "suitcase1",
+      "rect": [
+        77,
+        9,
+        207,
+        333
+      ],
+      "offset": [
+        0.5,
+        4.5
+      ],
+      "originalSize": [
+        360,
+        360
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]

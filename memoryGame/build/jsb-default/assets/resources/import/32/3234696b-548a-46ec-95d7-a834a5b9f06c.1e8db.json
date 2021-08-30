@@ -1,0 +1,51 @@
+[
+  1,
+  [
+    "92IAyDRapMjKOguNyDY1NU"
+  ],
+  [
+    "_textureSetter"
+  ],
+  [
+    "cc.SpriteFrame"
+  ],
+  0,
+  [
+    {
+      "name": "jar2",
+      "rect": [
+        69,
+        26,
+        213,
+        311
+      ],
+      "offset": [
+        0,
+        -6
+      ],
+      "originalSize": [
+        351,
+        351
+      ],
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  [
+    0
+  ],
+  0,
+  [
+    0
+  ],
+  [
+    0
+  ],
+  [
+    0
+  ]
+]
