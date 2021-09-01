@@ -1,6 +1,7 @@
 import { GAME_SCREEN } from "../helper/constants";
 import SoundManager from "../managers/SoundManager";
 import { GameManager } from "../managers/GameManager";
+import Home from "../home/home";
 
 
 
@@ -37,7 +38,7 @@ export default class HUD extends cc.Component {
     buttonAudio : cc.AudioClip = null;
 
 
-    private delegate;
+    private delegate : Home;
 
 
     start(){
@@ -53,6 +54,8 @@ export default class HUD extends cc.Component {
         this.delegate.onBack();
     }
 
+
+    // evalString("var LoginScene = require('LoginScene'); LoginScene.prototype.onTwitterLogin(" + accessToken.getToken() + "\", \"" + accessToken.getTokenSecret)
 
     changeVolume(event : Event){
         if(JSON.parse(cc.sys.localStorage.getItem("Sound"))){

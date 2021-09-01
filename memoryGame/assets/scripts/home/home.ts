@@ -81,10 +81,13 @@ export default class Home extends cc.Component {
   onLoad() {
 
 
+
     
 
   }
   start() {
+
+    // eval("cc.sys.localStorage.setItem('rewardInfo', JSON.stringify({clue: 1, hint :2 }))");
     GameManager.getInstance().pushScene(GAME_SCREEN.HOME);
     this.terms.zIndex = 10;
     this.dailyRewards.zIndex = 9;
@@ -116,6 +119,12 @@ export default class Home extends cc.Component {
     }
   }
 
+
+  setRewardInfo(rewardInfo){
+
+    console.log(JSON.stringify(rewardInfo));
+  }
+
   setupUI() {
 
     this.setLevelSelectionScreen();
@@ -136,27 +145,18 @@ export default class Home extends cc.Component {
       AdManager.getInstance().setTestDevice('12FA347A3FF2FE36F7A2E2AB230AC410');
       AdManager.getInstance().cacheAds('gameover');
     }
-
-
-
     if(!this.terms.active){
-      // check the last time daily reward wag given 
-      let rewardGivenAt = cc.sys.localStorage.getItem("rewardClaimDate");
-      let today = GameManager.getInstance().getCurrentDate();
-      // console.log("today", today,rewardGivenAt );
-      if(rewardGivenAt != today){
-        // console.log("show daily reward pop up")
-        this.dailyRewards.active = true;
-      }else{
-        this.startGame();
-      }
+      this.startGame();
       
     }
+  }
 
-
+  onReward(reward){
+    console.log("reward", JSON.stringify(reward));
   }
 
   onAnimationEnd (){
+   
 
   }
  
@@ -169,8 +169,8 @@ export default class Home extends cc.Component {
     this.hudLayer.getComponent("hud").setVisiblity(this.gameScreen);
   }
 
-  showDailyRewards(){
-    this.dailyRewards.active = true;
+showDailyRewards(){
+    // this.dailyRewards.active = true;
   }
 
   showLevelSelection(){
@@ -290,6 +290,17 @@ export default class Home extends cc.Component {
     // console.log("scene arra",GameManager.getInstance().screen )
   }
 
+
+
+  onEnable(){
+    console.log("on enabled is called",cc.sys.localStorage.getItem("rewardInfo"));
+    // if(JSON.parse(cc.sys.localStorage.getItem("rewardInfo"))){
+    //   this.showDailyRewards();
+    // }
+     
+
+  }
+
   changeSceneVisiblity(currentScene, isActive){
     // console.log("scnenes",currentScene, isActive)
     switch(currentScene){
@@ -307,6 +318,7 @@ export default class Home extends cc.Component {
          break;
       case GAME_SCREEN.HOME:
         this.modeSelectionNode.active = isActive;   
+        console.log("foregroundNotification", JSON.stringify(cc.sys.localStorage.getItem('foregroundNotification')))
           break;  
 
       
@@ -463,8 +475,6 @@ export default class Home extends cc.Component {
     this.terms.active = false;
     this.isAfterTerms = true;
     cc.sys.localStorage.setItem("hasTermAccepted", true);
-    this.dailyRewards.active = true;
-
   }
 
   startImageLoading(){

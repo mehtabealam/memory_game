@@ -9,6 +9,7 @@ import { GAME_MODE} from "../helper/constants";
     private _languageData = null;
     private _selectedMode = GAME_MODE.PRACTICE;
     private _currentLevel = 0;
+    private pendingNotification = false;
     private _currentDate = null;
 
     public screen = [];
@@ -208,5 +209,13 @@ import { GAME_MODE} from "../helper/constants";
 
     removeAllScene(){
          this.screen.length = 0;
+     }
+
+     setPendingNotification(isPending){
+         this.pendingNotification = isPending;
+     }
+
+     isPendingNotification(){
+         return this.pendingNotification;
      }
 }

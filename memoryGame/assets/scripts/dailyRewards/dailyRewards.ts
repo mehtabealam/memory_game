@@ -50,14 +50,10 @@ export default class DailyRewards extends cc.Component {
     // onLoad () {}
 
     start () {
-        console.log("date", GameManager.getInstance().getCurrentDate());
-        let date = GameManager.getInstance().getCurrentDate().split("-");
-        if(date.length == 3){
-            let index = parseInt(date[2])%10;
-            this.reward = this.dailyRewards[index]
-            console.log("reward is", this.reward, index);
-            
-        }
+
+        this.reward = JSON.parse(cc.sys.localStorage.getItem("rewardInfo"));
+        console.log("rewardInfo is", this.reward);
+       
     }
 
     setDelegate(delegate){
@@ -77,7 +73,7 @@ export default class DailyRewards extends cc.Component {
         hintCount += this.reward.hints; // for now will add new once done
         cc.sys.localStorage.setItem("hint", JSON.stringify(hintCount));
         console.log("hint count after calucalytion", hintCount);
-        cc.sys.localStorage.setItem("rewardClaimDate", GameManager.getInstance().getCurrentDate());
+        cc.sys.localStorage.removeKey("rewardInfo", );
         let  clueCount = JSON.parse(cc.sys.localStorage.getItem("clue"));
         clueCount += this.reward.clue;
         cc.sys.localStorage.setItem("clue", JSON.stringify(hintCount));
